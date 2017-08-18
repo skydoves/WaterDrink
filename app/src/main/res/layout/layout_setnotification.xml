@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#1d1f2f"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- # Main Layout # -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Top Layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.53">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="예약된 알림 목록"
+                android:textColor="#ffffff"
+                android:textSize="23sp"
+                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <!-- Body Layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:orientation="horizontal"
+                android:background="#2e3241"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+
+            <ListView
+                android:id="@+id/setnotification_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="#2e3241"
+                android:dividerHeight="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" >
+            </ListView>
+
+            <TextView
+                android:id="@+id/setnotification_tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="기록이 없습니다."
+                android:textColor="#ffffff"
+                android:textSize="22sp"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/setnotification_fab"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:backgroundTint="#3d95c9"
+        android:src="@drawable/ic_add"
+        android:tint="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"/>
+
+</RelativeLayout>

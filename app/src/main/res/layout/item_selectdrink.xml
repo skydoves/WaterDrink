@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp">
+
+    <ImageView
+        android:id="@+id/item_selectdrink_img"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_glass0"/>
+
+    <TextView
+        android:id="@+id/item_selectdrink_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="125 ml"
+        android:layout_below="@+id/item_selectdrink_img"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000000"
+        android:textSize="15sp"/>
+
+</RelativeLayout>

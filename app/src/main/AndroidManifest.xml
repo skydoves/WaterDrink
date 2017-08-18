@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.skydoves.waterdays">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".ui.activities.intro.StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activities.main.MainActivity">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="waterdays_nfc/*" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activities.settings.SetGoalActivity" />
+        <activity
+            android:name=".ui.activities.main.SelectDrinkActivity"
+            android:theme="@style/AppTheme.mDialog" />
+        <activity android:name=".ui.activities.settings.NFCActivity" />
+        <activity android:name=".ui.activities.main.MakeAlarmActivity" />
+        <activity
+            android:name=".ui.activities.settings.SettingActivity"
+            android:theme="@style/AppTheme.Setting" />
+        <activity android:name=".ui.activities.settings.SetWeightActivity" />
+        <activity android:name=".ui.activities.settings.SetLocalActivity" />
+
+        <receiver android:name=".services.receivers.AlarmReceiver" />
+        <receiver android:name=".services.receivers.LocalWeatherReceiver" />
+        <receiver
+            android:name=".services.receivers.AlarmBootReceiver"
+            android:enabled="true"
+            android:exported="false"
+            android:label="BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".ui.activities.settings.SetMyCupActivity" />
+        <activity android:name=".ui.activities.alarm.AlarmScreenActivity"></activity>
+    </application>
+
+</manifest>

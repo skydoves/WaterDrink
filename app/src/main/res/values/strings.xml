@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">물 한잔 해요</string>
+    <string name="db">waterdays</string>
+    <string name="start">시작하기</string>
+</resources>

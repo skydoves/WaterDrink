@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp">
+
+    <ImageView
+        android:id="@+id/item_alarmrecord_img"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_alarm"/>
+
+    <TextView
+        android:id="@+id/item_alarmrecord_tv_days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="월 화 수 목 금 토 일"
+        android:textColor="#3d95c9"
+        android:textSize="16sp"
+        android:layout_alignParentTop="@+id/item_alarmrecord_img"
+        android:layout_toEndOf="@+id/item_alarmrecord_img"
+        android:textStyle="bold"
+        android:layout_marginLeft="15dp"/>
+
+    <TextView
+        android:id="@+id/item_alarmrecord_tv_times"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시작 : 7시 00분 / 종료 : 6시 00분"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:layout_alignBottom="@+id/item_alarmrecord_img"
+        android:layout_alignStart="@+id/item_alarmrecord_tv_days" />
+
+    <TextView
+        android:id="@+id/item_alarmrecord_tv_interval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시작 : 7시 00분 / 종료 : 6시 00분"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:layout_below="@+id/item_alarmrecord_tv_times"
+        android:layout_alignStart="@+id/item_alarmrecord_tv_times" />
+
+    <ImageButton
+        android:id="@+id/item_alarmrecord_btn_delete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="10dp"
+        android:background="@android:color/transparent"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_close"
+        android:tint="#3b3f50"
+        android:layout_marginRight="10dp" />
+
+</RelativeLayout>

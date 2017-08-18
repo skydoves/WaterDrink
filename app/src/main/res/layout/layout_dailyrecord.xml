@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_chart"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- # Main Layout # -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Top Layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.53">
+
+            <ImageButton
+                android:id="@+id/dailyrecord_ibtn_back"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_back"
+                android:tint="#ffffff"
+                android:padding="10dp"
+                android:clickable="true"
+                android:background="@android:color/transparent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:id="@+id/dailyrecord_tv_todaydate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="2016-10-21"
+                android:textColor="#ffffff"
+                android:textSize="23sp"
+                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <ImageButton
+                android:id="@+id/dailyrecord_ibtn_next"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_next"
+                android:tint="#ffffff"
+                android:padding="10dp"
+                android:clickable="true"
+                android:background="@android:color/transparent"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"/>
+
+        </RelativeLayout>
+
+        <!-- Body Layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:orientation="horizontal"
+                android:background="#2e3241"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+
+            <ListView
+                android:id="@+id/dailyrecord_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="#2e3241"
+                android:dividerHeight="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" >
+            </ListView>
+
+            <TextView
+                android:id="@+id/dailyrecord_tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="기록이 없습니다."
+                android:textColor="#ffffff"
+                android:textSize="22sp"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

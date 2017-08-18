@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_drinkamount"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- # Main Layout # -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Top Layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="오늘의 수분 섭취량"
+                android:textColor="#ffffff"
+                android:textSize="25dp"
+                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <!-- Body Layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.5">
+
+            <LinearLayout
+                android:id="@+id/drinkamount_layout_divider01"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:orientation="horizontal"
+                android:background="#2e3241"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
+
+            <TextView
+                android:id="@+id/drinkamount_tv03"
+                android:layout_below="@+id/drinkamount_layout_divider01"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="23dp"
+                android:text="목표 섭취량"
+                android:scrollbars="vertical"
+                android:textColor="#3d95c9"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:gravity="end" />
+
+            <TextView
+                android:id="@+id/drinkamount_tv_goal"
+                android:layout_below="@+id/drinkamount_tv03"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="23dp"
+                android:text="2000 ml"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textSize="24dp"
+                android:gravity="end" />
+
+            <TextView
+                android:id="@+id/drinkamount_tv04"
+                android:layout_below="@+id/drinkamount_layout_divider01"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="23dp"
+                android:text="오늘의 평균 습도"
+                android:scrollbars="vertical"
+                android:textColor="#3d95c9"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:gravity="start" />
+
+            <TextView
+                android:id="@+id/drinkamount_tv_rh"
+                android:layout_below="@+id/drinkamount_tv04"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="23dp"
+                android:text="60%"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textSize="24dp"
+                android:gravity="start" />
+
+            <ImageButton
+                android:id="@+id/drinkamount_refresh"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:padding="10dp"
+                android:layout_marginTop="3dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_refresh"
+                android:background="@android:color/transparent"
+                android:onClick="true"
+                android:layout_below="@+id/drinkamount_tv04"
+                android:layout_toEndOf="@+id/drinkamount_tv_rh" />
+
+            <com.github.jorgecastillo.FillableLoader
+                android:id="@+id/drinkamount_fillableLoader"
+                android:layout_width="220dp"
+                android:layout_height="305dp"
+                app:fl_fillColor="#1c9ade"
+                app:fl_strokeColor="#1c9ade"
+                app:fl_strokeDrawingDuration="0"
+                app:fl_fillDuration="3000"
+                app:fl_originalWidth="290"
+                app:fl_originalHeight="425"
+                app:fl_clippingTransform="waves"
+                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/drinkamount_percentage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="30dp"
+                android:text="  50%"
+                android:textColor="#ffffff"
+                android:gravity="center"/>
+
+        </RelativeLayout>
+
+        <!-- Bottom Layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#2e3241"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/drinkamount_tv01"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="남은 섭취량"
+                        android:scrollbars="vertical"
+                        android:textColor="#3d95c9"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:id="@+id/drinkamount_tv_requireamount"
+                        android:layout_below="@+id/drinkamount_tv01"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="1000 ml"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold"
+                        android:textSize="24dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/drinkamount_tv02"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="오늘의 섭취량"
+                        android:scrollbars="vertical"
+                        android:textColor="#3d95c9"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:id="@+id/drinkamount_tv_drunk"
+                        android:layout_below="@+id/drinkamount_tv02"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="1000 ml"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold"
+                        android:textSize="24dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/drinkamount_fab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:backgroundTint="#3d95c9"
+                        android:src="@drawable/ic_glass0"
+                        android:layout_marginTop="5dp"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

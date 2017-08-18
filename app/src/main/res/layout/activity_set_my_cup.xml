@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_set_goal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#31395b"
+    android:orientation="vertical"
+    android:layout_weight="10">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:src="@drawable/ic_usercup" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="2.5"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:text="자신이 주로 마시는 \n컵의 용량을 입력 해주세요. \n\n알림이 왔을때 한 번의 터치로\n섭취량을 기록 할 수 있습니다."
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_glass0"
+            android:layout_marginRight="10dp"
+            android:layout_alignBottom="@+id/setmycup_edt_mycup"
+            android:layout_toStartOf="@+id/setmycup_edt_mycup" />
+
+        <EditText
+            android:id="@+id/setmycup_edt_mycup"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textColor="#ffffff"
+            android:text="250"
+            android:ems="10"
+            android:maxLength="4"
+            android:maxLines="1"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:gravity="center"
+            android:text="ml"
+            android:textColor="#3d95c9"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_alignBottom="@+id/setmycup_edt_mycup"
+            android:layout_toEndOf="@+id/setmycup_edt_mycup" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <Button
+            android:id="@+id/setmycup_btn_setcup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="용량 설정 완료"
+            android:layout_marginLeft="64dp"
+            android:layout_marginRight="64dp"
+            android:textColor="#ffffff"
+            android:background="#3d95c9"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="50dp" />
+
+</LinearLayout>

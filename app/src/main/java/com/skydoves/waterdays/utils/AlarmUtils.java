@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 
+import com.skydoves.waterdays.consts.IntentExtras;
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
 import com.skydoves.waterdays.services.receivers.AlarmReceiver;
 
@@ -126,8 +127,8 @@ public class AlarmUtils {
 
     private PendingIntent pendingIntent(int requestcode, int occurdateint) {
         Intent intent = new Intent(mContext, AlarmReceiver.class);
-        intent.putExtra("requestcode", requestcode);
-        intent.putExtra("occurdateint", occurdateint);
+        intent.putExtra(IntentExtras.ALARM_PENDING_REQUEST, requestcode);
+        intent.putExtra(IntentExtras.ALARM_PENDING_OCCUR_TIME, occurdateint);
         PendingIntent sender = PendingIntent.getBroadcast(mContext, requestcode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         return sender;
     }

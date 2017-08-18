@@ -38,17 +38,15 @@ import butterknife.OnClick;
 
 public class DailyFragment extends Fragment {
 
-    // Systems
-    private Context mContext;
     private View rootView;
-    private PreferenceManager systems;
 
     private SqliteManager sqliteManager;
+    private PreferenceManager preferenceManager;
 
     private int dateCount = 0;
 
-    ArrayList<Listviewitem> data;
-    ListviewAdapter adapter;
+    private ArrayList<Listviewitem> data;
+    private ListviewAdapter adapter;
 
     public DailyFragment() {
     }
@@ -66,40 +64,26 @@ public class DailyFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // getContext
-        mContext = getContext();
+        preferenceManager = new PreferenceManager(getContext());
+        sqliteManager = new SqliteManager(getContext(), SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION);
 
-        sqliteManager = new SqliteManager(mContext, SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION);
-
-        systems = new PreferenceManager(mContext);
-
-        // Initialize
-        Initialize();
+        InitializeUI();
     }
 
 
-    /*===================================================
-                          Initialize
-     ===================================================*/
-    private void Initialize()
-    {
-        // TODO skydoves - Daily Record Init : Auto-generated method stub
-        // ListView
+    private void InitializeUI() {
         ListView listView=(ListView)rootView.findViewById(R.id.dailyrecord_listview);
-        data=new ArrayList();
+        this.data = new ArrayList();
 
-        // Set Adapter and Click Listner //
-        adapter=new ListviewAdapter(mContext, R.layout.item_dailyrecord, data);
+        adapter=new ListviewAdapter(getContext(), R.layout.item_dailyrecord, data);
         listView.setAdapter(adapter);
 
         // add Listview Items
         addItems(DateUtils.getFarDay(0));
     }
 
-    // Button Click : Daily Button @Back, @Next
     @OnClick({R.id.dailyrecord_ibtn_back, R.id.dailyrecord_ibtn_next})
-    public void DateMoveButton(View v)
-    {
+    public void DateMoveButton(View v) {
         switch (v.getId()){
             case R.id.dailyrecord_ibtn_back :
                 dateCount--;
@@ -112,14 +96,12 @@ public class DailyFragment extends Fragment {
                     addItems(DateUtils.getFarDay(dateCount));
                 }
                 else
-                    Toast.makeText(mContext, "내일의 기록은 볼 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "내일의 기록은 볼 수 없습니다.", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
 
-    // add ListView Items
-    private void addItems(String date)
-    {
+    private void addItems(String date) {
         // set TextView : Today Date
         TextView tv_todayDate = (TextView)rootView.findViewById(R.id.dailyrecord_tv_todaydate);
         tv_todayDate.setText(date);
@@ -164,7 +146,7 @@ public class DailyFragment extends Fragment {
             if (cursor != null && cursor.getCount() > 0 && cursor.moveToLast()) {
                 do {
                     int drinkamout = cursor.getInt(2);
-                    int mainicon = R.drawable.img_waterdrop;
+                    int mainicon;
                     String[] datetime = cursor.getString(1).split(":");
 
                     // set mainicon Image
@@ -226,10 +208,6 @@ public class DailyFragment extends Fragment {
         }
     }
 
-
-    /*===================================================
-                        ListView Adapter
-     ===================================================*/
     private class ListviewAdapter extends BaseAdapter {
         private LayoutInflater inflater;
         private ArrayList<Listviewitem> data;
@@ -269,48 +247,36 @@ public class DailyFragment extends Fragment {
 
             // ImageView : mainicon
             ImageView imv_item_mainicon = (ImageView)convertView.findViewById(R.id.item_dailyrecord_imv_main);
-            BitmapDrawable drawable = (BitmapDrawable) ContextCompat.getDrawable(mContext, listviewitem.getimage());
+            BitmapDrawable drawable = (BitmapDrawable) ContextCompat.getDrawable(getContext(), listviewitem.getimage());
             Bitmap imv_bitmap = drawable.getBitmap();
             imv_item_mainicon.setImageBitmap(imv_bitmap);
 
             // Image Button : delete button
             ImageButton ibtn_item_delete = (ImageButton)convertView.findViewById(R.id.item_dailyrecord_btn_delete);
-            ibtn_item_delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AlertDialog.Builder alertDlg = new AlertDialog.Builder(view.getContext());
-                    alertDlg.setTitle("알림");
+            ibtn_item_delete.setOnClickListener(view -> {
+                AlertDialog.Builder alertDlg = new AlertDialog.Builder(view.getContext());
+                alertDlg.setTitle("알림");
 
-                    // Yes - delete
-                    alertDlg.setPositiveButton("예", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick( DialogInterface dialog, int which )
-                        {
-                            // remove a Record
-                            sqliteManager.deleteRecord(data.get(position).getindex());
-                            data.remove(position);
+                // Yes - delete
+                alertDlg.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick( DialogInterface dialog, int which ) {
+                        // remove a Record
+                        sqliteManager.deleteRecord(data.get(position).getindex());
+                        data.remove(position);
 
-                            // update
-                            ((MainActivity)MainActivity.mContext).UpdateFragments();
-                        }
-                    });
+                        // update
+                        ((MainActivity)MainActivity.mContext).UpdateFragments();
+                    }
+                });
 
-                    // No - cancel
-                    alertDlg.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-
-                    alertDlg.setMessage(String.format("해당 기록을 지우시겠습니까?"));
-                    alertDlg.show();
-                }
+                // No - cancel
+                alertDlg.setNegativeButton("아니오", (DialogInterface dialog, int which) -> dialog.dismiss());
+                alertDlg.setMessage(String.format("해당 기록을 지우시겠습니까?"));
+                alertDlg.show();
             });
 
             return convertView;
         }
     }
-    //endregion
 }

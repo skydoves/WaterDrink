@@ -33,13 +33,11 @@ import butterknife.OnClick;
 
 public class NFCActivity extends AppCompatActivity {
 
-    // NFC System
+    protected @BindView(R.id.nfc_sticker) RippleBackground rippleBackground;
+
     boolean mWriteMode = false;
     private NfcAdapter mNfcAdapter;
     private PendingIntent mNfcPendingIntent;
-
-    @BindView(R.id.nfc_sticker)
-    RippleBackground rippleBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +45,10 @@ public class NFCActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nfc);
         ButterKnife.bind(this);
 
-        // Start animation
         rippleBackground.startRippleAnimation();
     }
 
-    // Check NFC isEnabled
-    private boolean CheckNFCEnabled()
-    {
+    private boolean CheckNFCEnabled() {
         NfcAdapter nfcAdpt = NfcAdapter.getDefaultAdapter(this);
         if(nfcAdpt!=null) {
             if (!nfcAdpt.isEnabled())
@@ -62,28 +57,20 @@ public class NFCActivity extends AppCompatActivity {
         return true;
     }
 
-    // NFC Write Button
     @OnClick(R.id.nfc_btn_setnfcdata)
-    void NFCWrite(View v)
-    {
-        // Check NFC is Enabled
+    void NFCWrite(View v) {
         if(CheckNFCEnabled()) {
             mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
             mNfcPendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, NFCActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-
-            // Enable Tag Write Mode
             enableTagWriteMode();
             rippleBackground.setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             Intent setnfc = new Intent(Settings.ACTION_NFC_SETTINGS);
             startActivity(setnfc);
-            Toast.makeText(this, "NFC 기능과 Android Beam을 켜주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.msg_require_nfc), Toast.LENGTH_SHORT).show();
         }
     }
 
-    // Enable Tag write Mode
     private void enableTagWriteMode() {
         mWriteMode = true;
         IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
@@ -91,21 +78,18 @@ public class NFCActivity extends AppCompatActivity {
         mNfcAdapter.enableForegroundDispatch(this, mNfcPendingIntent, mWriteTagFilters, null);
     }
 
-    // Disable Tag write Mode
     private void disableTagWriteMode() {
         mWriteMode = false;
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
-        // TODO skydoves - Auto-generated method stub
-        // Tag writing mode
         if (mWriteMode && NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
             Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             NdefRecord record = NdefRecord.createMime("waterdays_nfc/NFC", ((TextView)findViewById(R.id.nfc_edt01)).getText().toString().getBytes());
             NdefMessage message = new NdefMessage(new NdefRecord[] { record });
 
-            // Detected Tag
+            // detected tag
             if (writeTag(message, detectedTag)) {
                 disableTagWriteMode();
                 rippleBackground.setVisibility(View.INVISIBLE);
@@ -114,9 +98,7 @@ public class NFCActivity extends AppCompatActivity {
         }
     }
 
-    // Write NFC Tag Data
     public boolean writeTag(NdefMessage message, Tag tag) {
-        // TODO skydoves - WRITE NFCDATA TAG
         int size = message.toByteArray().length;
         try {
             Ndef ndef = Ndef.get(tag);

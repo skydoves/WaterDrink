@@ -1,6 +1,5 @@
 package com.skydoves.waterdays.ui.fragments.main;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -40,28 +39,21 @@ import butterknife.OnClick;
 
 public class ChartFragment extends Fragment implements OnChartValueSelectedListener {
 
-    // Context
-    private Context mContext;
-    private View rootView;
-
-    private SqliteManager sqliteManager;
-
+    protected @BindView(R.id.chart_mainchart) LineChart lineChart;
 
     private int dateCount = 0;
 
-    // get Views
-    @BindView(R.id.chart_mainchart)
-    LineChart lineChart;
+    private View rootView;
+    private SqliteManager sqliteManager;
 
     public ChartFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO skydoves - Auto-generated method stub
         View rootView = inflater.inflate(R.layout.layout_chart, container, false);
-        this.rootView = rootView;
         ButterKnife.bind(this, rootView);
+        this.rootView = rootView;
         return rootView;
     }
 
@@ -69,21 +61,15 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // getContext
-        mContext = getContext();
-
-        sqliteManager = new SqliteManager(mContext, SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION);
+        sqliteManager = new SqliteManager(getContext(), SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION);
 
         // set dateCount
         dateCount = -DateUtils.getDateDay(DateUtils.getFarDay(0), "yyyy-MM-dd");
         Initialize_Chart(DateUtils.getDateDay(DateUtils.getFarDay(0), "yyyy-MM-dd"));
     }
 
-
-    // Button Click : Chart Date Move
     @OnClick({R.id.chart_ibtn_back, R.id.chart_ibtn_next})
-    void DateMoveButton(View v)
-    {
+    void DateMoveButton(View v) {
         int DayNum = DateUtils.getDateDay(DateUtils.getFarDay(0), "yyyy-MM-dd");
         switch (v.getId()){
             case R.id.chart_ibtn_back :
@@ -93,7 +79,7 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
 
             case R.id.chart_ibtn_next :
                 if(dateCount == -DayNum)
-                    Toast.makeText(mContext, "다음주의 기록은 볼 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "다음주의 기록은 볼 수 없습니다.", Toast.LENGTH_SHORT).show();
                 else {
                     dateCount += 7;
                     if(dateCount == -DayNum)
@@ -106,25 +92,20 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
     }
 
 
-    /*===================================================
-                       Initialize Chart
-     ===================================================*/
     private void Initialize_Chart(int daycount) {
-        // TODO skydoves - Chart Init
-        // creating list of entry
         float TotalAmount=0, Max=0, sumCount=0;
         ArrayList<Entry> entries = new ArrayList<>();
         for(int i=0; i<=daycount; i++) {
             int daysum = sqliteManager.getDayDrinkAmount(DateUtils.getFarDay(dateCount+i));
 
-            // get Total Sum
+            // get total sum
             TotalAmount += daysum;
 
-            // get Max
+            // get max
             if(i == 0) Max = daysum;
             else if(Max < daysum) Max = daysum;
 
-            // Countinh
+            // count
             if(daysum != 0)
                 sumCount++;
 
@@ -132,23 +113,19 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
             entries.add(new Entry(daysum, i));
         }
 
-        // set TextView : Top Week Date
         TextView tv_date = (TextView)rootView.findViewById(R.id.chart_tv_weekdate);
         tv_date.setText(DateUtils.getFarDay(dateCount) + " ~ " + DateUtils.getFarDay(dateCount+6));
 
-        // set TextView : Total
         TextView tv_total = (TextView)rootView.findViewById(R.id.chart_tv_totaldrink);
         tv_total.setText(String.format("%.1f", TotalAmount/1000) + " L");
 
-        // set TextView : Average
         TextView tv_average = (TextView)rootView.findViewById(R.id.chart_tv_averagedrink);
         if(sumCount != 0)
             tv_average.setText(String.format("%.1f", TotalAmount/1000/(sumCount)) + " L");
         else
             tv_average.setText(String.format("%.1f", TotalAmount/1000) + " L");
 
-        // Create labels
-        ArrayList<String> labels = new ArrayList<String>();
+        ArrayList<String> labels = new ArrayList<>();
         labels.add("일");
         labels.add("월");
         labels.add("화");
@@ -157,7 +134,6 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
         labels.add("금");
         labels.add("토");
 
-        // Set Dataset
         LineDataSet dataset = new LineDataSet(entries, "마신 물의 양");
         LineData data = new LineData(labels, dataset);
         lineChart.setData(data);
@@ -184,18 +160,17 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
         lineChart.setScaleEnabled(false);
         lineChart.animateY(1700);
 
-        // Set Custom Marker View
-        MyMarkerView mv = new MyMarkerView(mContext, R.layout.custom_marker_view);
+        MyMarkerView mv = new MyMarkerView(getContext(), R.layout.custom_marker_view);
         lineChart.setMarkerView(mv);
 
-        // X - Axis Settings
+        // X - axis settings
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setTextSize(14f);
         xAxis.setSpaceBetweenLabels(1);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(ColorTemplate.getHoloBlue());
 
-        // Y - Axis Settings
+        // Y - axis settings
         YAxis leftAxis = lineChart.getAxisLeft();
         leftAxis.setTextColor(ColorTemplate.getHoloBlue());
         leftAxis.setTextSize(14f);
@@ -203,14 +178,14 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
         leftAxis.setSpaceTop(45);
         leftAxis.setValueFormatter(new YAxisValueFormatter());
 
-        // Set Max Y-Axis & Chart Message
+        // set max Y-Axis & chart message
         TextView tv_chartMessage = (TextView)rootView.findViewById(R.id.chart_tv_message);
         if(TotalAmount > 0)
             tv_chartMessage.setVisibility(View.INVISIBLE);
         else
             tv_chartMessage.setVisibility(View.VISIBLE);
 
-        // dataset Settings
+        // dataSet settings
         dataset.setDrawFilled(true);
         dataset.setCircleSize(5f);
         dataset.setValueTextSize(13f);
@@ -219,7 +194,9 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
         dataset.setValueFormatter(new DataSetValueFormatter());
     }
 
-    // YAxis : Water Y-Value Formatter
+    /**
+     * YAxis : Water Y-Value Formatter
+     */
     private class YAxisValueFormatter implements com.github.mikephil.charting.formatter.YAxisValueFormatter {
         @Override
         public String getFormattedValue(float value, YAxis yAxis) {
@@ -227,7 +204,9 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
         }
     }
 
-    // DataSet : Water DataSet-Value Formatter
+    /**
+     * Water DataSet-Value Formatter
+     */
     private class DataSetValueFormatter implements ValueFormatter {
         @Override
         public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
@@ -261,7 +240,6 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
         }
         tv_sdTitle.setText(dname);
 
-        // set TextView : Selected dataset value
         TextView tv_selectedday = (TextView)rootView.findViewById(R.id.chart_tv_selectedday);
         tv_selectedday.setText(String.format("%.0f", e.getVal()) + " ml");
     }

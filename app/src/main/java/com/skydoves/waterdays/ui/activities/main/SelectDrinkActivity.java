@@ -33,16 +33,11 @@ import butterknife.OnClick;
 
 public class SelectDrinkActivity extends AppCompatActivity {
 
-    @BindView(R.id.selectdrink_rcyv)
-    RecyclerView recyclerView;
-    RecyclerView.Adapter Adapter;
-    RecyclerView.LayoutManager layoutManager;
+    protected @BindView(R.id.selectdrink_rcyv) RecyclerView recyclerView;
 
     private SqliteManager sqliteManager;
 
     private ArrayList<Item> items;
-
-    private final String TAG = "SelectDrinkActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +57,10 @@ public class SelectDrinkActivity extends AppCompatActivity {
         items.add(new Item(R.drawable.ic_glass04, "1000ml"));
 
         // Set RecyclerView
-        layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        Adapter = new MyAdpater(items, this);
-        recyclerView.setAdapter(Adapter);
+        RecyclerView.Adapter adapter = new MyAdpater(items, this);
+        recyclerView.setAdapter(adapter);
 
         // RecyclerView Item TouchListener
         recyclerView.addOnItemTouchListener(new RecyclerViewOnItemClickListener(getApplicationContext(), recyclerView,
@@ -90,7 +85,7 @@ public class SelectDrinkActivity extends AppCompatActivity {
                                         // Notify Data Change
                                         ((MainActivity)MainActivity.mContext).UpdateFragments();
                                         // Show Bade
-                                        ((MainActivity)MainActivity.mContext).ShowBadge(1);
+                                        ((MainActivity)MainActivity.mContext).showBadge(1);
                                         finish();
                                     }
 
@@ -157,8 +152,7 @@ public class SelectDrinkActivity extends AppCompatActivity {
     }
 
     // RecyclerView Adapter
-    class MyAdpater extends RecyclerView.Adapter<MyAdpater.ViewHolder>
-    {
+    class MyAdpater extends RecyclerView.Adapter<MyAdpater.ViewHolder> {
         private Context context;
         private ArrayList<Item> mItems;
 

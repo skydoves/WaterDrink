@@ -23,10 +23,9 @@ import butterknife.OnClick;
 
 public class SetGoalActivity extends AppCompatActivity {
 
-    private PreferenceManager systems;
+    protected @BindView(R.id.setgoal_edt_goal) EditText editText_goal;
 
-    @BindView(R.id.setgoal_edt_goal)
-    EditText editText_goal;
+    private PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,28 +33,23 @@ public class SetGoalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_goal);
         ButterKnife.bind(this);
 
-        // Systems
-        systems = new PreferenceManager(this);
-
-        // Set WaterGoal
-        editText_goal.setText(systems.getString("WaterGoal", "2000"));
+        preferenceManager = new PreferenceManager(this);
+        editText_goal.setText(preferenceManager.getString("WaterGoal", "2000"));
     }
 
-    // Button Click : Set Water Goal
     @OnClick(R.id.setgoal_btn_setgoal)
-    void Btn_SetGoal(View v){
+    void onClickSetGoal(View v){
         if(!editText_goal.getText().toString().equals("") && !editText_goal.getText().toString().equals("0")){
-            if(systems.getString("WaterGoal", "null").equals("null")) {
+            if(preferenceManager.getString("WaterGoal", "null").equals("null")) {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             }
             else
                 Toast.makeText(this, "목표치를 재설정했습니다.", Toast.LENGTH_SHORT).show();
-            systems.putString("WaterGoal", editText_goal.getText().toString());
+            preferenceManager.putString("WaterGoal", editText_goal.getText().toString());
             finish();
         }
         else
             Toast.makeText(this, "올바른 목표치를 설정해 주세요!", Toast.LENGTH_SHORT).show();
     }
-
 }

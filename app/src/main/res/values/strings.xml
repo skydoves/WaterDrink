@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">물 한잔 해요</string>
-    <string name="db">waterdays</string>
     <string name="start">시작하기</string>
+    <string name="msg_alarm">수분을 보충할 시간입니다!</string>
+    <string name="msg_require_nfc">NFC 기능과 Android Beam을 켜주세요.</string>
 </resources>

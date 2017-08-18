@@ -21,11 +21,9 @@ import butterknife.OnClick;
 
 public class SetMyCupActivity extends AppCompatActivity {
 
-    // Systems
-    PreferenceManager systems;
+    protected @BindView(R.id.setmycup_edt_mycup) EditText edt_myCup;
 
-    @BindView(R.id.setmycup_edt_mycup)
-    EditText edt_myCup;
+    private PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +31,14 @@ public class SetMyCupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_my_cup);
         ButterKnife.bind(this);
 
-        // Initialize Systems
-        systems = new PreferenceManager(this);
-
-        // Initialize settings
-        edt_myCup.setText(systems.getString("MyCup", "250"));
+        preferenceManager = new PreferenceManager(this);
+        edt_myCup.setText(preferenceManager.getString("MyCup", "250"));
     }
 
     @OnClick(R.id.setmycup_btn_setcup)
     public void Click_setMyCup(View v){
         if(!edt_myCup.getText().toString().equals("")) {
-            systems.putString("MyCup", edt_myCup.getText().toString());
+            preferenceManager.putString("MyCup", edt_myCup.getText().toString());
             Toast.makeText(this, "내 컵의 용량이 설정되었습니다.", Toast.LENGTH_SHORT).show();
             finish();
         }

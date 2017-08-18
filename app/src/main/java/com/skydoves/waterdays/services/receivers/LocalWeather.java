@@ -21,21 +21,19 @@ import java.util.ArrayList;
 
 public class LocalWeather extends AsyncTask<String, Integer, String> {
 
-    // Systems
-    PreferenceManager systems;
-    String TAG = "LocalWeather";
-    Context mContext;
+    private PreferenceManager preferenceManager;
+    private Context mContext;
 
-    ArrayList<ShortWeather> shortWeathers = new ArrayList<ShortWeather>();
+    private ArrayList<ShortWeather> shortWeathers = new ArrayList<ShortWeather>();
 
     public LocalWeather(Context context){
         this.mContext = context;
-        this.systems = new PreferenceManager(context);
+        this.preferenceManager = new PreferenceManager(context);
     }
 
     // doInBackground //
     public String doInBackground(String[] StringParams) {
-        String url = LocalUrls.getLocalUrl(systems.getInt("localIndex", 0));
+        String url = LocalUrls.getLocalUrl(preferenceManager.getInt("localIndex", 0));
         Response response;
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();

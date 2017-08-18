@@ -24,9 +24,9 @@ import butterknife.OnClick;
 
 public class SetWeightActivity extends AppCompatActivity {
 
-    private PreferenceManager systems;
-
     protected @BindView(R.id.setweight_edt_weight) EditText editText_weight;
+
+    private PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,32 +34,27 @@ public class SetWeightActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setweight);
         ButterKnife.bind(this);
 
-        // Systems
-        systems = new PreferenceManager(this);
-
-        // Set UserWeight
-        editText_weight.setText(String.valueOf(systems.getInt("userWeight", 60)));
+        preferenceManager = new PreferenceManager(this);
+        editText_weight.setText(String.valueOf(preferenceManager.getInt("userWeight", 60)));
     }
 
-    // Click Buttons
     @OnClick({R.id.setweight_btn_getrecommend, R.id.setweight_btn_setweight})
-    void ClickBtn(View v)
-    {
+    void ClickBtn(View v) {
         if(!editText_weight.getText().toString().equals("")) {
             switch (v.getId()) {
                 case R.id.setweight_btn_getrecommend:
-                    String Reh = systems.getString("Reh", "60");
+                    String Reh = preferenceManager.getString("Reh", "60");
                     Snackbar.make(editText_weight, "추천 수분 섭취량은 " + (Integer.parseInt(editText_weight.getText().toString()) * 30 + (500 - Integer.parseInt(Reh) * 3)) + "ml 입니다.",
                             Snackbar.LENGTH_LONG).setActionTextColor(Color.WHITE).show();
                     break;
 
                 case R.id.setweight_btn_setweight:
-                    if(systems.getString("WaterGoal", "null").equals("null")) {
+                    if(preferenceManager.getString("WaterGoal", "null").equals("null")) {
                         Intent intent = new Intent(this, SetGoalActivity.class);
                         startActivity(intent);
                     }
                     Toast.makeText(this, "체중을 설정하였습니다.", Toast.LENGTH_SHORT).show();
-                    systems.putInt("userWeight", Integer.parseInt(editText_weight.getText().toString()));
+                    preferenceManager.putInt("userWeight", Integer.parseInt(editText_weight.getText().toString()));
                     finish();
                     break;
             }

@@ -6,9 +6,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import com.skydoves.waterdays.R;
+import com.skydoves.waterdays.consts.IntentExtras;
+import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
 import com.skydoves.waterdays.utils.AlarmUtils;
 
 import java.util.Calendar;
@@ -22,59 +22,37 @@ import java.util.GregorianCalendar;
 
 public class AlarmBootReceiver extends BroadcastReceiver {
 
-    private Context mContext;
-
-    // DB
-    private SQLiteDatabase db;
-
-    // Alarm Systems
-    AlarmUtils systems_alarm;
-    private GregorianCalendar mCalendar;
-    private AlarmManager mManager;
-    private final int requestC = 99000000;
-
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            // TODO skydoves - Broadcast Boot Receiver : Auto-generated method stub
-            // Initialize DB & Alarm Systems
-            mContext = context;
-            db = context.openOrCreateDatabase(context.getResources().getString(R.string.db), Context.MODE_PRIVATE, null);
-            systems_alarm = new AlarmUtils(context);
-            mCalendar = new GregorianCalendar();
-            mManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+            SqliteManager sqliteManager = new SqliteManager(context, SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION);
+            AlarmUtils systems_alarm = new AlarmUtils(context);
+            GregorianCalendar mCalendar = new GregorianCalendar();
+            AlarmManager mManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
             try {
-                Cursor cursor = db.rawQuery("select * from AlarmList", null);
+                Cursor cursor = sqliteManager.getReadableDatabase().rawQuery("select * from AlarmList", null);
                 if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
                     do {
-                        // Get requestcode
-                        int requestcode = cursor.getInt(0);
+                        int requestCode = cursor.getInt(0);
+                        systems_alarm.setAlarm(requestCode);
 
-                        // Reset all of Alarms
-                        systems_alarm.setAlarm(requestcode);
-
-                        // Reset LocalWeather Alarm
                         mCalendar.set(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH), 7, 0);
                         mCalendar.add(Calendar.DATE, 1);
-                        mManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 1200 * 1000, pendingIntent(requestC));
-
+                        mManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 1200 * 1000, pendingIntent(context, IntentExtras.ALARM_PENDING_REQUEST_CODE));
                     } while (cursor.moveToNext());
                     cursor.close();
                 }
             }
             catch (Exception e){
-                // None
+                e.printStackTrace();
             }
         }
     }
 
-    // # Pending Intent # //
-    private PendingIntent pendingIntent(int requestcode) {
-        // TODO skydoves - PendingIntent with Handling requestcode
+    private PendingIntent pendingIntent(Context mContext, int requestCode) {
         Intent intent = new Intent(mContext, LocalWeatherReceiver.class);
-        intent.putExtra("requestcode", requestcode);
-        PendingIntent sender = PendingIntent.getBroadcast(mContext, requestcode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        return sender;
+        intent.putExtra(IntentExtras.ALARM_PENDING_REQUEST, requestCode);
+        return PendingIntent.getBroadcast(mContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }

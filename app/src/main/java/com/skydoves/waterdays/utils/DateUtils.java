@@ -45,4 +45,23 @@ public class DateUtils {
         }
         return -1;
     }
+
+    public static String getDayNameList(String days) {
+        StringBuilder builder = new StringBuilder();
+        if(days.contains("0"))
+            builder.append("일");
+        if(days.contains("1"))
+            builder.append("월");
+        if(days.contains("2"))
+            builder.append("화");
+        if(days.contains("3"))
+            builder.append("수");
+        if(days.contains("4"))
+            builder.append("목");
+        if(days.contains("5"))
+            builder.append("금");
+        if(days.contains("6"))
+            builder.append("토");
+         return builder.toString();
+    }
 }

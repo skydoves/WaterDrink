@@ -6,6 +6,7 @@ import com.skydoves.waterdays.presenters.MakeAlarmPresenter;
 import com.skydoves.waterdays.presenters.SetGoalPresenter;
 import com.skydoves.waterdays.presenters.SetLocalPresenter;
 import com.skydoves.waterdays.ui.activities.intro.StartActivity;
+import com.skydoves.waterdays.ui.fragments.main.AlarmFragment;
 
 /**
  * Developed by skydoves on 2017-08-19.
@@ -19,4 +20,5 @@ public interface ApplicationGraph {
     void inject(AlarmScreenPresenter __);
     void inject(MakeAlarmPresenter __);
     void inject(MainPresenter __);
+    void inject(AlarmFragment __);
 }

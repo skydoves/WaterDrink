@@ -20,9 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.skydoves.waterdays.R;
+import com.skydoves.waterdays.events.rx.RxUpdateMainEvent;
 import com.skydoves.waterdays.persistence.preference.PreferenceManager;
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
-import com.skydoves.waterdays.ui.activities.main.MainActivity;
 import com.skydoves.waterdays.utils.DateUtils;
 
 import java.util.ArrayList;
@@ -109,8 +109,7 @@ public class DailyFragment extends Fragment {
         // append day of week Label
         if(dateCount == 0)
             tv_todayDate.append(" (오늘)");
-        else
-        {
+        else {
             int dayofweek = DateUtils.getDayofWeek(date, "yyyy-MM-dd");
             switch (dayofweek){
                 case 1 :
@@ -178,7 +177,7 @@ public class DailyFragment extends Fragment {
                 tv_message.setVisibility(View.INVISIBLE);
         }
         catch (Exception e){
-
+                e.printStackTrace();
         }
 
         // notify
@@ -255,19 +254,13 @@ public class DailyFragment extends Fragment {
             ImageButton ibtn_item_delete = (ImageButton)convertView.findViewById(R.id.item_dailyrecord_btn_delete);
             ibtn_item_delete.setOnClickListener(view -> {
                 AlertDialog.Builder alertDlg = new AlertDialog.Builder(view.getContext());
-                alertDlg.setTitle("알림");
+                alertDlg.setTitle("알람");
 
                 // Yes - delete
-                alertDlg.setPositiveButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick( DialogInterface dialog, int which ) {
-                        // remove a Record
-                        sqliteManager.deleteRecord(data.get(position).getindex());
-                        data.remove(position);
-
-                        // update
-                        ((MainActivity)MainActivity.mContext).UpdateFragments();
-                    }
+                alertDlg.setPositiveButton("예", (DialogInterface dialog, int which) -> {
+                    sqliteManager.deleteRecord(data.get(position).getindex());
+                    data.remove(position);
+                    RxUpdateMainEvent.getInstance().sendEvent();
                 });
 
                 // No - cancel

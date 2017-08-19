@@ -34,7 +34,7 @@
         android:gravity="center"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:text="자신이 주로 마시는 \n컵의 용량을 입력 해주세요. \n\n알림이 왔을때 한 번의 터치로\n섭취량을 기록 할 수 있습니다."
+        android:text="자신이 주로 마시는 \n컵의 용량을 입력 해주세요. \n\n알람이 왔을때 한 번의 터치로\n섭취량을 기록 할 수 있습니다."
         android:textColor="#ffffff"
         android:textSize="18sp" />
 

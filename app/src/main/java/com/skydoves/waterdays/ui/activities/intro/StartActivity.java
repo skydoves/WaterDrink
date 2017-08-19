@@ -7,30 +7,40 @@ import android.support.v4.app.Fragment;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.skydoves.waterdays.R;
+import com.skydoves.waterdays.WDApplication;
+import com.skydoves.waterdays.compose.BaseView;
+import com.skydoves.waterdays.persistence.preference.PreferenceKeys;
 import com.skydoves.waterdays.persistence.preference.PreferenceManager;
 import com.skydoves.waterdays.ui.activities.main.MainActivity;
 import com.skydoves.waterdays.ui.activities.settings.SetWeightActivity;
 import com.skydoves.waterdays.ui.fragments.intro.SlideFragment;
+
+import javax.inject.Inject;
 
 /**
  * Developed by skydoves on 2017-08-17.
  * Copyright (c) 2017 skydoves rights reserved.
  */
 
-public class StartActivity extends AppIntro {
+public class StartActivity extends AppIntro implements BaseView {
 
-    private PreferenceManager preferenceManager;
+    protected @Inject PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferenceManager = new PreferenceManager(this);
+        WDApplication.getComponent().inject(this);
 
-        if(!preferenceManager.getString("WaterGoal", "null").equals("null")) {
+        if(!preferenceManager.getBoolean(PreferenceKeys.NEWBE.first, PreferenceKeys.NEWBE.second)) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
 
+        initializeUI();
+    }
+
+    @Override
+    public void initializeUI() {
         addSlide(SlideFragment.newInstance(R.layout.intro1));
         addSlide(SlideFragment.newInstance(R.layout.intro2));
         addSlide(SlideFragment.newInstance(R.layout.intro3));

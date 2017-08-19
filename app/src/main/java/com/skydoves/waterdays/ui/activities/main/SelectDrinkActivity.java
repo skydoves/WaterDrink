@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.skydoves.waterdays.R;
+import com.skydoves.waterdays.events.rx.RxUpdateMainEvent;
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
 
 import java.util.ArrayList;
@@ -83,9 +84,7 @@ public class SelectDrinkActivity extends AppCompatActivity {
                                         // add a record
                                         sqliteManager.addRecord(items.get(position).getImagetitle());
                                         // Notify Data Change
-                                        ((MainActivity)MainActivity.mContext).UpdateFragments();
-                                        // Show Bade
-                                        ((MainActivity)MainActivity.mContext).showBadge(1);
+                                        RxUpdateMainEvent.getInstance().updateBadge();
                                         finish();
                                     }
 

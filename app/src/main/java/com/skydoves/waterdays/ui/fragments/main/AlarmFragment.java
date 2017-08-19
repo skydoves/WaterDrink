@@ -20,8 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.skydoves.waterdays.R;
+import com.skydoves.waterdays.events.rx.RxUpdateMainEvent;
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
-import com.skydoves.waterdays.ui.activities.main.MainActivity;
 import com.skydoves.waterdays.ui.activities.main.MakeAlarmActivity;
 import com.skydoves.waterdays.utils.AlarmUtils;
 
@@ -202,7 +202,7 @@ public class AlarmFragment extends Fragment {
             ImageButton ibtn_item_delete = (ImageButton)convertView.findViewById(R.id.item_alarmrecord_btn_delete);
             ibtn_item_delete.setOnClickListener(view -> {
                 AlertDialog.Builder alertDlg = new AlertDialog.Builder(view.getContext());
-                alertDlg.setTitle("알림");
+                alertDlg.setTitle("알람");
 
                 alertDlg.setPositiveButton("예", (DialogInterface dialog, int which) -> {
                     try {
@@ -210,8 +210,8 @@ public class AlarmFragment extends Fragment {
                         sqliteManager.deleteAlarm(data.get(position).getrequestcode());
                         data.remove(position);
 
-                        Toast.makeText(getContext(), "알림이 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
-                        ((MainActivity) MainActivity.mContext).UpdateFragments();
+                        Toast.makeText(getContext(), "알람이 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
+                        RxUpdateMainEvent.getInstance().sendEvent();
                     }
                     catch (Exception e){
                         e.printStackTrace();
@@ -219,7 +219,7 @@ public class AlarmFragment extends Fragment {
                 });
 
                 alertDlg.setNegativeButton("아니오", ((dialog, which) -> dialog.dismiss()));
-                alertDlg.setMessage(String.format("해당 알림을 지우시겠습니까?"));
+                alertDlg.setMessage(String.format("해당 알람을 지우시겠습니까?"));
                 alertDlg.show();
             });
 

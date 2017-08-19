@@ -4,12 +4,15 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.skydoves.waterdays.consts.LocalUrls;
+import com.skydoves.waterdays.models.ShortWeather;
 import com.skydoves.waterdays.persistence.preference.PreferenceManager;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.io.StringReader;
 import java.util.ArrayList;
 
@@ -22,23 +25,20 @@ import java.util.ArrayList;
 public class LocalWeather extends AsyncTask<String, Integer, String> {
 
     private PreferenceManager preferenceManager;
-    private Context mContext;
 
-    private ArrayList<ShortWeather> shortWeathers = new ArrayList<ShortWeather>();
+    private ArrayList<ShortWeather> shortWeathers = new ArrayList<>();
 
-    public LocalWeather(Context context){
-        this.mContext = context;
+    public LocalWeather(Context context) {
         this.preferenceManager = new PreferenceManager(context);
     }
 
-    // doInBackground //
     public String doInBackground(String[] StringParams) {
         String url = LocalUrls.getLocalUrl(preferenceManager.getInt("localIndex", 0));
         Response response;
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();
 
-        // Xml Parsing : Get Reh Data
+        // xml parsing : get reh data
         try {
             response = client.newCall(request).execute();
             int total = parseXML(response.body().string());
@@ -49,14 +49,16 @@ public class LocalWeather extends AsyncTask<String, Integer, String> {
         return null;
     }
 
-    // onPostExecute //
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
     }
 
-    // Xml Parsing : Get Reh Data //
-    //region
-    int parseXML(String xml) {
+    /**
+     * parsing XML file to data
+     * @param xml
+     * @return
+     */
+    private int parseXML(String xml) {
         int total=0;
         try {
             int i = 0;
@@ -96,22 +98,8 @@ public class LocalWeather extends AsyncTask<String, Integer, String> {
                 eventType = parser.next();
             }
         } catch (Exception e) {
-
+            e.getStackTrace();
         }
         return total/shortWeathers.size();
     }
-
-    // Short Local Weather //
-    public class ShortWeather {
-        private String reh;
-
-        public String getReh() {
-            return reh;
-        }
-
-        public void setReh(String reh) {
-            this.reh = reh;
-        }
-    }
-    //endregion
 }

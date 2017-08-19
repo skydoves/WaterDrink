@@ -7,30 +7,35 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 import com.skydoves.waterdays.R;
+import com.skydoves.waterdays.compose.BaseActivity;
+import com.skydoves.waterdays.compose.qualifiers.RequirePresenter;
 import com.skydoves.waterdays.consts.IntentExtras;
+import com.skydoves.waterdays.events.rx.RxUpdateMainEvent;
+import com.skydoves.waterdays.persistence.preference.PreferenceKeys;
 import com.skydoves.waterdays.persistence.preference.PreferenceManager;
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
+import com.skydoves.waterdays.presenters.MainPresenter;
 import com.skydoves.waterdays.services.receivers.AlarmBootReceiver;
 import com.skydoves.waterdays.services.receivers.LocalWeatherReceiver;
 import com.skydoves.waterdays.ui.adapters.SectionsPagerAdapter;
+import com.skydoves.waterdays.utils.NavigationUtils;
+import com.skydoves.waterdays.viewTypes.MainActivityView;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by skydoves on 2016-10-15.
@@ -38,39 +43,27 @@ import butterknife.ButterKnife;
  * Copyright (c) 2017 skydoves rights reserved.
  */
 
-public class MainActivity extends AppCompatActivity  {
+@RequirePresenter(MainPresenter.class)
+public class MainActivity extends BaseActivity<MainPresenter, MainActivityView> implements MainActivityView {
 
     protected @BindView(R.id.mainactivity_navi) NavigationTabBar navigationTabBar;
 
-    public static Context mContext;
-
-    private SqliteManager sqliteManager;
-    private PreferenceManager preferenceManager;
-
     private NfcAdapter nAdapter;
-
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        mContext = this;
+        initBaseView(this);
 
-        preferenceManager = new PreferenceManager(this);
-        sqliteManager = new SqliteManager(this, SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION);
-
-        InitializeUI(2);
-
-        // Check NFC Available
+        // check nfc
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null) {
             Toast.makeText(this, "이 앱은 NFC 기능을 탑재한 디바이스에서만 작동합니다.", Toast.LENGTH_LONG).show();
             finish();
         }
 
-        // set NFC adapter
         nAdapter = NfcAdapter.getDefaultAdapter(this);
         getNFCData(getIntent());
 
@@ -81,60 +74,30 @@ public class MainActivity extends AppCompatActivity  {
         ComponentName receiver = new ComponentName(this, AlarmBootReceiver.class);
         PackageManager pm = getPackageManager();
         pm.setComponentEnabledSetting(receiver, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+        RxUpdateMainEvent.getInstance().getObservable()
+                .compose(bindToLifecycle())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(flag -> {
+                    if(!flag) showBadge(1);
+                    mSectionsPagerAdapter.notifyDataSetChanged();
+                });
     }
 
-    private void InitializeUI(final int pageNum) {
+    @Override
+    protected void initBaseView(MainActivityView mainActivityView) {
+        super.initBaseView(mainActivityView);
+    }
+
+    @Override
+    public void initializeUI() {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         final ViewPager viewPager = (ViewPager) findViewById(R.id.mainactivity_viewpager);
         viewPager.setAdapter(mSectionsPagerAdapter);
 
-        // initialize navigation tabBar
-        final String[] colors = getResources().getStringArray(R.array.default_preview);
-        final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        ContextCompat.getDrawable(this, R.drawable.ic_bell),
-                        Color.parseColor(colors[0]))
-                        .title("알림 설정")
-                        .badgeTitle("new")
-                        .build()
-        );
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        ContextCompat.getDrawable(this, R.drawable.ic_note),
-                        Color.parseColor(colors[1]))
-                        .title("데일리 기록")
-                        .badgeTitle("new")
-                        .build()
-        );
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        ContextCompat.getDrawable(this, R.drawable.ic_drop),
-                        Color.parseColor(colors[2]))
-                        .title("수분 섭취량")
-                        .badgeTitle("new")
-                        .build()
-        );
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        ContextCompat.getDrawable(this, R.drawable.ic_chart),
-                        Color.parseColor(colors[3]))
-                        .title("통계 확인")
-                        .badgeTitle("new")
-                        .build()
-        );
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        ContextCompat.getDrawable(this, R.drawable.ic_setting),
-                        Color.parseColor(colors[4]))
-                        .title("환경 설정")
-                        .badgeTitle("new")
-                        .build()
-        );
-
         // add navigation models
-        navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(viewPager, pageNum);
+        navigationTabBar.setModels(NavigationUtils.getNavigationModels(this));
+        navigationTabBar.setViewPager(viewPager, 2);
         navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
@@ -159,14 +122,12 @@ public class MainActivity extends AppCompatActivity  {
         navigationTabBar.postDelayed(() -> {
             final NavigationTabBar.Model model = navigationTabBar.getModels().get(position);
             navigationTabBar.postDelayed(model::showBadge, 100);
-        }, 500);
+        }, 200);
     }
 
     private void getNFCData(Intent intent) {
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
             Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-
-            // handle intent message
             if (rawMsgs != null) {
                 NdefMessage[] messages = new NdefMessage[rawMsgs.length];
 
@@ -174,17 +135,11 @@ public class MainActivity extends AppCompatActivity  {
                     messages[i] = (NdefMessage) rawMsgs[i];
                 byte[] payload = messages[0].getRecords()[0].getPayload();
 
-                sqliteManager.addRecord(new String(payload));
-                UpdateFragments();
-
-                // show badge
-                ((MainActivity)MainActivity.mContext).showBadge(1);
+                presenter.addRecord(new String(payload));
+                mSectionsPagerAdapter.notifyDataSetChanged();
+                showBadge(1);
             }
         }
-    }
-
-    public void UpdateFragments() {
-        mSectionsPagerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -197,12 +152,10 @@ public class MainActivity extends AppCompatActivity  {
             e.printStackTrace();
         }
 
-        // make new intent
         Intent i = new Intent(this, getClass());
         i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, i, 0);
 
-        // toss pending intent
         IntentFilter[] filters = new IntentFilter[] { filter, };
         nAdapter.enableForegroundDispatch(this, pIntent, filters, null);
     }
@@ -215,18 +168,18 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private void WeatherAlarm() {
-        if(!preferenceManager.getBoolean("setWeatherAlarm", false)) {
+        if(!presenter.getWeatherAlarm()) {
             GregorianCalendar mCalendar = new GregorianCalendar();
             AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 1200 * 1000, pendingIntent(IntentExtras.ALARM_PENDING_REQUEST_CODE));
-            preferenceManager.putBoolean("setWeatherAlarm", true);
+            presenter.setWeatherAlarm(true);
         }
     }
 
     private PendingIntent pendingIntent(int requestCode) {
-        Intent intent = new Intent(mContext, LocalWeatherReceiver.class);
+        Intent intent = new Intent(this, LocalWeatherReceiver.class);
         intent.putExtra(IntentExtras.ALARM_PENDING_REQUEST, requestCode);
-        PendingIntent sender = PendingIntent.getBroadcast(mContext, requestCode, intent, 0);
+        PendingIntent sender = PendingIntent.getBroadcast(this, requestCode, intent, 0);
         return sender;
     }
 }

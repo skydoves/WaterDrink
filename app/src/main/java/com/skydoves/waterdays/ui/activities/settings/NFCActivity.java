@@ -48,15 +48,6 @@ public class NFCActivity extends AppCompatActivity {
         rippleBackground.startRippleAnimation();
     }
 
-    private boolean CheckNFCEnabled() {
-        NfcAdapter nfcAdpt = NfcAdapter.getDefaultAdapter(this);
-        if(nfcAdpt!=null) {
-            if (!nfcAdpt.isEnabled())
-                return false;
-        }
-        return true;
-    }
-
     @OnClick(R.id.nfc_btn_setnfcdata)
     void NFCWrite(View v) {
         if(CheckNFCEnabled()) {
@@ -69,6 +60,15 @@ public class NFCActivity extends AppCompatActivity {
             startActivity(setnfc);
             Toast.makeText(this, getString(R.string.msg_require_nfc), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean CheckNFCEnabled() {
+        NfcAdapter nfcAdpt = NfcAdapter.getDefaultAdapter(this);
+        if(nfcAdpt!=null) {
+            if (!nfcAdpt.isEnabled())
+                return false;
+        }
+        return true;
     }
 
     private void enableTagWriteMode() {
@@ -105,11 +105,11 @@ public class NFCActivity extends AppCompatActivity {
             if (ndef != null) {
                 ndef.connect();
                 if (!ndef.isWritable()) {
-                    Toast.makeText(getApplicationContext(), "Error: tag not writable", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "태그에 데이터를 작성할 수 없습니다.", Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 if (ndef.getMaxSize() < size) {
-                    Toast.makeText(getApplicationContext(), "Error: tag too small", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "태그 사이즈가 너무 작습니다.", Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 ndef.writeNdefMessage(message);

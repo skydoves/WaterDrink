@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#1d1f2f"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -37,103 +38,118 @@
                 android:textSize="15sp" />
 
             <LinearLayout
+                android:id="@+id/panel_days"
                 android:layout_below="@+id/makealram_tv01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:weightSum="7">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="7">
+                <com.github.skydoves.ElasticCheckButton
+                    android:id="@+id/makealarm_tv_day0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:checkbutton_backgroundColor="#30354b"
+                    app:checkbutton_duration="400"
+                    app:checkbutton_labelColor="#ffffff"
+                    app:checkbutton_labelSize="17"
+                    app:checkbutton_labelStyle="bold"
+                    app:checkbutton_labelText="일"
+                    app:checkbutton_round="0"
+                    app:checkbutton_scale="0.9"
+                    app:checkbutton_ischecked="true"/>
 
-                    <TextView
-                        android:id="@+id/makealarm_tv_day0"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="#30354b"
-                        android:text="일"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:textColor="#ffffff"
-                        android:textSize="17dp"
-                        android:padding="12dp"/>
+                <com.github.skydoves.ElasticCheckButton
+                    android:id="@+id/makealarm_tv_day1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:checkbutton_backgroundColor="#30354b"
+                    app:checkbutton_duration="400"
+                    app:checkbutton_labelColor="#ffffff"
+                    app:checkbutton_labelSize="17"
+                    app:checkbutton_labelStyle="bold"
+                    app:checkbutton_labelText="월"
+                    app:checkbutton_round="0"
+                    app:checkbutton_scale="0.9"
+                    app:checkbutton_ischecked="true"/>
 
-                    <TextView
-                        android:id="@+id/makealarm_tv_day1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="#30354b"
-                        android:text="월"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:textColor="#ffffff"
-                        android:textSize="17dp"
-                        android:padding="12dp"/>
+                <com.github.skydoves.ElasticCheckButton
+                    android:id="@+id/makealarm_tv_day2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:checkbutton_backgroundColor="#30354b"
+                    app:checkbutton_duration="400"
+                    app:checkbutton_labelColor="#ffffff"
+                    app:checkbutton_labelSize="17"
+                    app:checkbutton_labelStyle="bold"
+                    app:checkbutton_labelText="화"
+                    app:checkbutton_round="0"
+                    app:checkbutton_scale="0.9"
+                    app:checkbutton_ischecked="true"/>
 
-                    <TextView
-                        android:id="@+id/makealarm_tv_day2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="#30354b"
-                        android:text="화"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:textColor="#ffffff"
-                        android:textSize="17dp"
-                        android:padding="12dp"/>
+                <com.github.skydoves.ElasticCheckButton
+                    android:id="@+id/makealarm_tv_day3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:checkbutton_backgroundColor="#30354b"
+                    app:checkbutton_duration="400"
+                    app:checkbutton_labelColor="#ffffff"
+                    app:checkbutton_labelSize="17"
+                    app:checkbutton_labelStyle="bold"
+                    app:checkbutton_labelText="수"
+                    app:checkbutton_round="0"
+                    app:checkbutton_scale="0.9"
+                    app:checkbutton_ischecked="true"/>
 
-                    <TextView
-                        android:id="@+id/makealarm_tv_day3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="#30354b"
-                        android:text="수"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:textColor="#ffffff"
-                        android:textSize="17dp"
-                        android:padding="12dp"/>
+                <com.github.skydoves.ElasticCheckButton
+                    android:id="@+id/makealarm_tv_day4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:checkbutton_backgroundColor="#30354b"
+                    app:checkbutton_duration="400"
+                    app:checkbutton_labelColor="#ffffff"
+                    app:checkbutton_labelSize="17"
+                    app:checkbutton_labelStyle="bold"
+                    app:checkbutton_labelText="목"
+                    app:checkbutton_round="0"
+                    app:checkbutton_scale="0.9"
+                    app:checkbutton_ischecked="true"/>
 
-                    <TextView
-                        android:id="@+id/makealarm_tv_day4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="#30354b"
-                        android:text="목"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:textColor="#ffffff"
-                        android:textSize="17dp"
-                        android:padding="12dp"/>
+                <com.github.skydoves.ElasticCheckButton
+                    android:id="@+id/makealarm_tv_day5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:checkbutton_backgroundColor="#30354b"
+                    app:checkbutton_duration="400"
+                    app:checkbutton_labelColor="#ffffff"
+                    app:checkbutton_labelSize="17"
+                    app:checkbutton_labelStyle="bold"
+                    app:checkbutton_labelText="금"
+                    app:checkbutton_round="0"
+                    app:checkbutton_scale="0.9"
+                    app:checkbutton_ischecked="true"/>
 
-                    <TextView
-                        android:id="@+id/makealarm_tv_day5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="#30354b"
-                        android:text="금"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:textColor="#ffffff"
-                        android:textSize="17dp"
-                        android:padding="12dp"/>
-
-                    <TextView
-                        android:id="@+id/makealarm_tv_day6"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="#30354b"
-                        android:text="토"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:textColor="#ffffff"
-                        android:textSize="17dp"
-                        android:padding="12dp"/>
-
-                </LinearLayout>
+                <com.github.skydoves.ElasticCheckButton
+                    android:id="@+id/makealarm_tv_day6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:checkbutton_backgroundColor="#30354b"
+                    app:checkbutton_duration="400"
+                    app:checkbutton_labelColor="#ffffff"
+                    app:checkbutton_labelSize="17"
+                    app:checkbutton_labelStyle="bold"
+                    app:checkbutton_labelText="토"
+                    app:checkbutton_round="0"
+                    app:checkbutton_scale="0.9"
+                    app:checkbutton_ischecked="true"/>
 
             </LinearLayout>
 
@@ -192,7 +208,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="알림 시작 시간"
+                    android:text="알람 시작 시간"
                     android:textColor="#ffffff"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
@@ -227,7 +243,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="알림 종료 시간"
+                    android:text="알람 종료 시간"
                     android:textColor="#ffffff"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
@@ -266,7 +282,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="23dp"
-                android:text="알림 간격"
+                android:text="알람 간격"
                 android:scrollbars="vertical"
                 android:textColor="#3d95c9"
                 android:textStyle="bold"
@@ -319,7 +335,7 @@
                 android:id="@+id/makealram_btn_setalarm"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="알림 추가하기"
+                android:text="알람 추가하기"
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="64dp"

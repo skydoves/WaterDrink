@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.skydoves.waterdays.R;
-import com.skydoves.waterdays.models.AlarmModel;
+import com.skydoves.waterdays.models.Alarm;
 
 import butterknife.BindView;
 
@@ -24,12 +24,12 @@ public class AlarmViewHolder extends BaseViewHolder {
     protected @BindView(R.id.item_alarmrecord_tv_interval) TextView tv_item_interval;
     protected @BindView(R.id.item_alarmrecord_btn_delete) ImageButton ibtn_item_delete;
 
-    private AlarmModel alarmModel;
+    private Alarm alarmModel;
 
     private Delegate delegate;
 
     public interface Delegate {
-        void onConfirm(AlarmModel alarmModel);
+        void onConfirm(Alarm alarmModel);
     }
 
     public AlarmViewHolder(@NonNull View view, Delegate delegate) {
@@ -39,7 +39,7 @@ public class AlarmViewHolder extends BaseViewHolder {
 
     @Override
     public void bindData(@NonNull Object data) throws Exception {
-        this.alarmModel = (AlarmModel) data;
+        this.alarmModel = (Alarm) data;
 
         tv_item_days.setText(alarmModel.getDays());
         tv_item_times.setText(alarmModel.getTimes());

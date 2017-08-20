@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_chart"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -71,15 +72,15 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp" />
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/dailyrecord_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="#2e3241"
                 android:dividerHeight="1dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" >
-            </ListView>
+                android:layout_marginRight="20dp"
+                app:layoutManager="LinearLayoutManager"/>
 
             <TextView
                 android:id="@+id/dailyrecord_tv_message"

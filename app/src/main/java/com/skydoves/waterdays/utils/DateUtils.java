@@ -1,5 +1,6 @@
 package com.skydoves.waterdays.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,12 +11,17 @@ import java.util.Date;
  */
 
 public class DateUtils {
+
+    public static String getDateFormat() {
+        return "yyyy-MM-dd";
+    }
+
     public static String getFarDay(int far) {
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.add(Calendar.DAY_OF_MONTH, far);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat(DateUtils.getDateFormat());
         String currentDateandTime = sdf.format(cal.getTime());
         return currentDateandTime;
     }
@@ -27,12 +33,13 @@ public class DateUtils {
             Calendar cal = Calendar.getInstance();
             cal.setTime(nDate);
             return cal.get(Calendar.DAY_OF_WEEK) - 1;
-        } catch (Exception e) {
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return -1;
     }
 
-    public static int getDayofWeek(String data, String dateType){
+    public static int getDayofWeek(String data, String dateType) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat(dateType);
             Date nDate = dateFormat.parse(data);
@@ -41,7 +48,8 @@ public class DateUtils {
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
             return dayOfWeek;
         }
-        catch (Exception e){
+        catch (ParseException e){
+            e.printStackTrace();
         }
         return -1;
     }
@@ -63,5 +71,61 @@ public class DateUtils {
         if(days.contains("6"))
             builder.append("토");
          return builder.toString();
+    }
+
+    public static String getIndexOfDayName(int index) {
+        String dname;
+        switch (index) {
+            case 1 :
+                dname = "월요일";
+                break;
+            case 2 :
+                dname = "화요일";
+                break;
+            case  3 :
+                dname = "수요일";
+                break;
+            case 4 :
+                dname = "목요일";
+                break;
+            case 5 :
+                dname = "금요일";
+                break;
+            case 6 :
+                dname = "토요일";
+                break;
+            default :
+                dname = "일요일";
+                break;
+        }
+        return dname;
+    }
+
+    public static String getIndexofDayNameHead(int index) {
+        String dayName = " (일)";
+        switch (index) {
+            case 1 :
+                dayName = " (일)";
+                break;
+            case 2 :
+                dayName = " (월)";
+                break;
+            case  3 :
+                dayName = " (화)";
+                break;
+            case 4 :
+                dayName = " (수)";
+                break;
+            case 5 :
+                dayName = " (목)";
+                break;
+            case 6 :
+                dayName = " (금)";
+                break;
+            case 7 :
+                dayName = " (토)";
+                break;
+        }
+        return dayName;
     }
 }

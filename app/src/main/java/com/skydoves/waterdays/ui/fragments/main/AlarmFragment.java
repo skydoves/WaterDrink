@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.skydoves.waterdays.R;
 import com.skydoves.waterdays.WDApplication;
 import com.skydoves.waterdays.events.rx.RxUpdateMainEvent;
-import com.skydoves.waterdays.models.AlarmModel;
+import com.skydoves.waterdays.models.Alarm;
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
 import com.skydoves.waterdays.ui.activities.main.MakeAlarmActivity;
 import com.skydoves.waterdays.ui.adapters.AlarmFragmentAdapter;
@@ -29,7 +29,7 @@ import butterknife.OnClick;
 
 /**
  * Created by skydoves on 2016-10-15.
- * Updated by skydoves on 2017-08-17.
+ * Updated by skydoves on 2017-08-20.
  * Copyright (c) 2017 skydoves rights reserved.
  */
 
@@ -38,9 +38,9 @@ public class AlarmFragment extends Fragment {
     protected @BindView(R.id.recyclerView) RecyclerView recyclerView;
 
     protected @Inject SqliteManager sqliteManager;
+    protected @Inject AlarmUtils alarmUtils;
 
     private View rootView;
-    private AlarmUtils alarmUtils;
     private AlarmFragmentAdapter adapter;
 
     public AlarmFragment() {
@@ -58,7 +58,6 @@ public class AlarmFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        alarmUtils = new AlarmUtils(getContext());
         InitializeUI();
     }
 
@@ -76,7 +75,7 @@ public class AlarmFragment extends Fragment {
                     String endTime = cursor.getString(3);
                     String interval = cursor.getString(4);
                     String sday = DateUtils.getDayNameList(days);
-                    AlarmModel alarmModel = new AlarmModel(requestCode, sday, startTime + " ~ " + endTime, "간격 : " + interval + "시간");
+                    Alarm alarmModel = new Alarm(requestCode, sday, startTime + " ~ " + endTime, "간격 : " + interval + "시간");
                     adapter.addAlarmItem(alarmModel);
                 } while (cursor.moveToPrevious());
             } else

@@ -5,13 +5,13 @@ package com.skydoves.waterdays.models;
  * Copyright (c) 2017 skydoves rights reserved.
  */
 
-public class AlarmModel {
+public class Alarm {
     private int requestCode;
     private String days;
     private String times;
     private String interval;
 
-    public AlarmModel(int requestCode, String days, String times, String interval) {
+    public Alarm(int requestCode, String days, String times, String interval) {
         this.requestCode = requestCode;
         this.days = days;
         this.times = times;

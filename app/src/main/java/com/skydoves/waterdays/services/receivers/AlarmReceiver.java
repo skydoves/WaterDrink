@@ -36,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         GregorianCalendar mCalendar = new GregorianCalendar();
         if (requestCode != -1) {
 
-            int cdate = occurdateint - DateUtils.getDateDay(DateUtils.getFarDay(0), "yyyy-MM-dd");
+            int cdate = occurdateint - DateUtils.getDateDay(DateUtils.getFarDay(0), DateUtils.getDateFormat());
             String[] EndTime = alarmUtils.getEndTime(requestCode).split(",");
             if(cdate < 0)
                 resetAlarm(alarmUtils, requestCode, resetType.BEFORE_HOUR.ordinal());

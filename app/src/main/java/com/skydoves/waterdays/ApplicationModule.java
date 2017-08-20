@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.skydoves.waterdays.persistence.preference.PreferenceManager;
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
+import com.skydoves.waterdays.utils.AlarmUtils;
 
 import javax.inject.Singleton;
 
@@ -34,5 +35,11 @@ public final class ApplicationModule {
     @Singleton
     @NonNull SqliteManager provideSqliteManager() {
         return new SqliteManager(this.application, SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION);
+    }
+
+    @Provides
+    @Singleton
+    @NonNull AlarmUtils provideAlarmUtils() {
+        return new AlarmUtils(this.application);
     }
 }

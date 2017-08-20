@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.skydoves.waterdays.R;
-import com.skydoves.waterdays.models.AlarmModel;
+import com.skydoves.waterdays.models.Alarm;
 import com.skydoves.waterdays.ui.viewholders.AlarmViewHolder;
 import com.skydoves.waterdays.ui.viewholders.BaseViewHolder;
 
@@ -21,11 +21,11 @@ public class AlarmFragmentAdapter extends BaseAdapter {
 
     public AlarmFragmentAdapter(AlarmViewHolder.Delegate delegate) {
         this.delegate = delegate;
-        addSection(new ArrayList<AlarmModel>());
+        addSection(new ArrayList<Alarm>());
         notifyDataSetChanged();
     }
 
-    public void addAlarmItem(AlarmModel alarmModel) {
+    public void addAlarmItem(Alarm alarmModel) {
         sections().get(0).add(alarmModel);
         notifyDataSetChanged();
     }

@@ -21,11 +21,14 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.skydoves.waterdays.R;
+import com.skydoves.waterdays.WDApplication;
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
 import com.skydoves.waterdays.ui.customViews.MyMarkerView;
 import com.skydoves.waterdays.utils.DateUtils;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,12 +42,12 @@ import butterknife.OnClick;
 
 public class ChartFragment extends Fragment implements OnChartValueSelectedListener {
 
+    protected @Inject SqliteManager sqliteManager;
+
     protected @BindView(R.id.chart_mainchart) LineChart lineChart;
 
-    private int dateCount = 0;
-
     private View rootView;
-    private SqliteManager sqliteManager;
+    private int dateCount = 0;
 
     public ChartFragment() {
     }
@@ -52,6 +55,7 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.layout_chart, container, false);
+        WDApplication.getComponent().inject(this);
         ButterKnife.bind(this, rootView);
         this.rootView = rootView;
         return rootView;
@@ -61,20 +65,18 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        sqliteManager = new SqliteManager(getContext(), SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION);
-
         // set dateCount
-        dateCount = -DateUtils.getDateDay(DateUtils.getFarDay(0), "yyyy-MM-dd");
-        Initialize_Chart(DateUtils.getDateDay(DateUtils.getFarDay(0), "yyyy-MM-dd"));
+        dateCount = -DateUtils.getDateDay(DateUtils.getFarDay(0), DateUtils.getDateFormat());
+        initializeChart(DateUtils.getDateDay(DateUtils.getFarDay(0), DateUtils.getDateFormat()));
     }
 
     @OnClick({R.id.chart_ibtn_back, R.id.chart_ibtn_next})
     void DateMoveButton(View v) {
-        int DayNum = DateUtils.getDateDay(DateUtils.getFarDay(0), "yyyy-MM-dd");
+        int DayNum = DateUtils.getDateDay(DateUtils.getFarDay(0), DateUtils.getDateFormat());
         switch (v.getId()){
             case R.id.chart_ibtn_back :
                 dateCount -= 7;
-                Initialize_Chart(6);
+                initializeChart(6);
                 break;
 
             case R.id.chart_ibtn_next :
@@ -83,34 +85,37 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                 else {
                     dateCount += 7;
                     if(dateCount == -DayNum)
-                       Initialize_Chart(DayNum);
+                       initializeChart(DayNum);
                     else
-                       Initialize_Chart(6);
+                       initializeChart(6);
                 }
                 break;
         }
     }
 
-
-    private void Initialize_Chart(int daycount) {
+    /**
+     * initialize chartView
+     * @param dayCount chart
+     */
+    private void initializeChart(int dayCount) {
         float TotalAmount=0, Max=0, sumCount=0;
         ArrayList<Entry> entries = new ArrayList<>();
-        for(int i=0; i<=daycount; i++) {
-            int daysum = sqliteManager.getDayDrinkAmount(DateUtils.getFarDay(dateCount+i));
+        for(int i=0; i<=dayCount; i++) {
+            int daySum = sqliteManager.getDayDrinkAmount(DateUtils.getFarDay(dateCount+i));
 
             // get total sum
-            TotalAmount += daysum;
+            TotalAmount += daySum;
 
             // get max
-            if(i == 0) Max = daysum;
-            else if(Max < daysum) Max = daysum;
+            if(i == 0) Max = daySum;
+            else if(Max < daySum) Max = daySum;
 
             // count
-            if(daysum != 0)
+            if(daySum != 0)
                 sumCount++;
 
             // add entry
-            entries.add(new Entry(daysum, i));
+            entries.add(new Entry(daySum, i));
         }
 
         TextView tv_date = (TextView)rootView.findViewById(R.id.chart_tv_weekdate);
@@ -217,28 +222,8 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
     @Override
     public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
         TextView tv_sdTitle = (TextView)rootView.findViewById(R.id.chart_tv03);
-        String dname = "일요일";
-        switch (e.getXIndex()){
-            case 1 :
-                dname = "월요일";
-                break;
-            case 2 :
-                dname = "화요일";
-                break;
-            case  3 :
-                dname = "수요일";
-                break;
-            case 4 :
-                dname = "목요일";
-                break;
-            case 5 :
-                dname = "금요일";
-                break;
-            case 6 :
-                dname = "토요일";
-                break;
-        }
-        tv_sdTitle.setText(dname);
+        String dName = DateUtils.getIndexOfDayName(e.getXIndex());
+        tv_sdTitle.setText(dName);
 
         TextView tv_selectedday = (TextView)rootView.findViewById(R.id.chart_tv_selectedday);
         tv_selectedday.setText(String.format("%.0f", e.getVal()) + " ml");

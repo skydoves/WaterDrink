@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 
+import com.skydoves.waterdays.WDApplication;
 import com.skydoves.waterdays.consts.IntentExtras;
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
 import com.skydoves.waterdays.services.receivers.AlarmReceiver;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -23,15 +26,15 @@ import timber.log.Timber;
 
 public class AlarmUtils {
 
+    protected @Inject SqliteManager sqliteManager;
+
     private Context mContext;
-
     private AlarmManager mManager;
-    private SqliteManager sqliteManager;
 
-    public AlarmUtils(Context context){
+    public AlarmUtils(Context context) {
         this.mContext = context;
         this.mManager = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
-        this.sqliteManager = new SqliteManager(context, SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION);
+        WDApplication.getComponent().inject(this);
     }
 
     public void setAlarm(int requestcode) {
@@ -57,8 +60,8 @@ public class AlarmUtils {
             boolean check_overday = false;
             String[] mDayList = daylist.split(",");
             for(int i=0; i<mDayList.length ; i++) {
-                if(DateUtils.getDateDay(DateUtils.getFarDay(0), "yyyy-MM-dd") <= Integer.parseInt(mDayList[i])) {
-                    int c_date = Integer.parseInt(mDayList[i]) - DateUtils.getDateDay(DateUtils.getFarDay(0), "yyyy-MM-dd");
+                if(DateUtils.getDateDay(DateUtils.getFarDay(0), DateUtils.getDateFormat()) <= Integer.parseInt(mDayList[i])) {
+                    int c_date = Integer.parseInt(mDayList[i]) - DateUtils.getDateDay(DateUtils.getFarDay(0), DateUtils.getDateFormat());
                     String d_date = DateUtils.getFarDay(c_date);
                     String[] l_date = d_date.split("-");
 
@@ -74,7 +77,7 @@ public class AlarmUtils {
             }
 
             if(!check_overday) {
-                int c_date = 7 - (DateUtils.getDateDay(DateUtils.getFarDay(0), "yyyy-MM-dd")  - Integer.parseInt(mDayList[0]));
+                int c_date = 7 - (DateUtils.getDateDay(DateUtils.getFarDay(0), DateUtils.getDateFormat())  - Integer.parseInt(mDayList[0]));
                 String d_date = DateUtils.getFarDay(c_date);
                 String[] l_date = d_date.split("-");
 

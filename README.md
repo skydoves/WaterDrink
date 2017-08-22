@@ -1,5 +1,6 @@
 # WaterDrink
-This open source project was won 2d at the Seoul mobile patform contest.<br><br>
+Get in the Habit of Drinking Water using this app!<br>
+This open source project was won 2d at the Seoul mobile patform contest.
 
 <a href='https://play.google.com/store/apps/details?id=com.skydoves.waterdays&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://developer.android.com/images/brand/en_generic_rgb_wo_60.png'/></a><br><br>
 ![screenshot00](https://user-images.githubusercontent.com/24237865/29495291-4e64277e-85f7-11e7-9319-ae9f5e49a9b6.png)

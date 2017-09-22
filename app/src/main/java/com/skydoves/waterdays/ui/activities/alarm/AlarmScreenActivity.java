@@ -33,6 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class AlarmScreenActivity extends BaseActivity<AlarmScreenPresenter, AlarmScreenActivityView> implements AlarmScreenActivityView {
 
     protected @BindView(R.id.alarmscreen_fillableLoader) FillableLoader fillableLoader;
+    protected @BindView(R.id.alarmscreen_percentage) TextView tv_percentage;
 
     private static final int showMinutes = 3;
 
@@ -47,7 +48,7 @@ public class AlarmScreenActivity extends BaseActivity<AlarmScreenPresenter, Alar
                 | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 
         Observable.just("")
-                .delay(showMinutes, TimeUnit.MICROSECONDS)
+                .delay(showMinutes, TimeUnit.MINUTES)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(delay -> getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON));
     }
@@ -62,7 +63,6 @@ public class AlarmScreenActivity extends BaseActivity<AlarmScreenPresenter, Alar
         float amount = presenter.getDaliyDrink();
         float goal = Integer.parseInt(presenter.getWaterGoal());
 
-        TextView tv_percentage = (TextView) findViewById(R.id.alarmscreen_percentage);
         if ((amount / goal) * 100 < 100) {
             tv_percentage.setText((int) ((amount / goal) * 100) + "%");
         } else {
@@ -76,12 +76,25 @@ public class AlarmScreenActivity extends BaseActivity<AlarmScreenPresenter, Alar
 
     @Override
     public void onDrink(String value) {
+        float amount = presenter.getDaliyDrink();
+        float goal = Integer.parseInt(presenter.getWaterGoal());
+        fillableLoader.setPercentage((amount / goal) * 100);
+        fillableLoader.reset();
+        fillableLoader.start();
+        if ((amount / goal) * 100 < 100) {
+            tv_percentage.setText((int) ((amount / goal) * 100) + "%");
+        } else {
+            tv_percentage.setText("100%");
+        }
         Toast.makeText(this, value + "ml 만큼 섭취했습니다.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onFinish() {
-        finish();
+        Observable.just("")
+                .delay(2700, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(delay -> finish());
     }
 
     @OnClick(R.id.alarmscreen_btn_check)
@@ -89,5 +102,6 @@ public class AlarmScreenActivity extends BaseActivity<AlarmScreenPresenter, Alar
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(1004);
         presenter.onCheck();
+        v.setEnabled(false);
     }
 }

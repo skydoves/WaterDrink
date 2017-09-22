@@ -1,13 +1,20 @@
 package com.skydoves.waterdays.ui.fragments.main;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,7 +75,44 @@ public class DailyFragment extends Fragment {
         addItems(DateUtils.getFarDay(0));
     }
 
+    /**
+     * daily drink viewHolder delegate
+     */
     private DailyDrinkViewHolder.Delegate delegate = new DailyDrinkViewHolder.Delegate() {
+        @Override
+        public void onClick(View view, Drink drink) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+            alert.setTitle(getString(R.string.title_edit_capacity));
+            final EditText input = new EditText(getContext());
+            input.setInputType(InputType.TYPE_CLASS_NUMBER);
+            input.setRawInputType(Configuration.KEYBOARD_12KEY);
+            alert.setView(input);
+            alert.setPositiveButton(getString(R.string.yes),(DialogInterface dialog, int whichButton) -> {
+                try {
+                    int amount = Integer.parseInt(input.getText().toString());
+                    if(amount > 0 && amount < 3000) {
+                        sqliteManager.updateRecordAmount(drink.getIndex(), amount);
+                        Drink drink_edited = new Drink(drink.getIndex(), amount+"ml", drink.getDate(), ContextCompat.getDrawable(getContext(), CapacityDrawable.getLayout(amount)));
+                        int position = adapter.getPosition(drink);
+                        if(position != -1) {
+                            adapter.updateDrinkItem(position, drink_edited);
+                            RxUpdateMainEvent.getInstance().sendEvent();
+                            Toast.makeText(getContext(), R.string.msg_edited_capacity, Toast.LENGTH_SHORT).show();
+                        }
+                    } else
+                        Toast.makeText(getContext(), R.string.msg_invalid_input, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+
+            alert.setNegativeButton(getString(R.string.no), (DialogInterface dialog, int whichButton) -> {
+            });
+            alert.show();
+            InputMethodManager mgr = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            mgr.showSoftInputFromInputMethod(input.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED);
+        }
+
         @Override
         public void onConfirm(Drink drink) {
             sqliteManager.deleteRecord(drink.getIndex());
@@ -96,6 +140,10 @@ public class DailyFragment extends Fragment {
         }
     }
 
+    /**
+     * add items
+     * @param date now date value
+     */
     private void addItems(String date) {
         TextView tv_todayDate = (TextView)rootView.findViewById(R.id.dailyrecord_tv_todaydate);
         tv_todayDate.setText(date);
@@ -120,14 +168,14 @@ public class DailyFragment extends Fragment {
                 String[] datetime = cursor.getString(1).split(":");
                 mainicon = CapacityDrawable.getLayout(drinkAmount);
 
-                // add ListItem
+                // add listItem
                 Drink drink = new Drink(cursor.getInt(0), Integer.toString(drinkAmount) + "ml", datetime[0] + ":" + datetime[1], ContextCompat.getDrawable(getContext(), mainicon));
                 adapter.addDrinkItem(drink);
             } while (cursor.moveToPrevious());
             cursor.close();
         }
 
-        // if no Cursor Exist
+        // if no cursor exist
         TextView tv_message = (TextView) rootView.findViewById(R.id.dailyrecord_tv_message);
         if(cursor.getCount() == 0)
             tv_message.setVisibility(View.VISIBLE);

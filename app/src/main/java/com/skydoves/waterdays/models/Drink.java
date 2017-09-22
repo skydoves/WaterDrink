@@ -13,7 +13,7 @@ public class Drink {
     private String amount;
     private Drawable image;
 
-    public Drink(int index, String amount, String date, Drawable image){
+    public Drink(int index, String amount, String date, Drawable image) {
         this.index = index;
         this.amount = amount;
         this.date = date;

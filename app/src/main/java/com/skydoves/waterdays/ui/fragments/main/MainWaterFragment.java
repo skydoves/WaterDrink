@@ -2,6 +2,7 @@ package com.skydoves.waterdays.ui.fragments.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -96,6 +97,8 @@ public class MainWaterFragment extends Fragment {
             tv_percentage.setText("100%");
 
         // Initialize fillAbleLoader
+        fillableLoader.setStrokeColor(Color.parseColor("#1c9ade"));
+        fillableLoader.setFillColor(Color.parseColor("#1c9ade"));
         fillableLoader.setSvgPath(FillableLoaderPaths.SVG_WATERDROP);
         fillableLoader.start();
         fillableLoader.setPercentage((dAmount / dGoal) * 100);

@@ -89,6 +89,12 @@ public class SqliteManager extends SQLiteOpenHelper {
         Timber.d("SUCCESS Record Deleted : " + index);
     }
 
+    public void updateRecordAmount(int index, int amount) {
+        String query_updateAmount = "Update " + TABLE_RECORD + " set amount = '" + amount + "' Where pk_recordid = '" + index + "'";
+        getWritableDatabase().execSQL(query_updateAmount);
+        Timber.d("SUCCESS Record Updated : " + amount);
+    }
+
     public int getDayDrinkAmount(String datetime) {
         int TotalAmount = 0;
         Cursor cursor = getReadableDatabase().rawQuery("select * from " + TABLE_RECORD + " where recorddate >= datetime(date('"+datetime+"','localtime')) " +

@@ -30,6 +30,7 @@ public class DailyDrinkViewHolder extends BaseViewHolder {
     private Delegate delegate;
 
     public interface Delegate {
+        void onClick(View view, Drink drink);
         void onConfirm(Drink drink);
     }
 
@@ -49,12 +50,12 @@ public class DailyDrinkViewHolder extends BaseViewHolder {
             AlertDialog.Builder alertDlg = new AlertDialog.Builder(view.getContext());
             alertDlg.setTitle("알람");
 
-            // Yes - delete
+            // yes - delete
             alertDlg.setPositiveButton("예", (DialogInterface dialog, int which) -> {
                 delegate.onConfirm(drink);
             });
 
-            // No - cancel
+            // no - cancel
             alertDlg.setNegativeButton("아니오", (DialogInterface dialog, int which) -> dialog.dismiss());
             alertDlg.setMessage(String.format("해당 기록을 지우시겠습니까?"));
             alertDlg.show();
@@ -63,7 +64,7 @@ public class DailyDrinkViewHolder extends BaseViewHolder {
 
     @Override
     public void onClick(View v) {
-
+        delegate.onClick(this.view(), drink);
     }
 
     @Override

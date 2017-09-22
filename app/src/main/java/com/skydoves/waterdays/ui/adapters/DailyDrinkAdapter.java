@@ -31,6 +31,16 @@ public class DailyDrinkAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void updateDrinkItem(int position, Drink drink) {
+        sections().get(0).set(position, drink);
+        notifyDataSetChanged();
+        // notifyItemInserted(position);
+    }
+
+    public int getPosition(Drink drink) {
+        return sections().get(0).indexOf(drink);
+    }
+
     public void remove(Drink drink) {
         sections().get(0).remove(drink);
         notifyDataSetChanged();

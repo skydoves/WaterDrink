@@ -65,4 +65,9 @@ public class DailyDrinkViewHolder extends BaseViewHolder {
     public void onClick(View v) {
 
     }
+
+    @Override
+    public boolean onLongClick(View v) {
+        return false;
+    }
 }

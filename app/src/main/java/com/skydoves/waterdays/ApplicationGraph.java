@@ -3,6 +3,7 @@ package com.skydoves.waterdays;
 import com.skydoves.waterdays.presenters.AlarmScreenPresenter;
 import com.skydoves.waterdays.presenters.MainPresenter;
 import com.skydoves.waterdays.presenters.MakeAlarmPresenter;
+import com.skydoves.waterdays.presenters.SelectDrinkPresenter;
 import com.skydoves.waterdays.presenters.SetGoalPresenter;
 import com.skydoves.waterdays.presenters.SetLocalPresenter;
 import com.skydoves.waterdays.ui.activities.intro.StartActivity;
@@ -29,4 +30,5 @@ public interface ApplicationGraph {
     void inject(ChartFragment __);
     void inject(MainWaterFragment __);
     void inject(DailyFragment __);
+    void inject(SelectDrinkPresenter __);
 }

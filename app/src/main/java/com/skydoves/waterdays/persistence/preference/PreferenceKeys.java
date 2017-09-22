@@ -9,6 +9,7 @@ import android.util.Pair;
 
 public class PreferenceKeys {
     public static final Pair<String, Boolean> NEWBE = new Pair<>("NEWBE", true);
+    public static final Pair<String, Boolean> INIT_CAPACITY = new Pair<>("INIT_CAPACITY", false);
     public static final Pair<String, String> WATER_GOAL = new Pair<>("WaterGoal", "2000");
     public static final Pair<String, Integer> LOCALINDEX = new Pair<>("localIndex", 0);
     public static final Pair<String, String> CUP_CAPICITY = new Pair<>("MyCup", "0");

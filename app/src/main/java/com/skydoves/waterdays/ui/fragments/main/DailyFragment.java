@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.skydoves.waterdays.R;
 import com.skydoves.waterdays.WDApplication;
+import com.skydoves.waterdays.consts.CapacityDrawable;
 import com.skydoves.waterdays.events.rx.RxUpdateMainEvent;
 import com.skydoves.waterdays.models.Drink;
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
@@ -117,20 +118,7 @@ public class DailyFragment extends Fragment {
                 int drinkAmount = cursor.getInt(2);
                 int mainicon;
                 String[] datetime = cursor.getString(1).split(":");
-
-                // set mainIcon Image
-                if(drinkAmount < 250)
-                    mainicon = R.drawable.ic_glass0;
-                else if(drinkAmount < 330)
-                    mainicon = R.drawable.ic_glass01;
-                else if(drinkAmount < 500)
-                    mainicon = R.drawable.ic_glass06;
-                else if(drinkAmount < 750)
-                    mainicon = R.drawable.ic_glass05;
-                else if(drinkAmount < 1000)
-                    mainicon = R.drawable.ic_glass07;
-                else
-                    mainicon = R.drawable.ic_glass04;
+                mainicon = CapacityDrawable.getLayout(drinkAmount);
 
                 // add ListItem
                 Drink drink = new Drink(cursor.getInt(0), Integer.toString(drinkAmount) + "ml", datetime[0] + ":" + datetime[1], ContextCompat.getDrawable(getContext(), mainicon));

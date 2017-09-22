@@ -1,224 +1,152 @@
 package com.skydoves.waterdays.ui.activities.main;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorListener;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.GestureDetector;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
+import android.text.InputType;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.CycleInterpolator;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.github.skydoves.ElasticAction;
 import com.skydoves.waterdays.R;
-import com.skydoves.waterdays.events.rx.RxUpdateMainEvent;
-import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
+import com.skydoves.waterdays.compose.BaseActivity;
+import com.skydoves.waterdays.compose.qualifiers.RequirePresenter;
+import com.skydoves.waterdays.consts.CapacityDrawable;
+import com.skydoves.waterdays.models.Capacity;
+import com.skydoves.waterdays.presenters.SelectDrinkPresenter;
+import com.skydoves.waterdays.ui.adapters.SelectDrinkAdapter;
+import com.skydoves.waterdays.ui.viewholders.SelectDrinkViewHolder;
+import com.skydoves.waterdays.viewTypes.SelectDrinkActivityView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * Created by skydoves on 2016-10-15.
- * Updated by skydoves on 2017-08-17.
+ * Updated by skydoves on 2017-09-22.
  * Copyright (c) 2017 skydoves rights reserved.
  */
 
-public class SelectDrinkActivity extends AppCompatActivity {
+@RequirePresenter(SelectDrinkPresenter.class)
+public class SelectDrinkActivity extends BaseActivity<SelectDrinkPresenter, SelectDrinkActivityView> implements SelectDrinkActivityView {
 
     protected @BindView(R.id.selectdrink_rcyv) RecyclerView recyclerView;
 
-    private SqliteManager sqliteManager;
-
-    private ArrayList<Item> items;
+    private SelectDrinkAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_drink);
-        ButterKnife.bind(this);
+        initBaseView(this);
+    }
 
-        sqliteManager = new SqliteManager(this, SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION);
+    @Override
+    protected void initBaseView(SelectDrinkActivityView selectDrinkActivityView) {
+        super.initBaseView(selectDrinkActivityView);
+    }
 
-        // Add Items
-        items = new ArrayList<>();
-        items.add(new Item(R.drawable.ic_glass0, "125ml"));
-        items.add(new Item(R.drawable.ic_glass01, "250ml"));
-        items.add(new Item(R.drawable.ic_glass06, "330ml"));
-        items.add(new Item(R.drawable.ic_glass05, "500ml"));
-        items.add(new Item(R.drawable.ic_glass07, "750ml"));
-        items.add(new Item(R.drawable.ic_glass04, "1000ml"));
-
-        // Set RecyclerView
-        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter adapter = new MyAdpater(items, this);
+    @Override
+    public void initializeUI() {
+        adapter = new SelectDrinkAdapter(delegate);
         recyclerView.setAdapter(adapter);
 
-        // RecyclerView Item TouchListener
-        recyclerView.addOnItemTouchListener(new RecyclerViewOnItemClickListener(getApplicationContext(), recyclerView,
-                new RecyclerViewOnItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View v, final int position) {
-                        ViewCompat.animate(v)
-                                .setDuration(200)
-                                .scaleX(0.9f)
-                                .scaleY(0.9f)
-                                .setInterpolator(new CycleInterpolator(0.5f))
-                                .setListener(new ViewPropertyAnimatorListener() {
+        List<Capacity> capacities = presenter.getCapacityItemList();
+        if(capacities != null) {
+            for(Capacity capacity : capacities) {
+                int amount = capacity.getAmount();
+                Drawable drawable = ContextCompat.getDrawable(getBaseContext(), CapacityDrawable.getLayout(amount));
+                adapter.addCapacityItem(new Capacity(drawable, amount));
+            }
 
-                                    @Override
-                                    public void onAnimationStart(final View view) {
-                                    }
-
-                                    @Override
-                                    public void onAnimationEnd(final View v) {
-                                        // add a record
-                                        sqliteManager.addRecord(items.get(position).getImagetitle());
-                                        // Notify Data Change
-                                        RxUpdateMainEvent.getInstance().updateBadge();
-                                        finish();
-                                    }
-
-                                    @Override
-                                    public void onAnimationCancel(final View view) {
-
-                                    }
-                                })
-                                .withLayer()
-                                .start();
-                    }
-
-                    @Override
-                    public void onItemLongClick(View v, int position) {
-
-                    }
-                }
-        ));
+            if(capacities.size() == 0)
+                Toast.makeText(getBaseContext(), R.string.msg_require_capacity, Toast.LENGTH_SHORT).show();
+        }
     }
 
+    /**
+     * recyclerView onTouch listeners delegate
+     */
+    SelectDrinkViewHolder.Delegate delegate = new SelectDrinkViewHolder.Delegate() {
+        @Override
+        public void onClick(View view, Capacity capacity) {
+            int duration = 200;
+            ElasticAction.doAction(view, duration, 0.9f, 0.9f);
 
-    /*===================================================
-                  RecyclerView & ViewHolder
-     ===================================================*/
-    //region
-    // RecyclerView OnClickListener
-    public static class RecyclerViewOnItemClickListener extends RecyclerView.SimpleOnItemTouchListener {
-        private OnItemClickListener mListener;
-        private GestureDetector mGestureDetector;
+            new Handler().postDelayed(() -> {
+                presenter.addRecrodItem(capacity.getAmount());
+                finish();
+            }, duration);
+        }
 
-        public RecyclerViewOnItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
-            this.mListener = listener;
-            mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onSingleTapUp(MotionEvent e) {
-                    return true;
-                }
+        @Override
+        public void onLongClick(View view, Capacity capacity) {
+            AlertDialog.Builder alertDlg = new AlertDialog.Builder(view.getContext());
+            alertDlg.setTitle(getString(R.string.title_alert));
 
-                @Override
-                public void onLongPress(MotionEvent e) {
-                    View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
-                    if(childView != null && mListener != null){
-                        mListener.onItemLongClick(childView, recyclerView.getChildAdapterPosition(childView));
-                    }
-                }
+            // yes - delete
+            alertDlg.setPositiveButton(getString(R.string.yes), (DialogInterface dialog, int which) -> {
+                presenter.deleteCapacity(capacity);
+                adapter.removeDrinkItem(capacity);
+                Toast.makeText(getBaseContext(), capacity.getAmount() + "ml " + getString(R.string.msg_delete_capacity), Toast.LENGTH_SHORT).show();
             });
 
+            // no - cancel
+            alertDlg.setNegativeButton(getString(R.string.no), (DialogInterface dialog, int which) -> dialog.dismiss());
+            alertDlg.setMessage(String.format(getString(R.string.msg_ask_remove_capacity)));
+            alertDlg.show();
         }
+    };
 
-        @Override
-        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-            View child = rv.findChildViewUnder(e.getX(), e.getY());
-            if (child != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
-                mListener.onItemClick(child, rv.getChildAdapterPosition(child));
-                return true;
+    @OnClick(R.id.icon_question)
+    void iconQuestion(View v) {
+        Snackbar.make(v, getString(R.string.msg_press_long), Snackbar.LENGTH_LONG).setActionTextColor(Color.WHITE).show();
+    }
+
+    @OnClick(R.id.selectdrink_btn_add)
+    void addCapacity(View v) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(getString(R.string.title_add_capacity));
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setRawInputType(Configuration.KEYBOARD_12KEY);
+        alert.setView(input);
+        alert.setPositiveButton(getString(R.string.yes),(DialogInterface dialog, int whichButton) -> {
+            try {
+                int amount = Integer.parseInt(input.getText().toString());
+                if(amount > 0 && amount < 3000) {
+                    Capacity capacity = new Capacity(ContextCompat.getDrawable(getBaseContext(), CapacityDrawable.getLayout(amount)), amount);
+                    presenter.addCapacity(capacity);
+                    adapter.addCapacityItem(capacity);
+                } else
+                    Toast.makeText(getBaseContext(), R.string.msg_invalid_input, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            return false;
-        }
+        });
 
-        public interface OnItemClickListener {
-            void onItemClick(View v, int position);
-            void onItemLongClick(View v, int position);
-        }
+        alert.setNegativeButton(getString(R.string.no), (DialogInterface dialog, int whichButton) -> {
+
+        });
+        alert.show();
+        InputMethodManager mgr = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.showSoftInputFromInputMethod(input.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED);
     }
 
-    // RecyclerView Adapter
-    class MyAdpater extends RecyclerView.Adapter<MyAdpater.ViewHolder> {
-        private Context context;
-        private ArrayList<Item> mItems;
-
-        public MyAdpater(ArrayList<Item> items, Context mContext)
-        {
-            mItems = items;
-            context = mContext;
-        }
-
-        // onCreate ViewHolder
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_selectdrink,parent,false);
-            ViewHolder holder = new ViewHolder(v);
-            return holder;
-        }
-
-        // Bind ViewHolder
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.imageView.setImageResource(mItems.get(position).image);
-            holder.textView.setText(mItems.get(position).imagetitle);
-        }
-
-        // getItem Count
-        @Override
-        public int getItemCount() {
-            return mItems.size();
-        }
-
-        // ViewHolder
-        public class ViewHolder  extends RecyclerView.ViewHolder {
-            public ImageView imageView;
-            public TextView textView;
-
-            public ViewHolder(View view) {
-                super(view);
-                imageView = (ImageView) view.findViewById(R.id.item_selectdrink_img);
-                textView = (TextView) view.findViewById(R.id.item_selectdrink_tv);
-            }
-        }
-    }
-
-    // Item Object
-    public class Item {
-        int image;
-        String imagetitle;
-
-        public int getImage() {
-            return image;
-        }
-
-        public String getImagetitle() {
-            return imagetitle;
-        }
-
-        public Item(int image, String imagetitle) {
-            this.image = image;
-            this.imagetitle = imagetitle;
-        }
-    }
-    //endregion
-
-    // Button Click : Close
     @OnClick(R.id.selectdrink_btn_close)
-    void Click_Close(View v)
-    {
+    void Click_Close(View v) {
         finish();
     }
 }

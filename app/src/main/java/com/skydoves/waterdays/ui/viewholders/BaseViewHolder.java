@@ -18,7 +18,7 @@ import butterknife.Unbinder;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-public abstract class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ActivityLifeCycleType {
+public abstract class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, ActivityLifeCycleType {
 
     private final View view;
     private final @NonNull PublishSubject<ActivityEvent> lifecycle = PublishSubject.create();
@@ -30,6 +30,7 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder implements 
         unbinder = ButterKnife.bind(this, view);
 
         view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
     }
 
     /**

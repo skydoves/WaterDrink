@@ -9,8 +9,10 @@ import com.github.paolorotolo.appintro.AppIntro;
 import com.skydoves.waterdays.R;
 import com.skydoves.waterdays.WDApplication;
 import com.skydoves.waterdays.compose.BaseView;
+import com.skydoves.waterdays.models.Capacity;
 import com.skydoves.waterdays.persistence.preference.PreferenceKeys;
 import com.skydoves.waterdays.persistence.preference.PreferenceManager;
+import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
 import com.skydoves.waterdays.ui.activities.main.MainActivity;
 import com.skydoves.waterdays.ui.activities.settings.SetWeightActivity;
 import com.skydoves.waterdays.ui.fragments.intro.SlideFragment;
@@ -25,6 +27,7 @@ import javax.inject.Inject;
 public class StartActivity extends AppIntro implements BaseView {
 
     protected @Inject PreferenceManager preferenceManager;
+    protected @Inject SqliteManager sqliteManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,17 @@ public class StartActivity extends AppIntro implements BaseView {
         if(!preferenceManager.getBoolean(PreferenceKeys.NEWBE.first, PreferenceKeys.NEWBE.second)) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
+            return;
+        }
+
+        if(!preferenceManager.getBoolean(PreferenceKeys.INIT_CAPACITY.first, PreferenceKeys.INIT_CAPACITY.second)) {
+            sqliteManager.addCapacity(new Capacity(null, 125));
+            sqliteManager.addCapacity(new Capacity(null, 250));
+            sqliteManager.addCapacity(new Capacity(null, 350));
+            sqliteManager.addCapacity(new Capacity(null, 500));
+            sqliteManager.addCapacity(new Capacity(null, 750));
+            sqliteManager.addCapacity(new Capacity(null, 1000));
+            preferenceManager.putBoolean(PreferenceKeys.INIT_CAPACITY.first, true);
         }
 
         initializeUI();

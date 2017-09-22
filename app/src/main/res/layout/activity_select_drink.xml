@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
@@ -9,41 +11,57 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
+        android:id="@+id/tv_drink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="섭취용량 선택"
-        android:id="@+id/textView2"
         android:textStyle="bold"
-        android:layout_marginLeft="20dp"
         android:layout_centerHorizontal="true"
         android:textColor="#000000" />
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView"
-        android:layout_below="@+id/textView2"
+    <com.github.skydoves.ElasticImageView
+        android:id="@+id/icon_question"
+        android:layout_width="26dp"
+        android:layout_height="18dp"
+        android:scaleType="fitEnd"
+        android:src="@drawable/ic_question"
+        android:background="@android:color/transparent"
+        android:layout_alignParentEnd="true"
+        android:tint="#3d95c9"
+        app:imageview_scale="0.9"
+        app:imageview_duration="200" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/selectdrink_rcyv"
+        android:layout_width="fill_parent"
+        android:layout_height="250dp"
+        android:layout_below="@+id/tv_drink"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp">
+        android:layout_margin="20dp"
+        android:scrollbars="vertical"
+        app:layoutManager="GridLayoutManager"
+        app:spanCount="3"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/selectdrink_rcyv"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:layout_centerHorizontal="true" />
-
-    </ScrollView>
+    <Button
+        android:id="@+id/selectdrink_btn_add"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="용량추가"
+        android:layout_below="@+id/selectdrink_rcyv"
+        android:layout_centerHorizontal="true"
+        android:background="#1c9ade"
+        android:textColor="#ffffff" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="닫기"
         android:id="@+id/selectdrink_btn_close"
-        android:layout_below="@+id/scrollView"
+        android:layout_below="@+id/selectdrink_btn_add"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="#1c9ade"
         android:textColor="#ffffff" />
 

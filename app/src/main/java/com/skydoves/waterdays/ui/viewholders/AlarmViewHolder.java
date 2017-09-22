@@ -57,4 +57,9 @@ public class AlarmViewHolder extends BaseViewHolder {
     @Override
     public void onClick(View v) {
     }
+
+    @Override
+    public boolean onLongClick(View v) {
+        return false;
+    }
 }

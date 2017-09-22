@@ -16,7 +16,7 @@ public class Drink {
     public Drink(int index, String amount, String date, Drawable image){
         this.index = index;
         this.amount = amount;
-        this.date=date;
+        this.date = date;
         this.image = image;
     }
 

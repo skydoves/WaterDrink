@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="6">
+    android:weightSum="7">
 
     <TextView
         android:id="@+id/settings_tv_nfc"
@@ -81,15 +81,30 @@
         android:textColor="#cbc8d2" />
 
     <TextView
+        android:id="@+id/settings_tv_setColor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_round_rect"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="물방울 색상 설정"
+        android:textColor="#cbc8d2"
+        android:textSize="18sp" />
+
+    <TextView
         android:id="@+id/settings_tv_setting"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_margin="10dp"
+        android:layout_weight="1"
         android:background="@drawable/bg_round_rect"
         android:gravity="center"
         android:text="환경 설정"
-        android:textSize="18sp"
-        android:textColor="#cbc8d2" />
+        android:textColor="#cbc8d2"
+        android:textSize="18sp" />
 
 </LinearLayout>

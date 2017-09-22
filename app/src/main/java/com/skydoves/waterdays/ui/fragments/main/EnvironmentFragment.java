@@ -7,10 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.skydoves.ElasticAction;
 import com.skydoves.waterdays.R;
 import com.skydoves.waterdays.ui.activities.settings.NFCActivity;
+import com.skydoves.waterdays.ui.activities.settings.SetBubbleColorActivity;
 import com.skydoves.waterdays.ui.activities.settings.SetGoalActivity;
 import com.skydoves.waterdays.ui.activities.settings.SetLocalActivity;
 import com.skydoves.waterdays.ui.activities.settings.SetMyCupActivity;
@@ -43,7 +45,7 @@ public class EnvironmentFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    @OnClick({R.id.settings_tv_nfc, R.id.settings_tv_recommend, R.id.settings_tv_goal, R.id.settings_tv_mycup, R.id.settings_tv_setlocation, R.id.settings_tv_setting})
+    @OnClick({R.id.settings_tv_nfc, R.id.settings_tv_recommend, R.id.settings_tv_goal, R.id.settings_tv_mycup, R.id.settings_tv_setlocation, R.id.settings_tv_setColor, R.id.settings_tv_setting})
     void MenuClick(View v) {
         int duration = 200;
         ElasticAction.doAction(v, duration, 0.9f, 0.9f);
@@ -74,9 +76,13 @@ public class EnvironmentFragment extends Fragment {
                     startActivity(intent4);
                     break;
 
+                case R.id.settings_tv_setColor :
+                    startActivity(new Intent(getContext(), SetBubbleColorActivity.class));
+                    break;
+
                 case R.id.settings_tv_setting :
-                    Intent intent5 = new Intent(getContext(), SettingActivity.class);
-                    startActivity(intent5);
+                    Intent intent6 = new Intent(getContext(), SettingActivity.class);
+                    startActivity(intent6);
                     break;
             }
         }, duration);

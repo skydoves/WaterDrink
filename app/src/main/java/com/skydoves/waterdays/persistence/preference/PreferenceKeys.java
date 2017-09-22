@@ -14,4 +14,5 @@ public class PreferenceKeys {
     public static final Pair<String, Integer> LOCALINDEX = new Pair<>("localIndex", 0);
     public static final Pair<String, String> CUP_CAPICITY = new Pair<>("MyCup", "0");
     public static final Pair<String, Boolean> ALARM_WEAHTER = new Pair<>("setWeatherAlarm", false);
+    public static final Pair<String, String> BUBBLE_COLOR = new Pair<>("BUBBLE_COLOR", "#1c9ade");
 }

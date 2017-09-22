@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_drinkamount"
     android:layout_width="match_parent"
@@ -33,6 +33,7 @@
 
         <!-- Body Layout -->
         <RelativeLayout
+            android:id="@+id/layout_body"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2.5">
@@ -118,21 +119,6 @@
                 android:layout_toEndOf="@+id/drinkamount_tv_rh"
                 app:imageview_duration="200"
                 app:imageview_scale="0.9"/>
-
-            <com.github.jorgecastillo.FillableLoader
-                android:id="@+id/drinkamount_fillableLoader"
-                android:layout_width="220dp"
-                android:layout_height="305dp"
-                app:fl_fillColor="#1c9ade"
-                app:fl_strokeColor="#1c9ade"
-                app:fl_strokeDrawingDuration="0"
-                app:fl_fillDuration="3000"
-                app:fl_originalWidth="290"
-                app:fl_originalHeight="425"
-                app:fl_clippingTransform="waves"
-                android:layout_gravity="center"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
 
             <TextView
                 android:id="@+id/drinkamount_percentage"
@@ -248,4 +234,4 @@
 
         </RelativeLayout>
     </LinearLayout>
-</FrameLayout>
+</RelativeLayout>

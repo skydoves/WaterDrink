@@ -7,6 +7,7 @@ import com.skydoves.waterdays.presenters.SelectDrinkPresenter;
 import com.skydoves.waterdays.presenters.SetGoalPresenter;
 import com.skydoves.waterdays.presenters.SetLocalPresenter;
 import com.skydoves.waterdays.ui.activities.intro.StartActivity;
+import com.skydoves.waterdays.ui.activities.settings.SetBubbleColorActivity;
 import com.skydoves.waterdays.ui.fragments.main.AlarmFragment;
 import com.skydoves.waterdays.ui.fragments.main.ChartFragment;
 import com.skydoves.waterdays.ui.fragments.main.DailyFragment;
@@ -31,4 +32,5 @@ public interface ApplicationGraph {
     void inject(MainWaterFragment __);
     void inject(DailyFragment __);
     void inject(SelectDrinkPresenter __);
+    void inject(SetBubbleColorActivity __);
 }

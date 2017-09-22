@@ -4,16 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.jorgecastillo.FillableLoader;
+import com.github.jorgecastillo.FillableLoaderBuilder;
+import com.github.jorgecastillo.clippingtransforms.WavesClippingTransform;
 import com.skydoves.waterdays.R;
 import com.skydoves.waterdays.WDApplication;
+import com.skydoves.waterdays.persistence.preference.PreferenceKeys;
 import com.skydoves.waterdays.persistence.preference.PreferenceManager;
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
 import com.skydoves.waterdays.services.receivers.LocalWeather;
@@ -26,7 +32,6 @@ import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -40,8 +45,6 @@ public class MainWaterFragment extends Fragment {
 
     protected @Inject PreferenceManager preferenceManager;
     protected @Inject SqliteManager sqliteManager;
-
-    protected @BindView(R.id.drinkamount_fillableLoader) FillableLoader fillableLoader;
 
     private View rootView;
     private Context mContext;
@@ -62,6 +65,11 @@ public class MainWaterFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         InitializeUI();
     }
 
@@ -96,12 +104,30 @@ public class MainWaterFragment extends Fragment {
         else
             tv_percentage.setText("100%");
 
-        // Initialize fillAbleLoader
-        fillableLoader.setStrokeColor(Color.parseColor("#1c9ade"));
-        fillableLoader.setFillColor(Color.parseColor("#1c9ade"));
+        int viewSize = getResources().getDimensionPixelSize(R.dimen.fourthSampleViewSize);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(viewSize, viewSize);
+        params.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 220, getResources().getDisplayMetrics());
+        params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 305, getResources().getDisplayMetrics());
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+
+        RelativeLayout frameLayout = (RelativeLayout) rootView.findViewById(R.id.layout_body);
+        FillableLoaderBuilder loaderBuilder = new FillableLoaderBuilder();
+        FillableLoader fillableLoader = loaderBuilder.parentView(frameLayout)
+                .svgPath(FillableLoaderPaths.SVG_WATERDROP)
+                .layoutParams(params)
+                .originalDimensions(290, 425)
+                .fillColor(Color.parseColor(preferenceManager.getString(PreferenceKeys.BUBBLE_COLOR.first, PreferenceKeys.BUBBLE_COLOR.second)))
+                .strokeColor(Color.parseColor(preferenceManager.getString(PreferenceKeys.BUBBLE_COLOR.first, PreferenceKeys.BUBBLE_COLOR.second)))
+                .strokeDrawingDuration(0)
+                .clippingTransform(new WavesClippingTransform())
+                .fillDuration(3000)
+                .build();
+
         fillableLoader.setSvgPath(FillableLoaderPaths.SVG_WATERDROP);
+        fillableLoader.setFillColor(Color.WHITE);
+        fillableLoader.setPercentage((int) ((dAmount / dGoal) * 100));
         fillableLoader.start();
-        fillableLoader.setPercentage((dAmount / dGoal) * 100);
+        tv_percentage.bringToFront();
     }
 
     @OnClick(R.id.drinkamount_refresh)

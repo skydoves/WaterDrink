@@ -9,13 +9,15 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
 
     <application
+        android:name=".WDApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
-        android:name=".WDApplication"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
@@ -29,7 +31,9 @@
         <activity android:name=".ui.activities.main.MainActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="waterdays_nfc/*" />
             </intent-filter>
         </activity>
@@ -58,7 +62,8 @@
         </receiver>
 
         <activity android:name=".ui.activities.settings.SetMyCupActivity" />
-        <activity android:name=".ui.activities.alarm.AlarmScreenActivity"/>
+        <activity android:name=".ui.activities.alarm.AlarmScreenActivity" />
+        <activity android:name=".ui.activities.settings.SetBubbleColorActivity"/>
     </application>
 
 </manifest>

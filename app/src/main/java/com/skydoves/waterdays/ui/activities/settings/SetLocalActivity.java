@@ -3,10 +3,10 @@ package com.skydoves.waterdays.ui.activities.settings;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.skydoves.waterdays.R;
 import com.skydoves.waterdays.compose.BaseActivity;
 import com.skydoves.waterdays.compose.qualifiers.RequirePresenter;
@@ -15,7 +15,7 @@ import com.skydoves.waterdays.presenters.SetLocalPresenter;
 import com.skydoves.waterdays.viewTypes.SetLocalActivityView;
 
 import butterknife.BindView;
-import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by skydoves on 2016-10-15.
@@ -35,6 +35,14 @@ public class SetLocalActivity extends BaseActivity<SetLocalPresenter, SetLocalAc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_local);
         initBaseView(this);
+
+        RxView.clicks(findViewById(R.id.setlocal_btn_setlocal))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e -> setLocal());
+
+        RxView.clicks(findViewById(R.id.setlocal_btn_changelocal))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e -> selectDialogOption());
     }
 
     @Override
@@ -47,13 +55,7 @@ public class SetLocalActivity extends BaseActivity<SetLocalPresenter, SetLocalAc
         location.setText(LocalNames.getLocalName(presenter.getLocalIndex()));
     }
 
-    @OnClick(R.id.setlocal_btn_changelocal)
-    public void btn_selectLocal(View v) {
-        selectDialogOption();
-    }
-
-    @OnClick(R.id.setlocal_btn_setlocal)
-    public void btn_setLocal(View v) {
+    private void setLocal() {
         if(this.index != -1) {
             presenter.setLocalIndex(this.index);
             Toast.makeText(this, "지역이 변경되었습니다.", Toast.LENGTH_SHORT).show();

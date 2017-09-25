@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.skydoves.ElasticAction;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.skydoves.waterdays.R;
 import com.skydoves.waterdays.compose.BaseActivity;
 import com.skydoves.waterdays.compose.qualifiers.RequirePresenter;
@@ -31,7 +32,7 @@ import com.skydoves.waterdays.viewTypes.SelectDrinkActivityView;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by skydoves on 2016-10-15.
@@ -51,6 +52,19 @@ public class SelectDrinkActivity extends BaseActivity<SelectDrinkPresenter, Sele
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_drink);
         initBaseView(this);
+
+        RxView.clicks(findViewById(R.id.selectdrink_btn_add))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e -> addCapacity());
+
+        View view = findViewById(R.id.icon_question);
+        RxView.clicks(view)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e -> Snackbar.make(view, getString(R.string.msg_press_long), Snackbar.LENGTH_LONG).setActionTextColor(Color.WHITE).show());
+
+        RxView.clicks(findViewById(R.id.selectdrink_btn_close))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e -> finish());
     }
 
     @Override
@@ -110,13 +124,10 @@ public class SelectDrinkActivity extends BaseActivity<SelectDrinkPresenter, Sele
         }
     };
 
-    @OnClick(R.id.icon_question)
-    void iconQuestion(View v) {
-        Snackbar.make(v, getString(R.string.msg_press_long), Snackbar.LENGTH_LONG).setActionTextColor(Color.WHITE).show();
-    }
-
-    @OnClick(R.id.selectdrink_btn_add)
-    void addCapacity(View v) {
+    /**
+     * add a new water capacity cup
+     */
+    private void addCapacity() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(getString(R.string.title_add_capacity));
         final EditText input = new EditText(this);
@@ -143,10 +154,5 @@ public class SelectDrinkActivity extends BaseActivity<SelectDrinkPresenter, Sele
         alert.show();
         InputMethodManager mgr = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.showSoftInputFromInputMethod(input.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED);
-    }
-
-    @OnClick(R.id.selectdrink_btn_close)
-    void Click_Close(View v) {
-        finish();
     }
 }

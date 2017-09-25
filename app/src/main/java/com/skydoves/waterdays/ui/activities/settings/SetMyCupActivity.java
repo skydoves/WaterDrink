@@ -41,8 +41,7 @@ public class SetMyCupActivity extends AppCompatActivity {
             preferenceManager.putString("MyCup", edt_myCup.getText().toString());
             Toast.makeText(this, "내 컵의 용량이 설정되었습니다.", Toast.LENGTH_SHORT).show();
             finish();
-        }
-        else
+        } else
             Toast.makeText(this, "올바른 용량을 입력해주세요.", Toast.LENGTH_SHORT).show();
     }
 }

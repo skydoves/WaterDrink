@@ -3,12 +3,12 @@ package com.skydoves.waterdays.ui.activities.alarm;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.jorgecastillo.FillableLoader;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.skydoves.waterdays.R;
 import com.skydoves.waterdays.compose.BaseActivity;
 import com.skydoves.waterdays.compose.qualifiers.RequirePresenter;
@@ -19,7 +19,6 @@ import com.skydoves.waterdays.viewTypes.AlarmScreenActivityView;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -51,6 +50,15 @@ public class AlarmScreenActivity extends BaseActivity<AlarmScreenPresenter, Alar
                 .delay(showMinutes, TimeUnit.MINUTES)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(delay -> getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON));
+
+        RxView.clicks(findViewById(R.id.alarmscreen_btn_check))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e -> {
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.cancel(1004);
+                    presenter.onCheck();
+                    (findViewById(R.id.alarmscreen_btn_check)).setEnabled(false);
+                });
     }
 
     @Override
@@ -95,13 +103,5 @@ public class AlarmScreenActivity extends BaseActivity<AlarmScreenPresenter, Alar
                 .delay(2700, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(delay -> finish());
-    }
-
-    @OnClick(R.id.alarmscreen_btn_check)
-    public void onCheck(View v){
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(1004);
-        presenter.onCheck();
-        v.setEnabled(false);
     }
 }

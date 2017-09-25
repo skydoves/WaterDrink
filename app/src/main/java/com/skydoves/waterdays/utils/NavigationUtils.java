@@ -3,6 +3,7 @@ package com.skydoves.waterdays.utils;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 import com.skydoves.waterdays.R;
@@ -59,5 +60,24 @@ public class NavigationUtils {
                         .build()
         );
         return models;
+    }
+
+    public static void setComponents(Context context, ViewPager viewPager, NavigationTabBar navigationTabBar) {
+        navigationTabBar.setModels(NavigationUtils.getNavigationModels(context));
+        navigationTabBar.setViewPager(viewPager, 2);
+        navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(final int position) {
+                navigationTabBar.getModels().get(position).hideBadge();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(final int state) {
+            }
+        });
     }
 }

@@ -12,7 +12,6 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
-import android.widget.Toast;
 
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 import com.skydoves.waterdays.R;
@@ -20,21 +19,16 @@ import com.skydoves.waterdays.compose.BaseActivity;
 import com.skydoves.waterdays.compose.qualifiers.RequirePresenter;
 import com.skydoves.waterdays.consts.IntentExtras;
 import com.skydoves.waterdays.events.rx.RxUpdateMainEvent;
-import com.skydoves.waterdays.persistence.preference.PreferenceKeys;
-import com.skydoves.waterdays.persistence.preference.PreferenceManager;
-import com.skydoves.waterdays.persistence.sqlite.SqliteManager;
 import com.skydoves.waterdays.presenters.MainPresenter;
 import com.skydoves.waterdays.services.receivers.AlarmBootReceiver;
 import com.skydoves.waterdays.services.receivers.LocalWeatherReceiver;
 import com.skydoves.waterdays.ui.adapters.SectionsPagerAdapter;
 import com.skydoves.waterdays.utils.NavigationUtils;
 import com.skydoves.waterdays.viewTypes.MainActivityView;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.GregorianCalendar;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
@@ -56,13 +50,6 @@ public class MainActivity extends BaseActivity<MainPresenter, MainActivityView> 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initBaseView(this);
-
-        // check nfc
-        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        if (nfcAdapter == null) {
-            Toast.makeText(this, "이 앱은 NFC 기능을 탑재한 디바이스에서만 작동합니다.", Toast.LENGTH_LONG).show();
-            finish();
-        }
 
         nAdapter = NfcAdapter.getDefaultAdapter(this);
         getNFCData(getIntent());
@@ -94,24 +81,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainActivityView> 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         final ViewPager viewPager = (ViewPager) findViewById(R.id.mainactivity_viewpager);
         viewPager.setAdapter(mSectionsPagerAdapter);
-
-        // add navigation models
-        navigationTabBar.setModels(NavigationUtils.getNavigationModels(this));
-        navigationTabBar.setViewPager(viewPager, 2);
-        navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(final int position) {
-                navigationTabBar.getModels().get(position).hideBadge();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(final int state) {
-            }
-        });
+        NavigationUtils.setComponents(getBaseContext(), viewPager, navigationTabBar);
     }
 
     /**

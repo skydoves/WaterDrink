@@ -76,7 +76,9 @@ public class MainWaterFragment extends Fragment {
     private void InitializeUI() {
         // get today's drink amount
         float dAmount = sqliteManager.getDayDrinkAmount(DateUtils.getFarDay(0));
-        float dGoal = Integer.parseInt(preferenceManager.getString("WaterGoal", "0"));
+        float dGoal = Integer.parseInt(preferenceManager.getString(PreferenceKeys.WATER_GOAL.first, PreferenceKeys.WATER_GOAL.second));
+
+        if(dGoal <= 0) dGoal = 1;
 
         // textView - Goal
         TextView tv_goal = (TextView) rootView.findViewById(R.id.drinkamount_tv_goal);

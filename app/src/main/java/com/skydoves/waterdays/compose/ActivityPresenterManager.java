@@ -68,7 +68,7 @@ public class ActivityPresenterManager {
         }
 
         this.presenters.put(id, activityPresenter);
-        activityPresenter.onCreate(context, BundleUtils.INSTANCE.maybeGetBundle(savedInstanceState, PRESENTER_STATE_KEY));
+        activityPresenter.onCreate(context, BundleUtils.maybeGetBundle(savedInstanceState, PRESENTER_STATE_KEY));
         return activityPresenter;
     }
 

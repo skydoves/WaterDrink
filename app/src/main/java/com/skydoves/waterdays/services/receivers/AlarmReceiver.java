@@ -29,14 +29,14 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        int requestCode = intent.getIntExtra(IntentExtras.INSTANCE.getALARM_PENDING_REQUEST(), -1);
-        int occurdateint = intent.getIntExtra(IntentExtras.INSTANCE.getALARM_PENDING_OCCUR_TIME(), -1);
+        int requestCode = intent.getIntExtra(IntentExtras.ALARM_PENDING_REQUEST, -1);
+        int occurdateint = intent.getIntExtra(IntentExtras.ALARM_PENDING_OCCUR_TIME, -1);
 
         AlarmUtils alarmUtils = new AlarmUtils(context);
         GregorianCalendar mCalendar = new GregorianCalendar();
         if (requestCode != -1) {
 
-            int cdate = occurdateint - DateUtils.INSTANCE.getDateDay(DateUtils.INSTANCE.getFarDay(0), DateUtils.INSTANCE.getDateFormat());
+            int cdate = occurdateint - DateUtils.getDateDay(DateUtils.getFarDay(0), DateUtils.getDateFormat());
             String[] EndTime = alarmUtils.getEndTime(requestCode).split(",");
             if(cdate < 0)
                 resetAlarm(alarmUtils, requestCode, resetType.BEFORE_HOUR.ordinal());
@@ -56,7 +56,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                     context.startActivity(intent_AlarmActivity);
                 }
 
-                NotificationUtils.INSTANCE.sendNotification(context, context.getString(R.string.app_name), context.getString(R.string.msg_alarm), 1, vibrate, sound);
+                NotificationUtils.sendNotification(context, context.getString(R.string.app_name), context.getString(R.string.msg_alarm), 1, vibrate, sound);
             }
         }
     }

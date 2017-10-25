@@ -25,7 +25,7 @@ public class AlarmBootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            SqliteManager sqliteManager = new SqliteManager(context, SqliteManager.Companion.getDATABASE_NAME(), null, SqliteManager.Companion.getDATABASE_VERSION());
+            SqliteManager sqliteManager = new SqliteManager(context, SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION);
             AlarmUtils systems_alarm = new AlarmUtils(context);
             GregorianCalendar mCalendar = new GregorianCalendar();
             AlarmManager mManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -39,7 +39,7 @@ public class AlarmBootReceiver extends BroadcastReceiver {
 
                         mCalendar.set(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH), 7, 0);
                         mCalendar.add(Calendar.DATE, 1);
-                        mManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 1200 * 1000, pendingIntent(context, IntentExtras.INSTANCE.getALARM_PENDING_REQUEST_CODE()));
+                        mManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 1200 * 1000, pendingIntent(context, IntentExtras.ALARM_PENDING_REQUEST_CODE));
                     } while (cursor.moveToNext());
                     cursor.close();
                 }
@@ -52,7 +52,7 @@ public class AlarmBootReceiver extends BroadcastReceiver {
 
     private PendingIntent pendingIntent(Context mContext, int requestCode) {
         Intent intent = new Intent(mContext, LocalWeatherReceiver.class);
-        intent.putExtra(IntentExtras.INSTANCE.getALARM_PENDING_REQUEST(), requestCode);
+        intent.putExtra(IntentExtras.ALARM_PENDING_REQUEST, requestCode);
         return PendingIntent.getBroadcast(mContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }

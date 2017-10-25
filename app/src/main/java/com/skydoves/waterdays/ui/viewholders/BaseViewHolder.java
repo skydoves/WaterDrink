@@ -13,8 +13,6 @@ import android.view.View;
 import com.skydoves.waterdays.compose.ActivityLifeCycleType;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
@@ -22,12 +20,10 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder implements 
 
     private final View view;
     private final @NonNull PublishSubject<ActivityEvent> lifecycle = PublishSubject.create();
-    private Unbinder unbinder;
 
     public BaseViewHolder(final @NonNull View view) {
         super(view);
         this.view = view;
-        unbinder = ButterKnife.bind(this, view);
 
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);
@@ -53,7 +49,7 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder implements 
     }
 
     public void destroy() {
-        unbinder.unbind();
+
     }
 
     protected @NonNull View view() {

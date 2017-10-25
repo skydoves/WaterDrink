@@ -31,9 +31,9 @@ public class LocalWeatherReceiver extends BroadcastReceiver {
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
         // check network is connected?
-        if(NetworkUtils.isNetworkAvailable(context)) {
+        if(NetworkUtils.INSTANCE.isNetworkAvailable(context)) {
             try {
-                if(!DateUtils.getFarDay(0).equals(preferenceManager.getString("WheatherAlarmDate", "null"))) {
+                if(!DateUtils.INSTANCE.getFarDay(0).equals(preferenceManager.getString("WheatherAlarmDate", "null"))) {
                     LocalWeather localWeather = new LocalWeather(context);
                     String Reh = localWeather.execute().get();
 
@@ -50,20 +50,20 @@ public class LocalWeatherReceiver extends BroadcastReceiver {
 
                             // send notification
                             if (prefs.getBoolean("Setting_AutoGoalPush", true))
-                                NotificationUtils.sendNotification(context, "물 한잔 해요", "오늘의 습도 : " + Reh + "%, 목표 섭취량 : " + recommandAmount + "ml", 1, vibrate, sound);
+                                NotificationUtils.INSTANCE.sendNotification(context, "물 한잔 해요", "오늘의 습도 : " + Reh + "%, 목표 섭취량 : " + recommandAmount + "ml", 1, vibrate, sound);
                         }
 
                         // save Reh data
                         preferenceManager.putString("Reh", Reh);
 
                         // cancel alarm
-                        alarmManager.cancel(pendingIntent(context, IntentExtras.ALARM_PENDING_REQUEST_CODE));
+                        alarmManager.cancel(pendingIntent(context, IntentExtras.INSTANCE.getALARM_PENDING_REQUEST_CODE()));
 
                         // set next alarm
                         mCalendar.set(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH), 7, 0);
                         mCalendar.add(Calendar.DATE, 1);
-                        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 1200 * 1000, pendingIntent(context, IntentExtras.ALARM_PENDING_REQUEST_CODE));
-                        preferenceManager.putString("WheatherAlarmDate", DateUtils.getFarDay(0));
+                        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 1200 * 1000, pendingIntent(context, IntentExtras.INSTANCE.getALARM_PENDING_REQUEST_CODE()));
+                        preferenceManager.putString("WheatherAlarmDate", DateUtils.INSTANCE.getFarDay(0));
                     }
                 }
             }
@@ -75,7 +75,7 @@ public class LocalWeatherReceiver extends BroadcastReceiver {
 
     private PendingIntent pendingIntent(Context mContext, int requestCode) {
         Intent intent = new Intent(mContext, LocalWeatherReceiver.class);
-        intent.putExtra(IntentExtras.ALARM_PENDING_REQUEST, requestCode);
+        intent.putExtra(IntentExtras.INSTANCE.getALARM_PENDING_REQUEST(), requestCode);
         return PendingIntent.getBroadcast(mContext, requestCode, intent, 0);
     }
 }

@@ -33,7 +33,7 @@ public class LocalWeather extends AsyncTask<String, Integer, String> {
     }
 
     public String doInBackground(String[] StringParams) {
-        String url = LocalUrls.getLocalUrl(preferenceManager.getInt("localIndex", 0));
+        String url = LocalUrls.INSTANCE.getLocalUrl(preferenceManager.getInt("localIndex", 0));
         Response response;
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();

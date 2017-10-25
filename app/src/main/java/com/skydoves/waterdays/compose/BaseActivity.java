@@ -11,9 +11,6 @@ import com.skydoves.waterdays.compose.qualifiers.RequirePresenter;
 import com.skydoves.waterdays.utils.BundleUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 /**
  * Developed by skydoves on 2017-08-19.
  * Copyright (c) 2017 skydoves rights reserved.
@@ -24,8 +21,6 @@ public abstract class BaseActivity<Presenter extends BasePresenter, ViewType ext
     private static final String PRESENTER_KEY = "presenter";
     protected Presenter presenter;
     protected ViewType baseView;
-
-    private Unbinder unbinder;
 
     /**
      * get presenter
@@ -51,7 +46,6 @@ public abstract class BaseActivity<Presenter extends BasePresenter, ViewType ext
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
-        unbinder = ButterKnife.bind(this);
     }
 
     @Override
@@ -84,8 +78,6 @@ public abstract class BaseActivity<Presenter extends BasePresenter, ViewType ext
                 this.presenter = null;
             }
         }
-
-        unbinder.unbind();
     }
 
     @Override
@@ -141,7 +133,7 @@ public abstract class BaseActivity<Presenter extends BasePresenter, ViewType ext
             if(presenterClass != null) {
                 this.presenter = ActivityPresenterManager.getInstance().fetch(this,
                         presenterClass,
-                        BundleUtils.maybeGetBundle(presenterEnvelope, PRESENTER_KEY));
+                        BundleUtils.INSTANCE.maybeGetBundle(presenterEnvelope, PRESENTER_KEY));
                 this.presenter.setBaseView(baseView);
             }
         }

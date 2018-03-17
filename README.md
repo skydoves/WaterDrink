@@ -1,6 +1,6 @@
 # 물 한잔 해요(WaterDrink)
-Get in the Habit of Drinking Water using this app!<br>
-This open source project was won 2d at the Seoul mobile patform contest in 2016. <br>
+Get in the Habit of Drinking Water using this app! <br>
+This project won 2nd at the Seoul mobile platform contest in 2016. <br>
 물 한잔 해요 앱을 통해서 규칙적인 수분 습관을 만들어보세요!<br>
 이 프로젝트는 2016 서울시 모바일 플렛폼의 열정상을 수상하였습니다. <br>
 
@@ -10,10 +10,21 @@ This open source project was won 2d at the Seoul mobile patform contest in 2016.
 ![screenshot03](https://user-images.githubusercontent.com/24237865/29495293-4e775c40-85f7-11e7-9084-7c5e4741c01c.png)
 <br>
 
-## 수상정보
+## Development Time 
+2016-10-15 ~ 2016-10-25
+
+## Awards Information
 https://mplatform.seoul.go.kr/w/contest/award/2016/wnpz/selectWinner.do?wnpz_app_seq=155
 
-## 기획배경
+## Planning #English
+__WaterDrink__ is one of health application for help drinking water smartly.
+The efficacy of water, which accounts for 60 percent of our body, is well known.
+Maintaining body fluids balance, regulating calories, increasing exercise effects, reducing fatigue, maintaining skin moisture, 
+and releasing waste products. Water has so many effects. Everyone knows that the recommended daily intake is 2L. 
+But it's not easy to do that. So the main role of this application is to make sure that many users have enough capacity 
+helps you drink water and is available to all citizens, regardless of age, gender occupation.
+
+## Planning #korean
 __물 한잔 해요__ 는 매일매일 스마트하게 수분 섭취를 도와주는 건강 어플입니다.
 우리 몸의 60%를 차지하고 있는 물의 효능은 이미 많이 알려진 사실입니다.
 신체 체액 균형유지, 칼로리 조절, 운동효과 상승, 피로 감소, 피부의 수분유지, 노폐물 배출 등등

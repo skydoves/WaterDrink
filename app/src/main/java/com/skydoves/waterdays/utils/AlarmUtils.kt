@@ -24,10 +24,9 @@ class AlarmUtils(private val mContext: Context) {
 
   @Inject
   lateinit var sqliteManager: SqliteManager
-  private val mManager: AlarmManager
+  private val mManager: AlarmManager = mContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
   init {
-    this.mManager = mContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     WDApplication.component.inject(this)
   }
 

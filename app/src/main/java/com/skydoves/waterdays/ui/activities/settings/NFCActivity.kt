@@ -12,7 +12,6 @@ import android.nfc.tech.NdefFormatable
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.skydoves.waterdays.R
@@ -72,9 +71,10 @@ class NFCActivity : AppCompatActivity() {
   }
 
   override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
     if (mWriteMode && NfcAdapter.ACTION_TAG_DISCOVERED == intent.action) {
       val detectedTag = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
-      val record = NdefRecord.createMime("waterdays_nfc/NFC", (findViewById(R.id.nfc_edt01) as TextView).text.toString().toByteArray())
+      val record = NdefRecord.createMime("waterdays_nfc/NFC", nfc_edt01.text.toString().toByteArray())
       val message = NdefMessage(arrayOf(record))
 
       // detected tag

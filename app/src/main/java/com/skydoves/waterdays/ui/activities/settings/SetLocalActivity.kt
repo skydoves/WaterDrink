@@ -1,5 +1,6 @@
 package com.skydoves.waterdays.ui.activities.settings
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
 import android.widget.Toast
@@ -25,6 +26,7 @@ class SetLocalActivity : BaseActivity<SetLocalPresenter, SetLocalActivityView>()
 
   private var index = -1
 
+  @SuppressLint("CheckResult")
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_set_local)

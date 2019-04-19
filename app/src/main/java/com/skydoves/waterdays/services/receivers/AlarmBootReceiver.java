@@ -26,7 +26,7 @@ public class AlarmBootReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(Context context, Intent intent) {
     if (Objects.equals(intent.getAction(), Intent.ACTION_BOOT_COMPLETED)) {
-      SqliteManager sqliteManager = new SqliteManager(context, SqliteManager.Companion.getDATABASE_NAME(), null, SqliteManager.Companion.getDATABASE_VERSION());
+      SqliteManager sqliteManager = new SqliteManager(context, SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION);
       AlarmUtils systems_alarm = new AlarmUtils(context);
       GregorianCalendar mCalendar = new GregorianCalendar();
       AlarmManager mManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

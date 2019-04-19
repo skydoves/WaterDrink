@@ -77,7 +77,7 @@ public abstract class BaseActivity<Presenter extends BasePresenter, ViewType ext
 
     if (isFinishing()) {
       if (this.presenter != null) {
-        ActivityPresenterManager.getInstance().destroy(this.presenter);
+        ActivityPresenterManager.Companion.getInstance().destroy(this.presenter);
         this.presenter = null;
       }
     }
@@ -89,7 +89,7 @@ public abstract class BaseActivity<Presenter extends BasePresenter, ViewType ext
 
     final Bundle presenterEnvelope = new Bundle();
     if (this.presenter != null) {
-      ActivityPresenterManager.getInstance().save(this.presenter, presenterEnvelope);
+      ActivityPresenterManager.Companion.getInstance().save(this.presenter, presenterEnvelope);
     }
   }
 
@@ -137,7 +137,7 @@ public abstract class BaseActivity<Presenter extends BasePresenter, ViewType ext
       final RequirePresenter annotation = getClass().getAnnotation(RequirePresenter.class);
       final Class<Presenter> presenterClass = annotation == null ? null : (Class<Presenter>) annotation.value();
       if (presenterClass != null) {
-        this.presenter = ActivityPresenterManager.getInstance().fetch(this,
+        this.presenter = ActivityPresenterManager.Companion.getInstance().fetch(this,
             presenterClass,
             BundleUtils.INSTANCE.maybeGetBundle(presenterEnvelope, PRESENTER_KEY));
         this.presenter.setBaseView(baseView);

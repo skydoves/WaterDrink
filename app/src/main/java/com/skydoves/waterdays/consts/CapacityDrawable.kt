@@ -9,17 +9,13 @@ import com.skydoves.waterdays.R
 
 object CapacityDrawable {
   fun getLayout(amount: Int): Int {
-    if (amount <= 125)
-      return R.drawable.ic_glass0;
-    else if (amount <= 250)
-      return R.drawable.ic_glass01;
-    else if (amount <= 350)
-      return R.drawable.ic_glass06;
-    else if (amount <= 500)
-      return R.drawable.ic_glass05;
-    else if (amount <= 750)
-      return R.drawable.ic_glass07;
-    else
-      return R.drawable.ic_glass04;
+    return when {
+      amount <= 125 -> R.drawable.ic_glass0
+      amount <= 250 -> R.drawable.ic_glass01
+      amount <= 350 -> R.drawable.ic_glass06
+      amount <= 500 -> R.drawable.ic_glass05
+      amount <= 750 -> R.drawable.ic_glass07
+      else -> R.drawable.ic_glass04
+    }
   }
 }

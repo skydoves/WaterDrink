@@ -108,11 +108,11 @@ class SqliteManager(context: Context, name: String, factory: SQLiteDatabase.Curs
   }
 
   companion object {
-    val DATABASE_VERSION = 1
-    val DATABASE_NAME = "waterdays.db"
+    const val DATABASE_VERSION = 1
+    const val DATABASE_NAME = "waterdays.db"
 
-    private val TABLE_RECORD = "RecordList"
-    private val TABLE_ALARM = "AlarmList"
-    private val TABLE_CAPACITY = "capacityList"
+    private const val TABLE_RECORD = "RecordList"
+    private const val TABLE_ALARM = "AlarmList"
+    private const val TABLE_CAPACITY = "capacityList"
   }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -9,38 +8,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="18"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="18">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:textStyle="bold"
-            android:textColor="#0a9184"
-            android:text="물방울 색상 선택"
-            android:textSize="26sp"
             android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="2"
             android:gravity="center"
-            android:layout_margin="10dp"/>
+            android:text="물방울 색상 선택"
+            android:textColor="#0a9184"
+            android:textSize="26sp"
+            android:textStyle="bold" />
 
         <com.skydoves.colorpickerview.ColorPickerView
             android:id="@+id/colorPickerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="9"
             android:layout_margin="15dp"
-            app:src="@drawable/palette"
-            app:selector="@drawable/wheel"/>
+            android:layout_weight="9"
+            app:palette="@drawable/palette"
+            app:selector="@drawable/wheel" />
 
         <ImageView
             android:id="@+id/bubble"
             android:layout_width="90dp"
             android:layout_height="0dp"
-            android:layout_weight="3"
             android:layout_gravity="center"
-            android:src="@mipmap/ic_launcher"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:layout_weight="3"
+            android:src="@mipmap/ic_launcher" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -51,13 +50,13 @@
                 android:id="@+id/confirm"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="색상 선택"
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="64dp"
                 android:layout_marginRight="64dp"
-                android:textColor="#ffffff"
-                android:background="#3d95c9"/>
+                android:background="#3d95c9"
+                android:text="색상 선택"
+                android:textColor="#ffffff" />
 
         </RelativeLayout>
 

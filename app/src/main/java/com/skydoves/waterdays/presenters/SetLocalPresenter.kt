@@ -18,14 +18,15 @@ import javax.inject.Inject
 
 class SetLocalPresenter : BasePresenter<SetLocalActivityView>() {
 
-    @Inject lateinit var preferenceManager: PreferenceManager
+  @Inject
+  lateinit var preferenceManager: PreferenceManager
 
-    override fun onCreate(context: Context, savedInstanceState: Bundle?) {
-        super.onCreate(context, savedInstanceState)
-        WDApplication.component.inject(this)
-    }
+  override fun onCreate(context: Context, savedInstanceState: Bundle?) {
+    super.onCreate(context, savedInstanceState)
+    WDApplication.component.inject(this)
+  }
 
-    var localIndex: Int
-        get() = preferenceManager!!.getInt(PreferenceKeys.LOCALINDEX.first, PreferenceKeys.LOCALINDEX.second)
-        set(value) = preferenceManager!!.putInt(PreferenceKeys.LOCALINDEX.first, value)
+  var localIndex: Int
+    get() = preferenceManager!!.getInt(PreferenceKeys.LOCALINDEX.first, PreferenceKeys.LOCALINDEX.second)
+    set(value) = preferenceManager!!.putInt(PreferenceKeys.LOCALINDEX.first, value)
 }

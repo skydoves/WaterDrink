@@ -1,13 +1,11 @@
 package com.skydoves.waterdays.ui.adapters
 
-import android.support.annotation.LayoutRes
 import android.view.View
-
+import androidx.annotation.LayoutRes
 import com.skydoves.waterdays.R
 import com.skydoves.waterdays.models.Drink
 import com.skydoves.waterdays.ui.viewholders.BaseViewHolder
 import com.skydoves.waterdays.ui.viewholders.DailyDrinkViewHolder
-
 import java.util.ArrayList
 
 /**
@@ -17,40 +15,40 @@ import java.util.ArrayList
 
 class DailyDrinkAdapter(private val delegate: DailyDrinkViewHolder.Delegate) : BaseAdapter() {
 
-    init {
-        addSection(ArrayList<Drink>())
-        notifyDataSetChanged()
-    }
+  init {
+    addSection(ArrayList<Drink>())
+    notifyDataSetChanged()
+  }
 
-    fun addDrinkItem(drink: Drink) {
-        sections()[0].add(drink)
-        notifyDataSetChanged()
-    }
+  fun addDrinkItem(drink: Drink) {
+    sections()[0].add(drink)
+    notifyDataSetChanged()
+  }
 
-    fun updateDrinkItem(position: Int, drink: Drink) {
-        sections()[0][position] = drink
-        notifyDataSetChanged()
-    }
+  fun updateDrinkItem(position: Int, drink: Drink) {
+    sections()[0][position] = drink
+    notifyDataSetChanged()
+  }
 
-    fun getPosition(drink: Drink): Int {
-        return sections()[0].indexOf(drink)
-    }
+  fun getPosition(drink: Drink): Int {
+    return sections()[0].indexOf(drink)
+  }
 
-    fun remove(drink: Drink) {
-        sections()[0].remove(drink)
-        notifyDataSetChanged()
-    }
+  fun remove(drink: Drink) {
+    sections()[0].remove(drink)
+    notifyDataSetChanged()
+  }
 
-    fun clear() {
-        sections()[0].let { sections()[0].clear() }
-        notifyDataSetChanged()
-    }
+  fun clear() {
+    sections()[0].let { sections()[0].clear() }
+    notifyDataSetChanged()
+  }
 
-    override fun layout(sectionRow: BaseAdapter.SectionRow): Int {
-        return R.layout.item_dailyrecord
-    }
+  override fun layout(sectionRow: SectionRow): Int {
+    return R.layout.item_dailyrecord
+  }
 
-    override fun viewHolder(@LayoutRes layout: Int, view: View): BaseViewHolder {
-        return DailyDrinkViewHolder(view, delegate)
-    }
+  override fun viewHolder(@LayoutRes layout: Int, view: View): BaseViewHolder {
+    return DailyDrinkViewHolder(view, delegate)
+  }
 }

@@ -11,27 +11,27 @@ import kotlinx.android.synthetic.main.item_selectdrink.view.*
 
 class SelectDrinkViewHolder(view: View, private val delegate: Delegate) : BaseViewHolder(view) {
 
-    private lateinit var capacity: Capacity
+  private lateinit var capacity: Capacity
 
-    interface Delegate {
-        fun onClick(view: View, capacity: Capacity)
-        fun onLongClick(view: View, capacity: Capacity)
-    }
+  interface Delegate {
+    fun onClick(view: View, capacity: Capacity)
+    fun onLongClick(view: View, capacity: Capacity)
+  }
 
-    @Throws(Exception::class)
-    override fun bindData(data: Any) {
-        this.capacity = data as Capacity
+  @Throws(Exception::class)
+  override fun bindData(data: Any) {
+    this.capacity = data as Capacity
 
-        itemView.item_selectdrink_img.setImageDrawable(capacity.image)
-        itemView.item_selectdrink_tv.text = "${capacity.amount}ml"
-    }
+    itemView.item_selectdrink_img.setImageDrawable(capacity.image)
+    itemView.item_selectdrink_tv.text = "${capacity.amount}ml"
+  }
 
-    override fun onClick(v: View) {
-        this.delegate.onClick(this.view(), capacity)
-    }
+  override fun onClick(v: View) {
+    this.delegate.onClick(this.view(), capacity)
+  }
 
-    override fun onLongClick(v: View): Boolean {
-        this.delegate.onLongClick(this.view(), capacity)
-        return true
-    }
+  override fun onLongClick(v: View): Boolean {
+    this.delegate.onLongClick(this.view(), capacity)
+    return true
+  }
 }

@@ -19,19 +19,21 @@ import javax.inject.Inject
 
 class MakeAlarmPresenter : BasePresenter<MakeAlarmActivityView>() {
 
-    @Inject lateinit var preferenceManager: PreferenceManager
-    @Inject lateinit var sqliteManager: SqliteManager
+  @Inject
+  lateinit var preferenceManager: PreferenceManager
+  @Inject
+  lateinit var sqliteManager: SqliteManager
 
-    override fun onCreate(context: Context, savedInstanceState: Bundle?) {
-        super.onCreate(context, savedInstanceState)
-        WDApplication.component.inject(this)
-    }
+  override fun onCreate(context: Context, savedInstanceState: Bundle?) {
+    super.onCreate(context, savedInstanceState)
+    WDApplication.component.inject(this)
+  }
 
-    var pendingRequest: Int
-        get() = preferenceManager.getInt(IntentExtras.ALARM_PENDING_REQUEST, 0)
-        set(value) = preferenceManager.putInt(IntentExtras.ALARM_PENDING_REQUEST, value)
+  var pendingRequest: Int
+    get() = preferenceManager.getInt(IntentExtras.ALARM_PENDING_REQUEST, 0)
+    set(value) = preferenceManager.putInt(IntentExtras.ALARM_PENDING_REQUEST, value)
 
-    fun addAlarm(requestCode: Int, dayList: String, startTime: String, endTime: String, interval: Int) {
-        sqliteManager.addAlarm(requestCode, dayList, startTime, endTime, interval)
-    }
+  fun addAlarm(requestCode: Int, dayList: String, startTime: String, endTime: String, interval: Int) {
+    sqliteManager.addAlarm(requestCode, dayList, startTime, endTime, interval)
+  }
 }

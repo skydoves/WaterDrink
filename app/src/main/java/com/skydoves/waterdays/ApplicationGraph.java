@@ -20,17 +20,29 @@ import com.skydoves.waterdays.utils.AlarmUtils;
  */
 
 public interface ApplicationGraph {
-    void inject(StartActivity __);
-    void inject(SetGoalPresenter __);
-    void inject(SetLocalPresenter __);
-    void inject(AlarmScreenPresenter __);
-    void inject(MakeAlarmPresenter __);
-    void inject(MainPresenter __);
-    void inject(AlarmFragment __);
-    void inject(AlarmUtils __);
-    void inject(ChartFragment __);
-    void inject(MainWaterFragment __);
-    void inject(DailyFragment __);
-    void inject(SelectDrinkPresenter __);
-    void inject(SetBubbleColorActivity __);
+  void inject(StartActivity __);
+
+  void inject(SetGoalPresenter __);
+
+  void inject(SetLocalPresenter __);
+
+  void inject(AlarmScreenPresenter __);
+
+  void inject(MakeAlarmPresenter __);
+
+  void inject(MainPresenter __);
+
+  void inject(AlarmFragment __);
+
+  void inject(AlarmUtils __);
+
+  void inject(ChartFragment __);
+
+  void inject(MainWaterFragment __);
+
+  void inject(DailyFragment __);
+
+  void inject(SelectDrinkPresenter __);
+
+  void inject(SetBubbleColorActivity __);
 }

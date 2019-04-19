@@ -18,37 +18,38 @@ import javax.inject.Inject
 
 class SetGoalPresenter : BasePresenter<SetGoalActivityView>() {
 
-    @Inject lateinit var preferenceManager: PreferenceManager
+  @Inject
+  lateinit var preferenceManager: PreferenceManager
 
-    override fun onCreate(context: Context, savedInstanceState: Bundle?) {
-        super.onCreate(context, savedInstanceState)
-        WDApplication.component.inject(this)
+  override fun onCreate(context: Context, savedInstanceState: Bundle?) {
+    super.onCreate(context, savedInstanceState)
+    WDApplication.component.inject(this)
+  }
+
+  fun onClickSetGoal(value: String) {
+    if (checkGoalValid(value)) {
+      waterGoal = value
+      baseView.onSetSuccess()
+      if (isNewbe) baseView.intentMain()
+    } else
+      baseView.onSetFailure()
+  }
+
+  fun checkGoalValid(value: String): Boolean {
+    when (value) {
+      "" -> return false
+      "0" -> return false
     }
+    return true
+  }
 
-    fun onClickSetGoal(value: String) {
-        if (checkGoalValid(value)) {
-            waterGoal = value
-            baseView.onSetSuccess()
-            if (isNewbe) baseView.intentMain()
-        } else
-            baseView.onSetFailure()
-    }
+  val isNewbe: Boolean by lazy {
+    preferenceManager.getBoolean(PreferenceKeys.NEWBE.first, PreferenceKeys.NEWBE.second)
+  }
 
-    fun checkGoalValid(value: String): Boolean {
-        when(value) {
-            "" -> return false
-            "0" -> return false
-        }
-        return true
-    }
+  fun setOldbe() = preferenceManager.putBoolean(PreferenceKeys.NEWBE.first, false)
 
-    val isNewbe: Boolean by lazy {
-        preferenceManager.getBoolean(PreferenceKeys.NEWBE.first, PreferenceKeys.NEWBE.second)
-    }
-
-    fun setOldbe() = preferenceManager.putBoolean(PreferenceKeys.NEWBE.first, false)
-
-    var waterGoal: String
-        get() = preferenceManager.getString(PreferenceKeys.WATER_GOAL.first, PreferenceKeys.WATER_GOAL.second)
-        set(goal) = preferenceManager.putString(PreferenceKeys.WATER_GOAL.first, goal)
+  var waterGoal: String
+    get() = preferenceManager.getString(PreferenceKeys.WATER_GOAL.first, PreferenceKeys.WATER_GOAL.second)
+    set(goal) = preferenceManager.putString(PreferenceKeys.WATER_GOAL.first, goal)
 }

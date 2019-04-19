@@ -1,5 +1,6 @@
 package com.skydoves.waterdays.ui.customViews
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.data.CandleEntry
@@ -16,19 +17,20 @@ import kotlinx.android.synthetic.main.custom_marker_view.view.*
 
 class MyMarkerView(context: Context, layoutResource: Int) : MarkerView(context, layoutResource) {
 
-    override fun refreshContent(e: Entry, highlight: Highlight) {
-        if (e is CandleEntry) {
-            tvContent.text = Utils.formatNumber(e.high, 0, true) + "ml"
-        } else {
-            tvContent.text = Utils.formatNumber(e.`val`, 0, true) + "ml"
-        }
+  @SuppressLint("SetTextI18n")
+  override fun refreshContent(e: Entry, highlight: Highlight) {
+    if (e is CandleEntry) {
+      tvContent.text = Utils.formatNumber(e.high, 0, true) + "ml"
+    } else {
+      tvContent.text = Utils.formatNumber(e.`val`, 0, true) + "ml"
     }
+  }
 
-    override fun getXOffset(xpos: Float): Int {
-        return -(width / 2)
-    }
+  override fun getXOffset(xpos: Float): Int {
+    return -(width / 2)
+  }
 
-    override fun getYOffset(ypos: Float): Int {
-        return -height
-    }
+  override fun getYOffset(ypos: Float): Int {
+    return -height
+  }
 }

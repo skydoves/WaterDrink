@@ -19,17 +19,19 @@ import javax.inject.Inject
 
 class MainPresenter : BasePresenter<MainActivityView>() {
 
-    @Inject lateinit var preferenceManager: PreferenceManager
-    @Inject lateinit var sqliteManager: SqliteManager
+  @Inject
+  lateinit var preferenceManager: PreferenceManager
+  @Inject
+  lateinit var sqliteManager: SqliteManager
 
-    override fun onCreate(context: Context, savedInstanceState: Bundle?) {
-        super.onCreate(context, savedInstanceState)
-        WDApplication.component.inject(this)
-    }
+  override fun onCreate(context: Context, savedInstanceState: Bundle?) {
+    super.onCreate(context, savedInstanceState)
+    WDApplication.component.inject(this)
+  }
 
-    fun addRecord(value: String) = sqliteManager.addRecord(value)
+  fun addRecord(value: String) = sqliteManager.addRecord(value)
 
-    var weatherAlarm: Boolean
-        get() = preferenceManager.getBoolean(PreferenceKeys.ALARM_WEAHTER.first, PreferenceKeys.ALARM_WEAHTER.second)
-        set(value) = preferenceManager.putBoolean(PreferenceKeys.ALARM_WEAHTER.first, value)
+  var weatherAlarm: Boolean
+    get() = preferenceManager.getBoolean(PreferenceKeys.ALARM_WEAHTER.first, PreferenceKeys.ALARM_WEAHTER.second)
+    set(value) = preferenceManager.putBoolean(PreferenceKeys.ALARM_WEAHTER.first, value)
 }

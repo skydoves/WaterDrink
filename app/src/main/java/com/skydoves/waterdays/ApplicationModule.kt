@@ -16,21 +16,21 @@ import javax.inject.Singleton
 @Module
 class ApplicationModule(private val application: Application) {
 
-    @Provides
-    @Singleton
-    internal fun providePreferenceManager(): PreferenceManager {
-        return PreferenceManager(this.application)
-    }
+  @Provides
+  @Singleton
+  internal fun providePreferenceManager(): PreferenceManager {
+    return PreferenceManager(this.application)
+  }
 
-    @Provides
-    @Singleton
-    internal fun provideSqliteManager(): SqliteManager {
-        return SqliteManager(this.application, SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION)
-    }
+  @Provides
+  @Singleton
+  internal fun provideSqliteManager(): SqliteManager {
+    return SqliteManager(this.application, SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION)
+  }
 
-    @Provides
-    @Singleton
-    internal fun provideAlarmUtils(): AlarmUtils {
-        return AlarmUtils(this.application)
-    }
+  @Provides
+  @Singleton
+  internal fun provideAlarmUtils(): AlarmUtils {
+    return AlarmUtils(this.application)
+  }
 }

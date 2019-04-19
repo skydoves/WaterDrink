@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,85 +7,85 @@
 
     <TextView
         android:id="@+id/settings_tv_nfc"
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
+        android:layout_weight="1"
         android:background="@drawable/bg_round_rect"
+        android:clickable="true"
         android:gravity="center"
         android:text="NFC"
-        android:textSize="16sp"
-        android:textColor="#cbc8d2" />
+        android:textColor="#cbc8d2"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/settings_tv_recommend"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
+        android:layout_weight="1"
         android:background="@drawable/bg_round_rect"
         android:gravity="center"
         android:text="체중 설정"
-        android:textSize="18sp"
-        android:textColor="#cbc8d2" />
+        android:textColor="#cbc8d2"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/settings_tv_goal"
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
+        android:layout_weight="1"
         android:background="@drawable/bg_round_rect"
+        android:clickable="true"
         android:gravity="center"
         android:text="목표 설정"
-        android:textSize="18sp"
-        android:textColor="#cbc8d2" />
+        android:textColor="#cbc8d2"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/settings_tv_mycup"
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
+        android:layout_weight="1"
         android:background="@drawable/bg_round_rect"
+        android:clickable="true"
         android:gravity="center"
         android:text="내 컵의 용량 설정"
-        android:textSize="18sp"
-        android:textColor="#cbc8d2" />
+        android:textColor="#cbc8d2"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/settings_tv_setlocation"
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
+        android:layout_weight="1"
         android:background="@drawable/bg_round_rect"
+        android:clickable="true"
         android:gravity="center"
         android:text="지역 설정"
-        android:textSize="18sp"
-        android:textColor="#cbc8d2" />
+        android:textColor="#cbc8d2"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/settings_tv_setColor"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:layout_weight="1"
         android:background="@drawable/bg_round_rect"
         android:clickable="true"

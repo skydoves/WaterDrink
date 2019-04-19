@@ -10,5 +10,5 @@ import io.reactivex.Observable;
  */
 
 public interface ActivityLifeCycleType {
-    Observable<ActivityEvent> lifecycle();
+  Observable<ActivityEvent> lifecycle();
 }

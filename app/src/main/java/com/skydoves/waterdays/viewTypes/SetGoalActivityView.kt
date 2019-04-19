@@ -8,7 +8,7 @@ import com.skydoves.waterdays.compose.BaseView
  */
 
 interface SetGoalActivityView : BaseView {
-    fun intentMain()
-    fun onSetSuccess()
-    fun onSetFailure()
+  fun intentMain()
+  fun onSetSuccess()
+  fun onSetFailure()
 }

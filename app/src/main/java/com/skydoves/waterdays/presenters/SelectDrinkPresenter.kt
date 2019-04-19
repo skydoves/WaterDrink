@@ -19,22 +19,23 @@ import javax.inject.Inject
 
 class SelectDrinkPresenter : BasePresenter<SelectDrinkActivityView>() {
 
-    @Inject lateinit var sqliteManager: SqliteManager
+  @Inject
+  lateinit var sqliteManager: SqliteManager
 
-    override fun onCreate(context: Context, savedInstanceState: Bundle?) {
-        super.onCreate(context, savedInstanceState)
-        WDApplication.component.inject(this)
-    }
+  override fun onCreate(context: Context, savedInstanceState: Bundle?) {
+    super.onCreate(context, savedInstanceState)
+    WDApplication.component.inject(this)
+  }
 
-    val capacityItemList: List<Capacity> by lazy {
-        sqliteManager.capacityList
-    }
+  val capacityItemList: List<Capacity> by lazy {
+    sqliteManager.capacityList
+  }
 
-    fun addRecrodItem(amount: Int) {
-        sqliteManager.addRecord("${amount}")
-        RxUpdateMainEvent.getInstance().updateBadge()
-    }
+  fun addRecrodItem(amount: Int) {
+    sqliteManager.addRecord("$amount")
+    RxUpdateMainEvent.getInstance().updateBadge()
+  }
 
-    fun addCapacity(capacity: Capacity) = sqliteManager.addCapacity(capacity)
-    fun deleteCapacity(capacity: Capacity) = sqliteManager.deleteCapacity(capacity)
+  fun addCapacity(capacity: Capacity) = sqliteManager.addCapacity(capacity)
+  fun deleteCapacity(capacity: Capacity) = sqliteManager.deleteCapacity(capacity)
 }

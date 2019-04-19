@@ -5,4 +5,4 @@ package com.skydoves.waterdays.models
  * Copyright (c) 2017 skydoves rights reserved.
  */
 
-data class ShortWeather (var reh: String? = null)
+data class ShortWeather(var reh: String? = null)

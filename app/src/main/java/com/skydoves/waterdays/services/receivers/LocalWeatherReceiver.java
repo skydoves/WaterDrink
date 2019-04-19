@@ -24,58 +24,57 @@ import java.util.GregorianCalendar;
 
 public class LocalWeatherReceiver extends BroadcastReceiver {
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        PreferenceManager preferenceManager = new PreferenceManager(context);
-        GregorianCalendar mCalendar = new GregorianCalendar();
-        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    PreferenceManager preferenceManager = new PreferenceManager(context);
+    GregorianCalendar mCalendar = new GregorianCalendar();
+    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        // check network is connected?
-        if(NetworkUtils.INSTANCE.isNetworkAvailable(context)) {
-            try {
-                if(!DateUtils.INSTANCE.getFarDay(0).equals(preferenceManager.getString("WheatherAlarmDate", "null"))) {
-                    LocalWeather localWeather = new LocalWeather(context);
-                    String Reh = localWeather.execute().get();
+    // check network is connected?
+    if (NetworkUtils.INSTANCE.isNetworkAvailable(context)) {
+      try {
+        if (!DateUtils.INSTANCE.getFarDay(0).equals(preferenceManager.getString("WheatherAlarmDate", "null"))) {
+          LocalWeather localWeather = new LocalWeather(context);
+          String Reh = localWeather.execute().get();
 
-                    // check null value
-                    if (Reh != null) {
-                        SharedPreferences prefs = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
-                        boolean vibrate = prefs.getBoolean("Setting_Vibrate", true);
-                        boolean sound = prefs.getBoolean("Setting_Sound", true);
+          // check null value
+          if (Reh != null) {
+            SharedPreferences prefs = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+            boolean vibrate = prefs.getBoolean("Setting_Vibrate", true);
+            boolean sound = prefs.getBoolean("Setting_Sound", true);
 
-                        // set auto-waterGoal
-                        if (prefs.getBoolean("Setting_AutoGoal", true)) {
-                            int recommandAmount = preferenceManager.getInt("userWeight", 60) * 30 + (500 - Integer.parseInt(Reh) * 3);
-                            preferenceManager.putString("WaterGoal", String.valueOf(recommandAmount));
+            // set auto-waterGoal
+            if (prefs.getBoolean("Setting_AutoGoal", true)) {
+              int recommandAmount = preferenceManager.getInt("userWeight", 60) * 30 + (500 - Integer.parseInt(Reh) * 3);
+              preferenceManager.putString("WaterGoal", String.valueOf(recommandAmount));
 
-                            // send notification
-                            if (prefs.getBoolean("Setting_AutoGoalPush", true))
-                                NotificationUtils.INSTANCE.sendNotification(context, "물 한잔 해요", "오늘의 습도 : " + Reh + "%, 목표 섭취량 : " + recommandAmount + "ml", 1, vibrate, sound);
-                        }
-
-                        // save Reh data
-                        preferenceManager.putString("Reh", Reh);
-
-                        // cancel alarm
-                        alarmManager.cancel(pendingIntent(context, IntentExtras.INSTANCE.getALARM_PENDING_REQUEST_CODE()));
-
-                        // set next alarm
-                        mCalendar.set(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH), 7, 0);
-                        mCalendar.add(Calendar.DATE, 1);
-                        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 1200 * 1000, pendingIntent(context, IntentExtras.INSTANCE.getALARM_PENDING_REQUEST_CODE()));
-                        preferenceManager.putString("WheatherAlarmDate", DateUtils.INSTANCE.getFarDay(0));
-                    }
-                }
+              // send notification
+              if (prefs.getBoolean("Setting_AutoGoalPush", true))
+                NotificationUtils.INSTANCE.sendNotification(context, "물 한잔 해요", "오늘의 습도 : " + Reh + "%, 목표 섭취량 : " + recommandAmount + "ml", 1, vibrate, sound);
             }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+
+            // save Reh data
+            preferenceManager.putString("Reh", Reh);
+
+            // cancel alarm
+            alarmManager.cancel(pendingIntent(context, IntentExtras.ALARM_PENDING_REQUEST_CODE));
+
+            // set next alarm
+            mCalendar.set(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH), 7, 0);
+            mCalendar.add(Calendar.DATE, 1);
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 1200 * 1000, pendingIntent(context, IntentExtras.ALARM_PENDING_REQUEST_CODE));
+            preferenceManager.putString("WheatherAlarmDate", DateUtils.INSTANCE.getFarDay(0));
+          }
         }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
+  }
 
-    private PendingIntent pendingIntent(Context mContext, int requestCode) {
-        Intent intent = new Intent(mContext, LocalWeatherReceiver.class);
-        intent.putExtra(IntentExtras.INSTANCE.getALARM_PENDING_REQUEST(), requestCode);
-        return PendingIntent.getBroadcast(mContext, requestCode, intent, 0);
-    }
+  private PendingIntent pendingIntent(Context mContext, int requestCode) {
+    Intent intent = new Intent(mContext, LocalWeatherReceiver.class);
+    intent.putExtra(IntentExtras.ALARM_PENDING_REQUEST, requestCode);
+    return PendingIntent.getBroadcast(mContext, requestCode, intent, 0);
+  }
 }

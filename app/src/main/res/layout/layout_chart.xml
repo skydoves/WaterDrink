@@ -20,40 +20,40 @@
                 android:id="@+id/chart_ibtn_back"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:padding="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_back"
-                android:tint="#ffffff"
-                android:padding="10dp"
-                android:clickable="true"
-                android:background="@android:color/transparent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"/>
+                android:tint="#ffffff" />
 
             <TextView
                 android:id="@+id/chart_tv_weekdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="2016-10-21 ~ 2016-10-28"
-                android:textColor="#ffffff"
-                android:textSize="20sp"
-                android:layout_gravity="center"
+                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_gravity="center"
+                android:text="2016-10-21 ~ 2016-10-28"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
 
             <ImageButton
                 android:id="@+id/chart_ibtn_next"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:padding="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_next"
-                android:tint="#ffffff"
-                android:padding="10dp"
-                android:clickable="true"
-                android:background="@android:color/transparent"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="10dp"/>
+                android:tint="#ffffff" />
 
         </RelativeLayout>
 
@@ -66,33 +66,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:orientation="horizontal"
-                android:background="#2e3241"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="20dp"
+                android:background="#2e3241"
+                android:orientation="horizontal" />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart_mainchart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:foregroundGravity="center"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:foregroundGravity="center" />
 
             <TextView
                 android:id="@+id/chart_tv_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
                 android:text="기록이 없습니다."
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
                 android:textSize="22sp"
-                android:layout_gravity="center"
-                android:visibility="invisible"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:visibility="invisible" />
 
         </RelativeLayout>
 
@@ -105,9 +105,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="#2e3241"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="20dp"
+                android:background="#2e3241" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -125,28 +125,28 @@
 
                     <TextView
                         android:id="@+id/chart_tv01"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="총 섭취량"
-                        android:scrollbars="vertical"
-                        android:textColor="#3d95c9"
-                        android:textStyle="bold"
-                        android:textSize="15dp"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true" />
+                        android:scrollbars="vertical"
+                        android:text="총 섭취량"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="#3d95c9"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/chart_tv_totaldrink"
-                        android:layout_below="@+id/chart_tv01"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/chart_tv01"
                         android:layout_marginTop="10dp"
                         android:text="1000 ml"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="#ffffff"
-                        android:textStyle="bold"
-                        android:textSize="24dp"/>
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -157,28 +157,28 @@
 
                     <TextView
                         android:id="@+id/chart_tv02"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="평균 섭취량"
-                        android:scrollbars="vertical"
-                        android:textColor="#3d95c9"
-                        android:textStyle="bold"
-                        android:textSize="15dp"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true" />
+                        android:scrollbars="vertical"
+                        android:text="평균 섭취량"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="#3d95c9"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/chart_tv_averagedrink"
-                        android:layout_below="@+id/chart_tv02"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/chart_tv02"
                         android:layout_marginTop="10dp"
                         android:text="1000 ml"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="#ffffff"
-                        android:textStyle="bold"
-                        android:textSize="24dp"/>
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -189,28 +189,28 @@
 
                     <TextView
                         android:id="@+id/chart_tv03"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="선택 요일"
-                        android:scrollbars="vertical"
-                        android:textColor="#3d95c9"
-                        android:textStyle="bold"
-                        android:textSize="15dp"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true" />
+                        android:scrollbars="vertical"
+                        android:text="선택 요일"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="#3d95c9"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/chart_tv_selectedday"
-                        android:layout_below="@+id/chart_tv03"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/chart_tv03"
                         android:layout_marginTop="10dp"
                         android:text=""
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="#ffffff"
-                        android:textStyle="bold"
-                        android:textSize="24dp"/>
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 

@@ -13,6 +13,7 @@ import com.skydoves.waterdays.utils.AlarmUtils;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 /**
  * Created by skydoves on 2016-10-15.
@@ -22,37 +23,36 @@ import java.util.GregorianCalendar;
 
 public class AlarmBootReceiver extends BroadcastReceiver {
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            SqliteManager sqliteManager = new SqliteManager(context, SqliteManager.Companion.getDATABASE_NAME(), null, SqliteManager.Companion.getDATABASE_VERSION());
-            AlarmUtils systems_alarm = new AlarmUtils(context);
-            GregorianCalendar mCalendar = new GregorianCalendar();
-            AlarmManager mManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    if (Objects.equals(intent.getAction(), Intent.ACTION_BOOT_COMPLETED)) {
+      SqliteManager sqliteManager = new SqliteManager(context, SqliteManager.Companion.getDATABASE_NAME(), null, SqliteManager.Companion.getDATABASE_VERSION());
+      AlarmUtils systems_alarm = new AlarmUtils(context);
+      GregorianCalendar mCalendar = new GregorianCalendar();
+      AlarmManager mManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-            try {
-                Cursor cursor = sqliteManager.getReadableDatabase().rawQuery("select * from AlarmList", null);
-                if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
-                    do {
-                        int requestCode = cursor.getInt(0);
-                        systems_alarm.setAlarm(requestCode);
+      try {
+        Cursor cursor = sqliteManager.getReadableDatabase().rawQuery("select * from AlarmList", null);
+        if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+          do {
+            int requestCode = cursor.getInt(0);
+            systems_alarm.setAlarm(requestCode);
 
-                        mCalendar.set(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH), 7, 0);
-                        mCalendar.add(Calendar.DATE, 1);
-                        mManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 1200 * 1000, pendingIntent(context, IntentExtras.INSTANCE.getALARM_PENDING_REQUEST_CODE()));
-                    } while (cursor.moveToNext());
-                    cursor.close();
-                }
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+            mCalendar.set(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH), 7, 0);
+            mCalendar.add(Calendar.DATE, 1);
+            mManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 1200 * 1000, pendingIntent(context, IntentExtras.ALARM_PENDING_REQUEST_CODE));
+          } while (cursor.moveToNext());
+          cursor.close();
         }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
+  }
 
-    private PendingIntent pendingIntent(Context mContext, int requestCode) {
-        Intent intent = new Intent(mContext, LocalWeatherReceiver.class);
-        intent.putExtra(IntentExtras.INSTANCE.getALARM_PENDING_REQUEST(), requestCode);
-        return PendingIntent.getBroadcast(mContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    }
+  private PendingIntent pendingIntent(Context mContext, int requestCode) {
+    Intent intent = new Intent(mContext, LocalWeatherReceiver.class);
+    intent.putExtra(IntentExtras.ALARM_PENDING_REQUEST, requestCode);
+    return PendingIntent.getBroadcast(mContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+  }
 }

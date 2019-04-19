@@ -8,7 +8,7 @@ import android.os.Bundle
  */
 
 object BundleUtils {
-    fun maybeGetBundle(state: Bundle?, key: String): Bundle? {
-        state.let { return state?.getBundle(key) }
-    }
+  fun maybeGetBundle(state: Bundle?, key: String): Bundle? {
+    state.let { return state?.getBundle(key) }
+  }
 }

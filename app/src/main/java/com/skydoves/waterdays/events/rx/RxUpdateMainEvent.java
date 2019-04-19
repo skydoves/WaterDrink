@@ -10,29 +10,29 @@ import io.reactivex.subjects.PublishSubject;
 
 public class RxUpdateMainEvent {
 
-    private static RxUpdateMainEvent instance;
-    private PublishSubject<Boolean> subject;
+  private static RxUpdateMainEvent instance;
+  private PublishSubject<Boolean> subject;
 
-    private RxUpdateMainEvent() {
-        subject = PublishSubject.create();
-    }
+  private RxUpdateMainEvent() {
+    subject = PublishSubject.create();
+  }
 
-    public static RxUpdateMainEvent getInstance() {
-        if(instance == null){
-            instance = new RxUpdateMainEvent();
-        }
-        return instance;
+  public static RxUpdateMainEvent getInstance() {
+    if (instance == null) {
+      instance = new RxUpdateMainEvent();
     }
+    return instance;
+  }
 
-    public void sendEvent() {
-        subject.onNext(true);
-    }
+  public void sendEvent() {
+    subject.onNext(true);
+  }
 
-    public void updateBadge() {
-        subject.onNext(false);
-    }
+  public void updateBadge() {
+    subject.onNext(false);
+  }
 
-    public Observable<Boolean> getObservable() {
-        return subject;
-    }
+  public Observable<Boolean> getObservable() {
+    return subject;
+  }
 }

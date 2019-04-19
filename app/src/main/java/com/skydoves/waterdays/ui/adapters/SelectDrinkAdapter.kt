@@ -1,13 +1,11 @@
 package com.skydoves.waterdays.ui.adapters
 
-import android.support.annotation.LayoutRes
 import android.view.View
-
+import androidx.annotation.LayoutRes
 import com.skydoves.waterdays.R
 import com.skydoves.waterdays.models.Capacity
 import com.skydoves.waterdays.ui.viewholders.BaseViewHolder
 import com.skydoves.waterdays.ui.viewholders.SelectDrinkViewHolder
-
 import java.util.ArrayList
 
 /**
@@ -17,26 +15,26 @@ import java.util.ArrayList
 
 class SelectDrinkAdapter(private val delegate: SelectDrinkViewHolder.Delegate) : BaseAdapter() {
 
-    init {
-        addSection(ArrayList<Capacity>())
-        notifyDataSetChanged()
-    }
+  init {
+    addSection(ArrayList<Capacity>())
+    notifyDataSetChanged()
+  }
 
-    fun addCapacityItem(capacity: Capacity) {
-        sections()[0].add(capacity)
-        notifyDataSetChanged()
-    }
+  fun addCapacityItem(capacity: Capacity) {
+    sections()[0].add(capacity)
+    notifyDataSetChanged()
+  }
 
-    fun removeDrinkItem(capacity: Capacity) {
-        sections()[0].remove(capacity)
-        notifyDataSetChanged()
-    }
+  fun removeDrinkItem(capacity: Capacity) {
+    sections()[0].remove(capacity)
+    notifyDataSetChanged()
+  }
 
-    override fun layout(sectionRow: BaseAdapter.SectionRow): Int {
-        return R.layout.item_selectdrink
-    }
+  override fun layout(sectionRow: SectionRow): Int {
+    return R.layout.item_selectdrink
+  }
 
-    override fun viewHolder(@LayoutRes layout: Int, view: View): BaseViewHolder {
-        return SelectDrinkViewHolder(view, delegate)
-    }
+  override fun viewHolder(@LayoutRes layout: Int, view: View): BaseViewHolder {
+    return SelectDrinkViewHolder(view, delegate)
+  }
 }

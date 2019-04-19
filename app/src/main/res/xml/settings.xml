@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
         android:key="maker"
@@ -7,51 +7,51 @@
 
     <PreferenceCategory
         android:key="pushsetting"
-        android:title="추천 목표 섭취량" >
+        android:title="추천 목표 섭취량">
 
         <SwitchPreference
             android:defaultValue="true"
             android:key="Setting_AutoGoal"
-            android:title="목표 섭취량 자동 적용"
-            android:summaryOn="설정한 지역의 습도와 사용자의 체중으로 매일아침 새로운 목표 섭취량이 적용됩니다."
             android:summaryOff="목표 섭취량 자동 적용을 하지 않습니다."
+            android:summaryOn="설정한 지역의 습도와 사용자의 체중으로 매일아침 새로운 목표 섭취량이 적용됩니다."
             android:switchTextOff="OFF"
-            android:switchTextOn="ON" />
+            android:switchTextOn="ON"
+            android:title="목표 섭취량 자동 적용" />
 
         <CheckBoxPreference
-            android:key="Setting_AutoGoalPush"
-            android:dependency="Setting_AutoGoal"
             android:defaultValue="true"
-            android:title="추천 알람"
+            android:dependency="Setting_AutoGoal"
+            android:key="Setting_AutoGoalPush"
+            android:summaryOff="추천 목표 섭취량 알람을 받지 않습니다."
             android:summaryOn="매일 아침 7시 추천 목표 섭취량 알람을 받습니다."
-            android:summaryOff="추천 목표 섭취량 알람을 받지 않습니다."/>
+            android:title="추천 알람" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:key="pushsetting"
-        android:title="알람" >
+        android:title="알람">
 
         <SwitchPreference
             android:defaultValue="true"
             android:key="Setting_AlarmActivity"
-            android:title="알람 화면 설정"
+            android:summaryOff="알람 화면은 띄우지 않고 푸시 알람만 받습니다."
             android:summaryOn="알람 화면을 띄웁니다."
-            android:summaryOff="알람 화면은 띄우지 않고 푸시 알람만 받습니다."/>
+            android:title="알람 화면 설정" />
 
         <SwitchPreference
             android:defaultValue="true"
             android:key="Setting_Vibrate"
-            android:title="푸시 진동 설정"
+            android:summaryOff="푸시 알람을 받으면 진동이 발생하지 않습니다."
             android:summaryOn="푸시 알람을 받으면 진동이 발생합니다."
-            android:summaryOff="푸시 알람을 받으면 진동이 발생하지 않습니다."/>
+            android:title="푸시 진동 설정" />
 
         <SwitchPreference
             android:defaultValue="true"
             android:key="Setting_Sound"
-            android:title="푸시 사운드 설정"
+            android:summaryOff="푸시 알람을 받으면 사운드가 발생하지 않습니다."
             android:summaryOn="푸시 알람을 받으면 사운드가 발생합니다."
-            android:summaryOff="푸시 알람을 받으면 사운드가 발생하지 않습니다."/>
+            android:title="푸시 사운드 설정" />
 
     </PreferenceCategory>
 

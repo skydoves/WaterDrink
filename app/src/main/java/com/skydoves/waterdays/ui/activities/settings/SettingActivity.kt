@@ -13,10 +13,10 @@ import com.skydoves.waterdays.R
 
 class SettingActivity : PreferenceActivity() {
 
-    public override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  public override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        // Load the preferences from an XML resource
-        addPreferencesFromResource(R.xml.settings)
-    }
+    // Load the preferences from an XML resource
+    addPreferencesFromResource(R.xml.settings)
+  }
 }

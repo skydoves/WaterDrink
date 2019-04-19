@@ -8,17 +8,17 @@ import android.graphics.drawable.Drawable
  */
 
 class Capacity {
-    val image: Drawable?
-    var amount: Int = 0
-        private set
+  val image: Drawable?
+  var amount: Int = 0
+    private set
 
-    constructor(amount: Int) {
-        image = null
-        this.amount = amount
-    }
+  constructor(amount: Int) {
+    image = null
+    this.amount = amount
+  }
 
-    constructor(image: Drawable?, amount: Int) {
-        this.image = image
-        this.amount = amount
-    }
+  constructor(image: Drawable?, amount: Int) {
+    this.image = image
+    this.amount = amount
+  }
 }

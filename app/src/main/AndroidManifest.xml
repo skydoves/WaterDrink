@@ -63,7 +63,7 @@
 
         <activity android:name=".ui.activities.settings.SetMyCupActivity" />
         <activity android:name=".ui.activities.alarm.AlarmScreenActivity" />
-        <activity android:name=".ui.activities.settings.SetBubbleColorActivity"/>
+        <activity android:name=".ui.activities.settings.SetBubbleColorActivity" />
     </application>
 
 </manifest>

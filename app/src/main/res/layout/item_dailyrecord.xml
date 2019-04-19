@@ -9,48 +9,48 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:scaleType="fitXY"
-        android:src="@drawable/img_waterdrop"/>
+        android:src="@drawable/img_waterdrop" />
 
     <TextView
         android:id="@+id/item_dailyrecord_tv_drinkamount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="@+id/item_dailyrecord_imv_main"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/item_dailyrecord_imv_main"
         android:text="330ml"
         android:textColor="#3d95c9"
         android:textSize="16sp"
-        android:layout_alignParentTop="@+id/item_dailyrecord_imv_main"
-        android:layout_toEndOf="@+id/item_dailyrecord_imv_main"
-        android:textStyle="bold"
-        android:layout_marginLeft="10dp"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/item_dailyrecord_tv_todaydate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/item_dailyrecord_tv_drinkamount"
+        android:layout_alignBottom="@+id/item_dailyrecord_imv_main"
         android:text="2016-10-27 22:33"
         android:textColor="#ffffff"
-        android:textSize="15sp"
-        android:layout_alignBottom="@+id/item_dailyrecord_imv_main"
-        android:layout_alignStart="@+id/item_dailyrecord_tv_drinkamount" />
+        android:textSize="15sp" />
 
     <ImageButton
         android:id="@+id/item_dailyrecord_btn_delete"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:padding="10dp"
-        android:background="@android:color/transparent"
-        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_close"
-        android:tint="#3b3f50"
-        android:layout_marginRight="10dp" />
+        android:tint="#3b3f50" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#2e3241"
         android:layout_below="@+id/item_dailyrecord_tv_todaydate"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:background="#2e3241" />
 
 </RelativeLayout>

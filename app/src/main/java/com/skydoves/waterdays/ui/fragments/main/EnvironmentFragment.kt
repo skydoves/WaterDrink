@@ -1,16 +1,22 @@
 package com.skydoves.waterdays.ui.fragments.main
 
+import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.skydoves.ElasticAction
+import androidx.fragment.app.Fragment
+import com.skydoves.elasticviews.ElasticAnimation
+import com.skydoves.elasticviews.ElasticFinishListener
 import com.skydoves.waterdays.R
-import com.skydoves.waterdays.ui.activities.settings.*
+import com.skydoves.waterdays.ui.activities.settings.NFCActivity
+import com.skydoves.waterdays.ui.activities.settings.SetBubbleColorActivity
+import com.skydoves.waterdays.ui.activities.settings.SetGoalActivity
+import com.skydoves.waterdays.ui.activities.settings.SetLocalActivity
+import com.skydoves.waterdays.ui.activities.settings.SetMyCupActivity
+import com.skydoves.waterdays.ui.activities.settings.SetWeightActivity
+import com.skydoves.waterdays.ui.activities.settings.SettingActivity
 import kotlinx.android.synthetic.main.layout_settings.*
-import org.jetbrains.anko.support.v4.startActivity
 
 /**
  * Created by skydoves on 2016-10-15.
@@ -20,41 +26,35 @@ import org.jetbrains.anko.support.v4.startActivity
 
 class EnvironmentFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater!!.inflate(R.layout.layout_settings, container, false)
-        return rootView
-    }
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    val rootView = inflater.inflate(R.layout.layout_settings, container, false)
+    return rootView
+  }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        settings_tv_nfc.setOnClickListener { MenuClick(it) }
-        settings_tv_recommend.setOnClickListener { MenuClick(it) }
-        settings_tv_goal.setOnClickListener { MenuClick(it) }
-        settings_tv_mycup.setOnClickListener { MenuClick(it) }
-        settings_tv_setlocation.setOnClickListener { MenuClick(it) }
-        settings_tv_setColor.setOnClickListener { MenuClick(it) }
-        settings_tv_setting.setOnClickListener { MenuClick(it) }
-    }
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    settings_tv_nfc.setOnClickListener { menuClick(it) }
+    settings_tv_recommend.setOnClickListener { menuClick(it) }
+    settings_tv_goal.setOnClickListener { menuClick(it) }
+    settings_tv_mycup.setOnClickListener { menuClick(it) }
+    settings_tv_setlocation.setOnClickListener { menuClick(it) }
+    settings_tv_setColor.setOnClickListener { menuClick(it) }
+    settings_tv_setting.setOnClickListener { menuClick(it) }
+  }
 
-    internal fun MenuClick(v: View) {
-        val duration = 200
-        ElasticAction.doAction(v, duration, 0.9f, 0.9f)
-        Handler().postDelayed({
-            when (v.id) {
-                R.id.settings_tv_nfc -> startActivity<NFCActivity>()
-
-                R.id.settings_tv_recommend -> startActivity<SetWeightActivity>()
-
-                R.id.settings_tv_goal ->  startActivity<SetGoalActivity>()
-
-                R.id.settings_tv_mycup ->  startActivity<SetMyCupActivity>()
-
-                R.id.settings_tv_setlocation ->  startActivity<SetLocalActivity>()
-
-                R.id.settings_tv_setColor -> startActivity<SetBubbleColorActivity>()
-
-                R.id.settings_tv_setting -> startActivity<SettingActivity>()
-            }
-        }, duration.toLong())
-    }
+  private fun menuClick(view: View) {
+    ElasticAnimation(view).setScaleX(0.9f).setScaleY(0.9f).setDuration(200).setOnFinishListener(object : ElasticFinishListener {
+      override fun onFinished() {
+        when (view.id) {
+          R.id.settings_tv_nfc -> startActivity(Intent(context, NFCActivity::class.java))
+          R.id.settings_tv_recommend -> startActivity(Intent(context, SetWeightActivity::class.java))
+          R.id.settings_tv_goal -> startActivity(Intent(context, SetGoalActivity::class.java))
+          R.id.settings_tv_mycup -> startActivity(Intent(context, SetMyCupActivity::class.java))
+          R.id.settings_tv_setlocation -> startActivity(Intent(context, SetLocalActivity::class.java))
+          R.id.settings_tv_setColor -> startActivity(Intent(context, SetBubbleColorActivity::class.java))
+          R.id.settings_tv_setting -> startActivity(Intent(context, SettingActivity::class.java))
+        }
+      }
+    }).doAction()
+  }
 }

@@ -14,5 +14,5 @@ import java.lang.annotation.RetentionPolicy;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RequirePresenter {
-    Class<? extends BasePresenter> value();
+  Class<? extends BasePresenter> value();
 }

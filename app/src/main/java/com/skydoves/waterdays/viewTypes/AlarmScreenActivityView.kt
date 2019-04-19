@@ -8,6 +8,6 @@ import com.skydoves.waterdays.compose.BaseView
  */
 
 interface AlarmScreenActivityView : BaseView {
-    fun onDrink(value: String)
-    fun onFinish()
+  fun onDrink(value: String)
+  fun onFinish()
 }

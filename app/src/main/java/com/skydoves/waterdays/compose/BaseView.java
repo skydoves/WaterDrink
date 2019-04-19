@@ -6,5 +6,5 @@ package com.skydoves.waterdays.compose;
  */
 
 public interface BaseView {
-    void initializeUI();
+  void initializeUI();
 }

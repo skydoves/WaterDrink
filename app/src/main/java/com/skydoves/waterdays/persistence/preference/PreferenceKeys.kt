@@ -8,11 +8,11 @@ import android.util.Pair
  */
 
 object PreferenceKeys {
-    val NEWBE = Pair("NEWBE", true)
-    val INIT_CAPACITY = Pair("INIT_CAPACITY", false)
-    val WATER_GOAL = Pair("WaterGoal", "2000")
-    val LOCALINDEX = Pair("localIndex", 0)
-    val CUP_CAPICITY = Pair("MyCup", "0")
-    val ALARM_WEAHTER = Pair("setWeatherAlarm", false)
-    val BUBBLE_COLOR = Pair("BUBBLE_COLOR", "#1c9ade")
+  val NEWBE = Pair("NEWBE", true)
+  val INIT_CAPACITY = Pair("INIT_CAPACITY", false)
+  val WATER_GOAL = Pair("WaterGoal", "2000")
+  val LOCALINDEX = Pair("localIndex", 0)
+  val CUP_CAPICITY = Pair("MyCup", "0")
+  val ALARM_WEAHTER = Pair("setWeatherAlarm", false)
+  val BUBBLE_COLOR = Pair("BUBBLE_COLOR", "#1c9ade")
 }

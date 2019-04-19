@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_intro4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +10,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"/>
+        android:layout_weight="2" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -23,15 +22,16 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
             android:layout_gravity="center"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:scaleType="fitXY"
             android:src="@drawable/img_chart" />
 
     </LinearLayout>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"
@@ -42,10 +42,10 @@
         android:paddingRight="32dp"
         android:text="통계 제공"
         android:textColor="#ffffff"
-        android:textSize="28sp"
-        android:id="@+id/textView" />
+        android:textSize="28sp" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"
@@ -55,13 +55,12 @@
         android:paddingRight="32dp"
         android:text="'물 한잔 해요'는 \n사용자의 기록을 한눈에 볼 수 있도록\n 통계를 제공합니다."
         android:textColor="#ffffff"
-        android:textSize="18sp"
-        android:id="@+id/textView2" />
+        android:textSize="18sp" />
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <TextView
         android:layout_width="fill_parent"

@@ -24,82 +24,83 @@ import java.util.ArrayList;
 
 public class LocalWeather extends AsyncTask<String, Integer, String> {
 
-    private PreferenceManager preferenceManager;
+  private PreferenceManager preferenceManager;
 
-    private ArrayList<ShortWeather> shortWeathers = new ArrayList<>();
+  private ArrayList<ShortWeather> shortWeathers = new ArrayList<>();
 
-    public LocalWeather(Context context) {
-        this.preferenceManager = new PreferenceManager(context);
+  public LocalWeather(Context context) {
+    this.preferenceManager = new PreferenceManager(context);
+  }
+
+  public String doInBackground(String[] StringParams) {
+    String url = LocalUrls.INSTANCE.getLocalUrl(preferenceManager.getInt("localIndex", 0));
+    Response response;
+    OkHttpClient client = new OkHttpClient();
+    Request request = new Request.Builder().url(url).build();
+
+    // xml parsing : get reh data
+    try {
+      response = client.newCall(request).execute();
+      int total = parseXML(response.body().string());
+      return String.valueOf(total);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+    return null;
+  }
 
-    public String doInBackground(String[] StringParams) {
-        String url = LocalUrls.INSTANCE.getLocalUrl(preferenceManager.getInt("localIndex", 0));
-        Response response;
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).build();
+  protected void onPostExecute(String result) {
+    super.onPostExecute(result);
+  }
 
-        // xml parsing : get reh data
-        try {
-            response = client.newCall(request).execute();
-            int total = parseXML(response.body().string());
-            return String.valueOf(total);
-        } catch (Exception e) {
-            e.printStackTrace();
+  /**
+   * parsing XML file to data
+   *
+   * @param xml
+   * @return
+   */
+  private int parseXML(String xml) {
+    int total = 0;
+    try {
+      int i = 0;
+      String tagName = "";
+      boolean onreh = false;
+      boolean onEnd = false;
+      boolean isItemTag1 = false;
+
+      // Initialize XmlPullParser
+      XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+      XmlPullParser parser = factory.newPullParser();
+      parser.setInput(new StringReader(xml));
+
+      int eventType = parser.getEventType();
+      while (eventType != XmlPullParser.END_DOCUMENT) {
+        if (eventType == XmlPullParser.START_TAG) {
+          tagName = parser.getName();
+          if (tagName.equals("data")) {
+            shortWeathers.add(new ShortWeather());
+            onEnd = false;
+            isItemTag1 = true;
+          }
+        } else if (eventType == XmlPullParser.TEXT && isItemTag1) {
+          if (tagName.equals("reh") && !onreh) {
+            shortWeathers.get(i).setReh(parser.getText());
+            total += Integer.parseInt(parser.getText());
+            onreh = true;
+          }
+        } else if (eventType == XmlPullParser.END_TAG) {
+          if (tagName.equals("s06") && onEnd == false) {
+            i++;
+            isItemTag1 = false;
+            onreh = false;
+            onEnd = true;
+          }
         }
-        return null;
+        eventType = parser.next();
+      }
+    } catch (Exception e) {
+      e.getStackTrace();
     }
-
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-    }
-
-    /**
-     * parsing XML file to data
-     * @param xml
-     * @return
-     */
-    private int parseXML(String xml) {
-        int total=0;
-        try {
-            int i = 0;
-            String tagName = "";
-            boolean onreh = false;
-            boolean onEnd = false;
-            boolean isItemTag1 = false;
-
-            // Initialize XmlPullParser
-            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = factory.newPullParser();
-            parser.setInput(new StringReader(xml));
-
-            int eventType = parser.getEventType();
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-                if (eventType == XmlPullParser.START_TAG) {
-                    tagName = parser.getName();
-                    if (tagName.equals("data")) {
-                        shortWeathers.add(new ShortWeather());
-                        onEnd = false;
-                        isItemTag1 = true;
-                    }
-                } else if (eventType == XmlPullParser.TEXT && isItemTag1) {
-                    if(tagName.equals("reh") && !onreh){
-                        shortWeathers.get(i).setReh(parser.getText());
-                        total += Integer.parseInt(parser.getText());
-                        onreh = true;
-                    }
-                } else if (eventType == XmlPullParser.END_TAG) {
-                    if (tagName.equals("s06") && onEnd == false) {
-                        i++;
-                        isItemTag1 = false;
-                        onreh = false;
-                        onEnd = true;
-                    }
-                }
-                eventType = parser.next();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return total/shortWeathers.size();
-    }
+    return total / shortWeathers.size();
+  }
 }

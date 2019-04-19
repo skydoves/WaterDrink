@@ -8,61 +8,61 @@
         android:id="@+id/item_alarmrecord_img"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:scaleType="fitXY"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/ic_alarm"/>
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_alarm" />
 
     <TextView
         android:id="@+id/item_alarmrecord_tv_days"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="@+id/item_alarmrecord_img"
+        android:layout_marginLeft="15dp"
+        android:layout_toEndOf="@+id/item_alarmrecord_img"
         android:text="월 화 수 목 금 토 일"
         android:textColor="#3d95c9"
         android:textSize="16sp"
-        android:layout_alignParentTop="@+id/item_alarmrecord_img"
-        android:layout_toEndOf="@+id/item_alarmrecord_img"
-        android:textStyle="bold"
-        android:layout_marginLeft="15dp"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/item_alarmrecord_tv_times"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/item_alarmrecord_tv_days"
+        android:layout_alignBottom="@+id/item_alarmrecord_img"
         android:text="시작 : 7시 00분 / 종료 : 6시 00분"
         android:textColor="#ffffff"
-        android:textSize="15sp"
-        android:layout_alignBottom="@+id/item_alarmrecord_img"
-        android:layout_alignStart="@+id/item_alarmrecord_tv_days" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/item_alarmrecord_tv_interval"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/item_alarmrecord_tv_times"
+        android:layout_alignStart="@+id/item_alarmrecord_tv_times"
         android:text="시작 : 7시 00분 / 종료 : 6시 00분"
         android:textColor="#ffffff"
-        android:textSize="15sp"
-        android:layout_below="@+id/item_alarmrecord_tv_times"
-        android:layout_alignStart="@+id/item_alarmrecord_tv_times" />
+        android:textSize="15sp" />
 
     <ImageButton
         android:id="@+id/item_alarmrecord_btn_delete"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:padding="10dp"
-        android:background="@android:color/transparent"
-        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_close"
-        android:tint="#3b3f50"
-        android:layout_marginEnd="10dp" />
+        android:tint="#3b3f50" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#2e3241"
         android:layout_below="@+id/item_alarmrecord_tv_interval"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:background="#2e3241" />
 
 </RelativeLayout>

@@ -21,40 +21,40 @@
                 android:id="@+id/dailyrecord_ibtn_back"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:padding="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_back"
-                android:tint="#ffffff"
-                android:padding="10dp"
-                android:clickable="true"
-                android:background="@android:color/transparent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"/>
+                android:tint="#ffffff" />
 
             <TextView
                 android:id="@+id/dailyrecord_tv_todaydate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="2016-10-21"
-                android:textColor="#ffffff"
-                android:textSize="23sp"
-                android:layout_gravity="center"
+                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_gravity="center"
+                android:text="2016-10-21"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="23sp" />
 
             <ImageButton
                 android:id="@+id/dailyrecord_ibtn_next"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:padding="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_next"
-                android:tint="#ffffff"
-                android:padding="10dp"
-                android:clickable="true"
-                android:background="@android:color/transparent"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="10dp"/>
+                android:tint="#ffffff" />
 
         </RelativeLayout>
 
@@ -67,33 +67,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:orientation="horizontal"
-                android:background="#2e3241"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="20dp"
+                android:background="#2e3241"
+                android:orientation="horizontal" />
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dailyrecord_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="#2e3241"
-                android:dividerHeight="1dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                app:layoutManager="LinearLayoutManager"/>
+                android:divider="#2e3241"
+                android:dividerHeight="1dp"
+                app:layoutManager="LinearLayoutManager" />
 
             <TextView
                 android:id="@+id/dailyrecord_tv_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
                 android:text="기록이 없습니다."
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
                 android:textSize="22sp"
-                android:layout_gravity="center"
-                android:visibility="invisible"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:visibility="invisible" />
 
         </RelativeLayout>
 

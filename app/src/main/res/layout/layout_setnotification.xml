@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#1d1f2f"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#1d1f2f">
 
     <!-- # Main Layout # -->
     <LinearLayout
@@ -20,13 +20,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="예약된 알람 목록"
-                android:textColor="#ffffff"
-                android:textSize="23sp"
-                android:layout_gravity="center"
+                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_gravity="center"
+                android:text="예약된 알람 목록"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="23sp" />
 
         </RelativeLayout>
 
@@ -39,47 +39,46 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:orientation="horizontal"
-                android:background="#2e3241"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="20dp"
+                android:background="#2e3241"
+                android:orientation="horizontal" />
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                app:layoutManager="LinearLayoutManager"/>
+                android:layout_marginRight="20dp" />
 
             <TextView
                 android:id="@+id/setnotification_tv_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
                 android:text="예약이 없습니다."
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
                 android:textSize="22sp"
-                android:layout_gravity="center"
-                android:visibility="invisible"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:visibility="invisible" />
 
         </RelativeLayout>
 
     </LinearLayout>
 
-    <com.github.skydoves.ElasticFloatingActionButton
+    <com.skydoves.elasticviews.ElasticFloatingActionButton
         android:id="@+id/setnotification_fab"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_add"
         android:tint="#ffffff"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
         app:backgroundTint="#3d95c9"
         app:fabutton_duration="150"
-        app:fabutton_scale="0.9"/>
+        app:fabutton_scale="0.9" />
 
 </RelativeLayout>

@@ -20,32 +20,34 @@ import javax.inject.Inject
 
 class AlarmScreenPresenter : BasePresenter<AlarmScreenActivityView>() {
 
-    @Inject lateinit var sqliteManager: SqliteManager
-    @Inject lateinit var preferenceManager: PreferenceManager
+  @Inject
+  lateinit var sqliteManager: SqliteManager
+  @Inject
+  lateinit var preferenceManager: PreferenceManager
 
-    override fun onCreate(context: Context, savedInstanceState: Bundle?) {
-        WDApplication.component.inject(this)
-        super.onCreate(context, savedInstanceState)
-    }
+  override fun onCreate(context: Context, savedInstanceState: Bundle?) {
+    WDApplication.component.inject(this)
+    super.onCreate(context, savedInstanceState)
+  }
 
-    fun onCheck() {
-        val myCup = preferenceManager.getString(PreferenceKeys.CUP_CAPICITY.first, PreferenceKeys.CUP_CAPICITY.second)
-        if (myCup != PreferenceKeys.CUP_CAPICITY.second) {
-            sqliteManager.addRecord(myCup)
-            baseView.onDrink(myCup)
-        }
-        baseView.onFinish()
+  fun onCheck() {
+    val myCup = preferenceManager.getString(PreferenceKeys.CUP_CAPICITY.first, PreferenceKeys.CUP_CAPICITY.second)
+    if (myCup != PreferenceKeys.CUP_CAPICITY.second) {
+      sqliteManager.addRecord(myCup)
+      baseView.onDrink(myCup)
     }
+    baseView.onFinish()
+  }
 
-    val daliyDrink: Float by lazy {
-        sqliteManager.let { sqliteManager.getDayDrinkAmount(DateUtils.getFarDay(0)).toFloat() }
-    }
+  val daliyDrink: Float by lazy {
+    sqliteManager.let { sqliteManager.getDayDrinkAmount(DateUtils.getFarDay(0)).toFloat() }
+  }
 
-    val cupSize: String by lazy {
-        sqliteManager.let { preferenceManager.getString("MyCup", "250") }
-    }
+  val cupSize: String by lazy {
+    sqliteManager.let { preferenceManager.getString("MyCup", "250") }
+  }
 
-    val waterGoal: String by lazy {
-        preferenceManager.let { preferenceManager.getString(PreferenceKeys.WATER_GOAL.first, PreferenceKeys.WATER_GOAL.second) }
-    }
+  val waterGoal: String by lazy {
+    preferenceManager.let { preferenceManager.getString(PreferenceKeys.WATER_GOAL.first, PreferenceKeys.WATER_GOAL.second) }
+  }
 }

@@ -6,7 +6,7 @@ package com.skydoves.waterdays.consts
  */
 
 object IntentExtras {
-    val ALARM_PENDING_REQUEST_CODE = 123456
-    val ALARM_PENDING_REQUEST = "requestCode"
-    val ALARM_PENDING_OCCUR_TIME = "occurDateTime"
+  const val ALARM_PENDING_REQUEST_CODE = 123456
+  const val ALARM_PENDING_REQUEST = "requestCode"
+  const val ALARM_PENDING_OCCUR_TIME = "occurDateTime"
 }

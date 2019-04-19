@@ -27,7 +27,7 @@ import java.io.IOException
 
 class NFCActivity : AppCompatActivity() {
 
-  internal var mWriteMode = false
+  private var mWriteMode = false
   private var mNfcAdapter: NfcAdapter? = null
   private var mNfcPendingIntent: PendingIntent? = null
 

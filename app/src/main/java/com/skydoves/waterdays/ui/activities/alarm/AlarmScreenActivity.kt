@@ -25,7 +25,9 @@ import java.util.concurrent.TimeUnit
  */
 
 @RequirePresenter(AlarmScreenPresenter::class)
-class AlarmScreenActivity : BaseActivity<AlarmScreenPresenter, AlarmScreenActivityView>(), AlarmScreenActivityView {
+class AlarmScreenActivity
+  : BaseActivity<AlarmScreenPresenter, AlarmScreenActivityView>(), AlarmScreenActivityView
+{
 
   @SuppressLint("CheckResult")
   override fun onCreate(savedInstanceState: Bundle?) {

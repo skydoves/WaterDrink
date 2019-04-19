@@ -22,7 +22,9 @@ import kotlinx.android.synthetic.main.activity_set_local.*
  */
 
 @RequirePresenter(SetLocalPresenter::class)
-class SetLocalActivity : BaseActivity<SetLocalPresenter, SetLocalActivityView>(), SetLocalActivityView {
+class SetLocalActivity
+  : BaseActivity<SetLocalPresenter, SetLocalActivityView>(), SetLocalActivityView
+{
 
   private var index = -1
 
@@ -41,12 +43,8 @@ class SetLocalActivity : BaseActivity<SetLocalPresenter, SetLocalActivityView>()
         .subscribe { e -> selectDialogOption() }
   }
 
-  override fun initBaseView(setLocalView: SetLocalActivityView) {
-    super.initBaseView(setLocalView)
-  }
-
   override fun initializeUI() {
-    setlocal_tv_location.setText(LocalNames.getLocalName(presenter.localIndex))
+    setlocal_tv_location.text = LocalNames.getLocalName(presenter.localIndex)
   }
 
   private fun setLocal() {

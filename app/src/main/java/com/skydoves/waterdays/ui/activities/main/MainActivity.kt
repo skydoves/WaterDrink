@@ -48,7 +48,7 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
     getNFCData(intent)
 
     // auto weather alarm
-    WeatherAlarm()
+    weatherAlarm()
 
     // set boot receiver
     val receiver = ComponentName(this, AlarmBootReceiver::class.java)
@@ -122,7 +122,7 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
     getNFCData(getIntent())
   }
 
-  private fun WeatherAlarm() {
+  private fun weatherAlarm() {
     if (!presenter.weatherAlarm) {
       val mCalendar = GregorianCalendar()
       val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager

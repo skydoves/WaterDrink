@@ -25,7 +25,10 @@ class ApplicationModule(private val application: Application) {
   @Provides
   @Singleton
   internal fun provideSqliteManager(): SqliteManager {
-    return SqliteManager(this.application, SqliteManager.DATABASE_NAME, null, SqliteManager.DATABASE_VERSION)
+    return SqliteManager(this.application,
+        SqliteManager.DATABASE_NAME,
+        null,
+        SqliteManager.DATABASE_VERSION)
   }
 
   @Provides

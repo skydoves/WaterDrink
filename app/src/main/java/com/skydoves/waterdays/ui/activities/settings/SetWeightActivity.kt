@@ -28,11 +28,11 @@ class SetWeightActivity : AppCompatActivity() {
     preferenceManager = PreferenceManager(this)
     setweight_edt_weight.setText(preferenceManager!!.getInt("userWeight", 60).toString())
 
-    setweight_btn_getrecommend.setOnClickListener { ClickBtn(it) }
-    setweight_btn_setweight.setOnClickListener { ClickBtn(it) }
+    setweight_btn_getrecommend.setOnClickListener { clickBtn(it) }
+    setweight_btn_setweight.setOnClickListener { clickBtn(it) }
   }
 
-  private fun ClickBtn(v: View) {
+  private fun clickBtn(v: View) {
     if (setweight_edt_weight.text.toString() != "") {
       when (v.id) {
         R.id.setweight_btn_getrecommend -> {

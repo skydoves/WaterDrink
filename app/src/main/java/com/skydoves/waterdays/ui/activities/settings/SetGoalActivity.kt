@@ -18,7 +18,9 @@ import kotlinx.android.synthetic.main.activity_set_goal.*
  */
 
 @RequirePresenter(SetGoalPresenter::class)
-class SetGoalActivity : BaseActivity<SetGoalPresenter, SetGoalActivityView>(), SetGoalActivityView {
+class SetGoalActivity
+  : BaseActivity<SetGoalPresenter, SetGoalActivityView>(), SetGoalActivityView
+{
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

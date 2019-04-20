@@ -21,6 +21,16 @@ Based on mvp architecture using annotations. <br>
 
 ![mvp](https://user-images.githubusercontent.com/24237865/56453164-dad30a80-6378-11e9-864f-0ef6c2a2abe4.png)
 
+## Specs & Open-source libraries
+- Minimum SDK 16
+- Kotlin based, [anko](https://github.com/Kotlin/anko)
+- MVP Architecture
+- [Dagger2](https://github.com/google/dagger) for dependency injection
+- [OkHttp3](https://github.com/square/okhttp) for implementing network requests
+- [RxJava2](https://github.com/ReactiveX/RxJava), [RxAndroid](https://github.com/ReactiveX/RxAndroid), [RxBinding](https://github.com/JakeWharton/RxBinding), [Rxlifecycle](https://github.com/trello/RxLifecycle)
+- [Timber](https://github.com/JakeWharton/timber) for logging
+- Custom Views [NavigationTabBar](https://github.com/Devlight/NavigationTabBar), [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart), [AppIntro](https://github.com/AppIntro/AppIntro), [FillableLoaders](https://github.com/JorgeCastilloPrz/AndroidFillableLoaders), [ElasticViews](https://github.com/skydoves/elasticviews), [ColorPickerView](https://github.com/skydoves/colorpickerview)
+
 ## Planning #English
 __WaterDrink__ is one of health application for help drinking water smartly.
 The efficacy of water, which accounts for 60 percent of our body, is well known.

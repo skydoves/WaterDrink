@@ -16,6 +16,11 @@ This project won 2nd at the Seoul mobile platform contest in 2016. <br>
 ## Awards Information
 https://mplatform.seoul.go.kr/w/contest/award/2016/wnpz/selectWinner.do?wnpz_app_seq=155
 
+## Architecture
+Based on mvp architecture using annotations. <br>
+
+![mvp](https://user-images.githubusercontent.com/24237865/56453164-dad30a80-6378-11e9-864f-0ef6c2a2abe4.png)
+
 ## Planning #English
 __WaterDrink__ is one of health application for help drinking water smartly.
 The efficacy of water, which accounts for 60 percent of our body, is well known.

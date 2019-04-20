@@ -1,6 +1,6 @@
 # 물 한잔 해요(WaterDrink)
-Get in the Habit of Drinking Water using this app! <br>
-This project won 2nd at the Seoul mobile platform contest in 2016. <br>
+Simple water drink reminder application based MVP architecture. <br>
+This project won 2nd at the Seoul mobile platform contest in 2016. <br> <br>
 물 한잔 해요 앱을 통해서 규칙적인 수분 습관을 만들어보세요!<br>
 이 프로젝트는 2016 서울시 모바일 플렛폼의 열정상을 수상하였습니다. <br>
 
@@ -25,6 +25,7 @@ Based on mvp architecture using annotations. <br>
 - Minimum SDK 16
 - Kotlin based, [anko](https://github.com/Kotlin/anko)
 - MVP Architecture
+- NFC, Alarmmanager
 - [Dagger2](https://github.com/google/dagger) for dependency injection
 - [OkHttp3](https://github.com/square/okhttp) for implementing network requests
 - [RxJava2](https://github.com/ReactiveX/RxJava), [RxAndroid](https://github.com/ReactiveX/RxAndroid), [RxBinding](https://github.com/JakeWharton/RxBinding), [Rxlifecycle](https://github.com/trello/RxLifecycle)

@@ -17,14 +17,13 @@
             android:layout_height="0dp"
             android:layout_weight="0.53">
 
-            <ImageButton
-                android:id="@+id/dailyrecord_ibtn_back"
+            <ImageView
+                android:id="@+id/previous"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:background="@android:color/transparent"
-                android:clickable="true"
                 android:padding="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_back"
@@ -42,20 +41,18 @@
                 android:textColor="#ffffff"
                 android:textSize="23sp" />
 
-            <ImageButton
-                android:id="@+id/dailyrecord_ibtn_next"
+            <ImageView
+                android:id="@+id/next"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:background="@android:color/transparent"
-                android:clickable="true"
                 android:padding="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_next"
                 android:tint="#ffffff" />
-
         </RelativeLayout>
 
         <!-- Body Layout -->

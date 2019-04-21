@@ -16,6 +16,7 @@
 
 package com.skydoves.waterdays.ui.fragments.main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.res.Configuration
@@ -40,6 +41,7 @@ import com.skydoves.waterdays.persistence.sqlite.SqliteManager
 import com.skydoves.waterdays.ui.adapters.DailyDrinkAdapter
 import com.skydoves.waterdays.ui.viewholders.DailyDrinkViewHolder
 import com.skydoves.waterdays.utils.DateUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.layout_dailyrecord.*
 import javax.inject.Inject
 
@@ -55,26 +57,37 @@ class DailyFragment : Fragment() {
   lateinit var sqliteManager: SqliteManager
 
   private var rootView: View? = null
-  private lateinit var adapter: DailyDrinkAdapter
+  private val adapter: DailyDrinkAdapter by lazy { DailyDrinkAdapter(delegate) }
 
   private var dateCount = 0
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    val rootView = inflater.inflate(R.layout.layout_dailyrecord, container, false)
+  override fun onAttach(context: Context) {
     WDApplication.component.inject(this)
-    this.rootView = rootView
+    super.onAttach(context)
+  }
+
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    this.rootView  = inflater.inflate(R.layout.layout_dailyrecord, container, false)
     return rootView
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    InitializeUI()
+    initializeUI()
   }
 
-  private fun InitializeUI() {
-    adapter = DailyDrinkAdapter(delegate)
+  @SuppressLint("CheckResult")
+  private fun initializeUI() {
     dailyrecord_listview.adapter = adapter
     addItems(DateUtils.getFarDay(0))
+    previous.setOnClickListener { dateMoveButton(it) }
+    next.setOnClickListener { dateMoveButton(it) }
+    RxUpdateMainEvent.getInstance().observable
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe {
+          adapter.clear()
+          addItems(DateUtils.getFarDay(0))
+        }
   }
 
   /**
@@ -88,7 +101,7 @@ class DailyFragment : Fragment() {
       input.inputType = InputType.TYPE_CLASS_NUMBER
       input.setRawInputType(Configuration.KEYBOARD_12KEY)
       alert.setView(input)
-      alert.setPositiveButton(getString(R.string.yes)) { dialog: DialogInterface, whichButton: Int ->
+      alert.setPositiveButton(getString(R.string.yes)) { _: DialogInterface, _: Int ->
         try {
           val amount = Integer.parseInt(input.text.toString())
           if (amount in 1..2999) {
@@ -107,13 +120,10 @@ class DailyFragment : Fragment() {
         }
       }
 
-      alert.setNegativeButton(getString(R.string.no)) { dialog: DialogInterface, whichButton: Int -> }
+      alert.setNegativeButton(getString(R.string.no)) { _: DialogInterface, _: Int -> }
       alert.show()
       val mgr = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
       mgr.showSoftInputFromInputMethod(input.applicationWindowToken, InputMethodManager.SHOW_FORCED)
-
-      dailyrecord_ibtn_back.setOnClickListener { DateMoveButton(it) }
-      dailyrecord_ibtn_next.setOnClickListener { DateMoveButton(it) }
     }
 
     override fun onConfirm(drink: Drink) {
@@ -123,14 +133,14 @@ class DailyFragment : Fragment() {
     }
   }
 
-  fun DateMoveButton(v: View) {
+  private fun dateMoveButton(v: View) {
     when (v.id) {
-      R.id.dailyrecord_ibtn_back -> {
+      R.id.previous -> {
         dateCount--
         addItems(DateUtils.getFarDay(dateCount))
       }
 
-      R.id.dailyrecord_ibtn_next -> if (dateCount < 0) {
+      R.id.next -> if (dateCount < 0) {
         dateCount++
         addItems(DateUtils.getFarDay(dateCount))
       } else

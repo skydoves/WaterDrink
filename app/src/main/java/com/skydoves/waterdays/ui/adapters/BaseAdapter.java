@@ -1,21 +1,30 @@
-package com.skydoves.waterdays.ui.adapters;
-
-/**
- * Developed by skydoves on 2017-08-20.
- * Copyright (c) 2017 skydoves rights reserved.
+/*
+ * Copyright (C) 2016 skydoves
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
+package com.skydoves.waterdays.ui.adapters;
+
+/** Developed by skydoves on 2017-08-20. Copyright (c) 2017 skydoves rights reserved. */
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.skydoves.waterdays.ui.viewholders.BaseViewHolder;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -57,16 +66,12 @@ public abstract class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     Collections.reverse(sections.get(location));
   }
 
-  /**
-   * Fetch the layout id associated with a sectionRow.
-   */
+  /** Fetch the layout id associated with a sectionRow. */
   protected abstract int layout(final @NonNull SectionRow sectionRow);
 
-  /**
-   * Returns a new KSViewHolder given a layout and view.
-   */
-  protected abstract @NonNull
-  BaseViewHolder viewHolder(final @LayoutRes int layout, final @NonNull View view);
+  /** Returns a new KSViewHolder given a layout and view. */
+  protected abstract @NonNull BaseViewHolder viewHolder(
+      final @LayoutRes int layout, final @NonNull View view);
 
   @Override
   public void onViewDetachedFromWindow(final @NonNull BaseViewHolder holder) {
@@ -92,8 +97,8 @@ public abstract class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder> {
   }
 
   @Override
-  public final @NonNull
-  BaseViewHolder onCreateViewHolder(final @NonNull ViewGroup viewGroup, final @LayoutRes int layout) {
+  public final @NonNull BaseViewHolder onCreateViewHolder(
+      final @NonNull ViewGroup viewGroup, final @LayoutRes int layout) {
     final View view = inflateView(viewGroup, layout);
     final BaseViewHolder viewHolder = viewHolder(layout, view);
 
@@ -128,9 +133,7 @@ public abstract class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return itemCount;
   }
 
-  /**
-   * Gets the data object associated with a sectionRow.
-   */
+  /** Gets the data object associated with a sectionRow. */
   protected Object objectFromSectionRow(final @NonNull SectionRow sectionRow) {
     return sections.get(sectionRow.section()).get(sectionRow.row());
   }
@@ -142,15 +145,12 @@ public abstract class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     return sections().get(section).size();
   }
 
-  /**
-   * Gets the data object associated with a position.
-   */
+  /** Gets the data object associated with a position. */
   protected Object objectFromPosition(final int position) {
     return objectFromSectionRow(sectionRowFromPosition(position));
   }
 
-  private @NonNull
-  SectionRow sectionRowFromPosition(final int position) {
+  private @NonNull SectionRow sectionRowFromPosition(final int position) {
     final SectionRow sectionRow = new SectionRow();
     int cursor = 0;
     for (final List<?> section : sections) {
@@ -167,15 +167,13 @@ public abstract class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     throw new RuntimeException("Position " + position + " not found in sections");
   }
 
-  private @NonNull
-  View inflateView(final @NonNull ViewGroup viewGroup, final @LayoutRes int viewType) {
+  private @NonNull View inflateView(
+      final @NonNull ViewGroup viewGroup, final @LayoutRes int viewType) {
     final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
     return layoutInflater.inflate(viewType, viewGroup, false);
   }
 
-  /**
-   * SectionRows allow RecyclerViews to be structured into sections of rows.
-   */
+  /** SectionRows allow RecyclerViews to be structured into sections of rows. */
   protected class SectionRow {
     private int section;
     private int row;

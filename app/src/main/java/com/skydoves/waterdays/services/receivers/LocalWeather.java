@@ -1,27 +1,38 @@
+/*
+ * Copyright (C) 2016 skydoves
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.skydoves.waterdays.services.receivers;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
 import com.skydoves.waterdays.consts.LocalUrls;
 import com.skydoves.waterdays.models.ShortWeather;
 import com.skydoves.waterdays.persistence.preference.PreferenceManager;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-
+import java.io.StringReader;
+import java.util.ArrayList;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.StringReader;
-import java.util.ArrayList;
-
 /**
- * Created by skydoves on 2016-10-15.
- * Updated by skydoves on 2017-08-17.
- * Copyright (c) 2017 skydoves rights reserved.
+ * Created by skydoves on 2016-10-15. Updated by skydoves on 2017-08-17. Copyright (c) 2017 skydoves
+ * rights reserved.
  */
-
 public class LocalWeather extends AsyncTask<String, Integer, String> {
 
   private PreferenceManager preferenceManager;

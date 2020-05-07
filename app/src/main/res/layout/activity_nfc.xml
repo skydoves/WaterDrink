@@ -34,7 +34,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="NFC 데이터 쓰기"
+            android:text="NFC data writing"
             android:textColor="#0a9184"
             android:textSize="23sp"
             android:textStyle="bold" />
@@ -48,7 +48,7 @@
             android:gravity="center"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
-            android:text="1. 자주 사용하는 컵의 용량을 입력합니다.\n\n2. 'NFC 쓰기' 버튼을 누른 후 NFC 스티커를 단말기에 태깅해주세요."
+            android:text="1. Enter the capacity of the frequently used cup. \n\n2. Press the 'write NFC' button and tag the NFC sticker on the device."
             android:textColor="#ffffff"
             android:textSize="17sp" />
 
@@ -111,7 +111,7 @@
                 android:layout_marginLeft="64dp"
                 android:layout_marginRight="64dp"
                 android:background="#3d95c9"
-                android:text="NFC 쓰기"
+                android:text="NFC writing"
                 android:textColor="#ffffff" />
 
         </RelativeLayout>

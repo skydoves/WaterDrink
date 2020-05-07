@@ -21,7 +21,7 @@
         android:gravity="center"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:text="물 한잔 해요"
+        android:text="A glass of water"
         android:textColor="#ffffff"
         android:textSize="30sp" />
 
@@ -51,7 +51,7 @@
         android:gravity="center"
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
-        android:text="환영합니다."
+        android:text="Welcome."
         android:textColor="#ffffff"
         android:textSize="20sp" />
 

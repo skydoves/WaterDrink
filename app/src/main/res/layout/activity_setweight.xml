@@ -35,7 +35,7 @@
         android:gravity="center"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:text="자신의 체중을 입력해 주세요. \n\n매일 아침 정확한 목표 섭취량을 \n제공해 드립니다."
+        android:text="Please enter your weight. \n\nWe provide accurate target intake each morning.."
         android:textColor="#ffffff"
         android:textSize="18sp" />
 
@@ -88,7 +88,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginRight="64dp"
             android:background="#0a9184"
-            android:text="목표 섭취량 계산"
+            android:text="Target intake calculation"
             android:textColor="#ffffff" />
 
         <Button
@@ -102,7 +102,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="64dp"
             android:background="#3d95c9"
-            android:text="체중 설정 완료"
+            android:text="Complete weight setting"
             android:textColor="#ffffff" />
 
     </RelativeLayout>

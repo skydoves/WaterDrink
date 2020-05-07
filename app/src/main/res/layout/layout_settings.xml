@@ -30,7 +30,7 @@
         android:layout_weight="1"
         android:background="@drawable/bg_round_rect"
         android:gravity="center"
-        android:text="체중 설정"
+        android:text="Weight setting"
         android:textColor="#cbc8d2"
         android:textSize="18sp" />
 
@@ -45,7 +45,7 @@
         android:background="@drawable/bg_round_rect"
         android:clickable="true"
         android:gravity="center"
-        android:text="목표 설정"
+        android:text="Goal setting"
         android:textColor="#cbc8d2"
         android:textSize="18sp" />
 
@@ -60,7 +60,7 @@
         android:background="@drawable/bg_round_rect"
         android:clickable="true"
         android:gravity="center"
-        android:text="내 컵의 용량 설정"
+        android:text="Setting the capacity of my cup"
         android:textColor="#cbc8d2"
         android:textSize="18sp" />
 
@@ -75,7 +75,7 @@
         android:background="@drawable/bg_round_rect"
         android:clickable="true"
         android:gravity="center"
-        android:text="지역 설정"
+        android:text="Regional setting"
         android:textColor="#cbc8d2"
         android:textSize="18sp" />
 
@@ -90,7 +90,7 @@
         android:background="@drawable/bg_round_rect"
         android:clickable="true"
         android:gravity="center"
-        android:text="물방울 색상 설정"
+        android:text="Water droplet color setting"
         android:textColor="#cbc8d2"
         android:textSize="18sp" />
 
@@ -102,7 +102,7 @@
         android:layout_weight="1"
         android:background="@drawable/bg_round_rect"
         android:gravity="center"
-        android:text="환경 설정"
+        android:text="Preferences"
         android:textColor="#cbc8d2"
         android:textSize="18sp" />
 

@@ -22,7 +22,7 @@
         android:gravity="center"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:text="물 마실 시간입니다."
+        android:text="Its time to drink water."
         android:textColor="#ffffff"
         android:textSize="24sp" />
 
@@ -75,7 +75,7 @@
             android:layout_marginLeft="64dp"
             android:layout_marginRight="64dp"
             android:background="#3d95c9"
-            android:text="수분 섭취 완료"
+            android:text="Complete water intake"
             android:textColor="#ffffff" />
 
     </RelativeLayout>

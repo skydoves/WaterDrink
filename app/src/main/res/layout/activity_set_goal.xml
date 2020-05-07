@@ -31,7 +31,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="목표 수분 섭취량"
+        android:text="Target water intake"
         android:textColor="#0a9184"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -46,7 +46,7 @@
         android:gravity="center"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:text="하루 목표 섭취량을 입력해 주세요!"
+        android:text="Please enter your target intake per day!"
         android:textColor="#ffffff"
         android:textSize="20sp" />
 
@@ -109,7 +109,7 @@
             android:layout_marginLeft="64dp"
             android:layout_marginRight="64dp"
             android:background="#3d95c9"
-            android:text="목표 설정 완료"
+            android:text="Goal setting completed"
             android:textColor="#ffffff" />
 
     </RelativeLayout>
